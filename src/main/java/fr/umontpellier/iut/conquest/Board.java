@@ -140,15 +140,14 @@ public class Board {
     }
 
     private boolean validDistance(Move move) {
-        int distanceRow = distance(move.getRow1(),move.getRow2());
-        int distanceColumn = distance(move.getColumn1(),move.getColumn2());
+        boolean valideDistanceRow = valideDistance(move.getRow1(),move.getRow2());
+        boolean valideDistanceColumn = valideDistance(move.getColumn1(),move.getColumn2());
 
-        boolean validDistance = (distanceColumn +  distanceRow) <= 2;
-        return validDistance;
+        return valideDistanceColumn && valideDistanceRow;
     }
 
-    private int distance(int distance1, int distance2) {
-        return Math.abs(distance1 - distance2);
+    private boolean valideDistance(int distance1, int distance2) {
+        return Math.abs(distance1 - distance2) <=2;
     }
     
     /**

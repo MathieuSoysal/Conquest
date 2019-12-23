@@ -101,9 +101,56 @@ public class Board {
      * - La distance entre la case d'arrivée est au plus 2.
      */
     public boolean isValid(Move move, Player player) {
-        throw new RuntimeException("Not implemented");
+
+        return coordinatesIsIntoField(move) && validPlayer(move, player) && validArrivalCase(move)
+                && validDistance(move);
     }
 
+    private boolean coordinatesIsIntoField(Move move) {
+
+        int column2 = move.getColumn2();
+        int column1 = move.getColumn1();
+        int row2 = move.getRow2();
+        int row1 = move.getRow1();
+
+        boolean startingCase = isIntoField(column1) && isIntoField(row1);
+        boolean arrivalCase = isIntoField(column2) && isIntoField(row2);
+
+        return startingCase && arrivalCase;
+    }
+
+    private boolean isIntoField(int coordinate) {
+        return 0 <= coordinate && coordinate < field.length;
+    }
+
+    private boolean validPlayer(Move move, Player player) {
+
+        Pawn startingCase = field[move.getRow1()][move.getColumn1()];
+        boolean pawnNotNull = startingCase != null;
+
+        boolean validPlayer = pawnNotNull && startingCase.getPlayer().equals(player);
+        return validPlayer;
+    }
+
+    private boolean validArrivalCase(Move move) {
+        Pawn arrivalCase = field[move.getRow2()][move.getColumn2()];
+
+        boolean validArrivalCase = arrivalCase == null;
+        return validArrivalCase;
+    }
+
+    private boolean validDistance(Move move) {
+        int distanceRow = distance(move.getRow1(),move.getRow2());
+        int distanceColumn = distance(move.getColumn1(),move.getColumn2());
+
+        boolean validDistance = (distanceColumn +  distanceRow) <= 2;
+        return validDistance;
+    }
+
+    private int distance(int distance1, int distance2) {
+        return Math.abs(distance1 - distance2);
+    }
+    
     /**
      * Déplace un pion.
      *

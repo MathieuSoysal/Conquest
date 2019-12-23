@@ -149,8 +149,16 @@ public class Board {
         return validDistanceColumn && validDistanceRow;
     }
 
-    private boolean valideDistance(int distance1, int distance2) {
-        return Math.abs(distance1 - distance2) <=2;
+    private boolean validDistance(int distance1, int distance2) {
+        return respectsDistance(2,distance1,distance2);
+    }
+
+    private int distance(int distance1, int distance2){
+        return Math.abs(distance1 - distance2);
+    }
+
+    private boolean respectsDistance(final int AUTHORIZED_DISTANCE,int distance1, int distance2){
+        return distance(distance1,distance2) <= AUTHORIZED_DISTANCE;
     }
     
     /**
@@ -163,7 +171,46 @@ public class Board {
      *             - Dans tous les cas, une fois que le pion est déplacé, tous les pions se trouvant dans les cases adjacentes à sa case d'arrivée prennent sa couleur.
      */
     public void movePawn(Move move) {
-        throw new RuntimeException("Not implemented");
+
+        int startingColumn = move.getColumn1();
+        int startingRow = move.getRow1();
+
+        int arrivalColumn = move.getColumn2();
+        int arrivalRow = move.getRow2();
+
+        boolean distanceColumn = respectsDistance(1, startingColumn, arrivalColumn);
+        boolean distanceRow = respectsDistance(1, startingRow, arrivalRow);
+
+        // on remplie la case d'arrivée
+        field[arrivalRow][arrivalColumn] = new Pawn(field[startingRow][startingColumn].getPlayer());
+
+        // on vide la case de départ s'il a fait une distance supérieur à 1
+        if (!(distanceColumn && distanceRow))
+            field[startingRow][startingColumn] = null;
+
+        colorAround(arrivalColumn, arrivalRow);
+    }
+
+    private void colorAround(int arrivalColumn, int arrivalRow) {
+        int colorPlayer = field[arrivalRow][arrivalColumn].getPlayer().getColor();
+
+        for (int i = minIntoField(arrivalRow); i < maxIntoField(arrivalRow); i++) {
+            for (int j = minIntoField(arrivalColumn); j < maxIntoField(arrivalColumn); j++) {
+                
+                if (field[i][j] != null && field[i][j].getPlayer().getColor() != colorPlayer)
+                    field[i][j] = new Pawn(field[arrivalRow][arrivalColumn].getPlayer());
+            }
+        }
+    }
+
+    private int maxIntoField(int coordinate) {
+        final int MAXIMUM_VALUE_FIELD = field.length - 1;
+        return (coordinate == MAXIMUM_VALUE_FIELD) ? MAXIMUM_VALUE_FIELD : (coordinate + 1);
+    }
+
+    private int minIntoField(int coordinate) {
+        final int MINIMUM_VALUE_FIELD = 0;
+        return (coordinate == MINIMUM_VALUE_FIELD) ? MINIMUM_VALUE_FIELD : coordinate - 1;
     }
 
     /**

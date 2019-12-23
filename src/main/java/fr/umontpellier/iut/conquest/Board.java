@@ -82,15 +82,16 @@ public class Board {
         initPawnSecondPlayer(player2);
     }
 
+    private void initPawnFirstPlayer(Player player1) {
+        field[0][0] = new Pawn(player1);
+        field[field.length-1][field.length-1] = new Pawn(player1);
+    }
+
     private void initPawnSecondPlayer(Player player2) {
         field[0][field.length-1] = new Pawn(player2);
         field[field.length-1][0] = new Pawn(player2);
     }
 
-    private void initPawnFirstPlayer(Player player1) {
-        field[0][0] = new Pawn(player1);
-        field[field.length-1][field.length-1] = new Pawn(player1);
-    }
 
     /**
      * Vérifie si un coup est valide.
@@ -115,7 +116,7 @@ public class Board {
 
         boolean startingCase = isIntoField(column1) && isIntoField(row1);
         boolean arrivalCase = isIntoField(column2) && isIntoField(row2);
-
+//TODO possible de faire une optimisation ici en mettant un && à voir dans le futur si réelement nécessaire
         return startingCase && arrivalCase;
     }
 
@@ -124,26 +125,28 @@ public class Board {
     }
 
     private boolean validPlayer(Move move, Player player) {
-
+        int colorPlayer = player.getColor();
+//TODO: à voir si on garde l'utilisation du colorPlayer aulieu de .equals
         Pawn startingCase = field[move.getRow1()][move.getColumn1()];
         boolean pawnNotNull = startingCase != null;
 
-        boolean validPlayer = pawnNotNull && startingCase.getPlayer().equals(player);
+        boolean validPlayer = pawnNotNull && (startingCase.getPlayer().getColor() == colorPlayer);
         return validPlayer;
     }
 
     private boolean validArrivalCase(Move move) {
         Pawn arrivalCase = field[move.getRow2()][move.getColumn2()];
 
-        boolean validArrivalCase = arrivalCase == null;
-        return validArrivalCase;
+        return arrivalCase == null;
     }
 
     private boolean validDistance(Move move) {
-        boolean valideDistanceRow = valideDistance(move.getRow1(),move.getRow2());
-        boolean valideDistanceColumn = valideDistance(move.getColumn1(),move.getColumn2());
+        boolean validDistanceRow = validDistance(move.getRow1(),move.getRow2());
+        boolean validDistanceColumn = validDistance(move.getColumn1(),move.getColumn2());
+//TODO possible de faire une optimisation ici en mettant un && à voir dans le futur si réelement nécessaire
 
-        return valideDistanceColumn && valideDistanceRow;
+        
+        return validDistanceColumn && validDistanceRow;
     }
 
     private boolean valideDistance(int distance1, int distance2) {

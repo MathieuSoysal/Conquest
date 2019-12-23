@@ -1,0 +1,8 @@
+test:
+- src/test/java/fr/umontpellier/iut/conquest/*
+
+back-end:
+- /src/main/java/fr/umontpellier/iut/conquest/*
+
+strategies:
+- /src/main/java/fr/umontpellier/iut/conquest/strategies/*

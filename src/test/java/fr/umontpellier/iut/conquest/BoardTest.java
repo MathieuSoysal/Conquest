@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BoardTest {
@@ -438,23 +439,22 @@ class BoardTest {
         assertNull(b.getField()[0][1]);
     }
 
-    @Disabled
     @Test
     void from_starting_position_on_a_board_of_size_3_player1_should_be_able_to_move_top_left_pawn_and_bottom_right_to_every_free_cell() {
         Board board = new Board(3);
         board.initField(player1, player2);
         List<Move> validMoves = board.getValidMoves(player1);
         System.out.println(validMoves.size());
-        assertTrue(validMoves.contains(new Move(0, 0, 0, 1)));
-        assertTrue(validMoves.contains(new Move(0, 0, 1, 0)));
-        assertTrue(validMoves.contains(new Move(0, 0, 1, 1)));
-        assertTrue(validMoves.contains(new Move(0, 0, 2, 1)));
-        assertTrue(validMoves.contains(new Move(0, 0, 1, 2)));
-        assertTrue(validMoves.contains(new Move(2, 2, 0, 1)));
-        assertTrue(validMoves.contains(new Move(2, 2, 1, 0)));
-        assertTrue(validMoves.contains(new Move(2, 2, 1, 1)));
-        assertTrue(validMoves.contains(new Move(2, 2, 2, 1)));
-        assertTrue(validMoves.contains(new Move(2, 2, 1, 2)));
+        assertTrue("1 test : fails", validMoves.contains(new Move(0, 0, 0, 1)));
+        assertTrue("2 test : fails", validMoves.contains(new Move(0, 0, 1, 0)));
+        assertTrue("3 test : fails", validMoves.contains(new Move(0, 0, 1, 1)));
+        assertTrue("4 test : fails", validMoves.contains(new Move(0, 0, 2, 1)));
+        assertTrue("5 test : fails", validMoves.contains(new Move(0, 0, 1, 2)));
+        assertTrue("6 test : fails", validMoves.contains(new Move(2, 2, 0, 1)));
+        assertTrue("7 test : fails", validMoves.contains(new Move(2, 2, 1, 0)));
+        assertTrue("8 test : fails", validMoves.contains(new Move(2, 2, 1, 1)));
+        assertTrue("9 test : fails", validMoves.contains(new Move(2, 2, 2, 1)));
+        assertTrue("10 test : fails", validMoves.contains(new Move(2, 2, 1, 2)));
     }
 
     @Disabled

@@ -1,6 +1,8 @@
 package fr.umontpellier.iut.conquest;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.awt.Point;
 
 /**
  * Modélise un plateau.
@@ -142,7 +144,42 @@ public class Board {
      * S'il n'y a de coup valide, retourne une liste vide.
      */
     public List<Move> getValidMoves(Player player) {
-        throw new RuntimeException("Not implemented");
+        List<Move> validMoves = new ArrayList<>();
+        int playerColor = player.getColor();
+
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field.length; j++) {
+                if (field[i][j]!= null && field[i][j].getPlayer().getColor() == playerColor)
+                    appendValidBoxesAroundBoxe(validMoves, i, j);
+            }
+        }
+        return validMoves;
+    }
+
+    private void appendValidBoxesAroundBoxe(List<Move> validMoves, int i, int j) {
+        int minIntoColumn = minus2IntoField(j, 2);
+        int maxIntoColumn = plus2IntoField(j, 2);
+
+        for (int aroundRow = minus2IntoField(i, 2); aroundRow <= plus2IntoField(i, 2); aroundRow++) {
+            for (int aroundColumn = minIntoColumn; aroundColumn <= maxIntoColumn; aroundColumn++) {
+                if (field[aroundRow][aroundColumn] == null)
+                    validMoves.add(new Move(i, j, aroundRow, aroundColumn));
+            }
+        }
+    }
+
+    private int plus2IntoField(int coordinate, final int AUTHORIZED_DIFFERENCE) {
+        final int MAXIMUM_VALUE_FIELD = field.length - 1;
+        int difference =  MAXIMUM_VALUE_FIELD - coordinate ;
+
+        return coordinate + ((difference < AUTHORIZED_DIFFERENCE) ? difference  :  AUTHORIZED_DIFFERENCE);
+    }
+    
+    private int minus2IntoField(int coordinate, final int AUTHORIZED_DIFFERENCE) {
+        final int MINIMUM_VALUE_FIELD = 0;
+        int difference = (coordinate - AUTHORIZED_DIFFERENCE) - MINIMUM_VALUE_FIELD;
+
+        return (difference < MINIMUM_VALUE_FIELD) ? MINIMUM_VALUE_FIELD : difference;
     }
 
     /**
@@ -243,7 +280,7 @@ public class Board {
         final int MAXIMUM_VALUE_FIELD = field.length - 1;
         return (coordinate == MAXIMUM_VALUE_FIELD) ? MAXIMUM_VALUE_FIELD : (coordinate + 1);
     }
-
+    
     private int minus1IntoField(int coordinate) {
         final int MINIMUM_VALUE_FIELD = 0;
         return (coordinate == MINIMUM_VALUE_FIELD) ? MINIMUM_VALUE_FIELD : coordinate - 1;

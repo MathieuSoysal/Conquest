@@ -106,13 +106,6 @@ public class Board {
         return coordinatesIsIntoField(move) && validPlayer(move, player) && validArrivalCase(move)
                 && validDistance(move);
     }
-
-
-    private boolean respectsDistance(final int AUTHORIZED_DISTANCE,int distance1, int distance2){
-        int distance = Math.abs(distance1 - distance2);
-
-        return distance <= AUTHORIZED_DISTANCE;
-    }
     
     /**
      * Déplace un pion.
@@ -214,6 +207,12 @@ public class Board {
 
     private boolean validDistance(int startingDistance, int arrivalDistance) {
         return respectsDistance(2, startingDistance, arrivalDistance);
+    }
+    
+    private boolean respectsDistance(final int AUTHORIZED_DISTANCE,int startingDistance, int arrivalDistance){
+        int distance = Math.abs(startingDistance - arrivalDistance);
+
+        return distance <= AUTHORIZED_DISTANCE;
     }
     // #endregion validDistance
     // #endregion Outils méthode isValid

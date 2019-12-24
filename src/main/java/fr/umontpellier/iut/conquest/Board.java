@@ -145,41 +145,14 @@ public class Board {
      */
     public List<Move> getValidMoves(Player player) {
         List<Move> validMoves = new ArrayList<>();
-        int playerColor = player.getColor();
 
-        for (int i = 0; i < field.length; i++) {
-            for (int j = 0; j < field.length; j++) {
-                if (field[i][j]!= null && field[i][j].getPlayer().getColor() == playerColor)
-                    appendValidBoxesAroundBoxe(validMoves, i, j);
+        for (int startingRow = 0; startingRow < field.length; startingRow++) {
+            for (int startingColumn = 0; startingColumn < field.length; startingColumn++) {
+                if (validPlayer(field[startingRow][startingColumn], player))
+                    appendValidMovesAroundStartingPawn(validMoves, startingRow, startingColumn);
             }
         }
         return validMoves;
-    }
-
-    private void appendValidBoxesAroundBoxe(List<Move> validMoves, int i, int j) {
-        int minIntoColumn = minus2IntoField(j, 2);
-        int maxIntoColumn = plus2IntoField(j, 2);
-
-        for (int aroundRow = minus2IntoField(i, 2); aroundRow <= plus2IntoField(i, 2); aroundRow++) {
-            for (int aroundColumn = minIntoColumn; aroundColumn <= maxIntoColumn; aroundColumn++) {
-                if (field[aroundRow][aroundColumn] == null)
-                    validMoves.add(new Move(i, j, aroundRow, aroundColumn));
-            }
-        }
-    }
-
-    private int plus2IntoField(int coordinate, final int AUTHORIZED_DIFFERENCE) {
-        final int MAXIMUM_VALUE_FIELD = field.length - 1;
-        int difference =  MAXIMUM_VALUE_FIELD - coordinate ;
-
-        return coordinate + ((difference < AUTHORIZED_DIFFERENCE) ? difference  :  AUTHORIZED_DIFFERENCE);
-    }
-    
-    private int minus2IntoField(int coordinate, final int AUTHORIZED_DIFFERENCE) {
-        final int MINIMUM_VALUE_FIELD = 0;
-        int difference = (coordinate - AUTHORIZED_DIFFERENCE) - MINIMUM_VALUE_FIELD;
-
-        return (difference < MINIMUM_VALUE_FIELD) ? MINIMUM_VALUE_FIELD : difference;
     }
 
     /**
@@ -216,13 +189,8 @@ public class Board {
 
     // validPlayer
     private boolean validPlayer(Move move, Player player) {
-        int playerColor = player.getColor();
-        // TODO: à voir si on garde l'utilisation du playerColor aulieu de .equals
-        Pawn startingCase = field[move.getRow1()][move.getColumn1()];
-        boolean pawnNotNull = startingCase != null;
-
-        boolean validPlayer = pawnNotNull && (startingCase.getPlayer().getColor() == playerColor);
-        return validPlayer;
+        Pawn startingPawn = field[move.getRow1()][move.getColumn1()];
+        return validPlayer(startingPawn, player);
     }
 
     // validArrivalCase
@@ -286,5 +254,48 @@ public class Board {
         return (coordinate == MINIMUM_VALUE_FIELD) ? MINIMUM_VALUE_FIELD : coordinate - 1;
     }
     // #endregion Outils méthode movePawn
+
+    //#region Outils méthode getValidMoves
+    private boolean validPlayer(Pawn startingPawn, Player player) {
+        int playerColor = player.getColor();
+        boolean pawnNotNull = startingPawn != null;
+
+        return pawnNotNull && (startingPawn.getPlayer().getColor() == playerColor);
+    }
+
+    private void appendValidMovesAroundStartingPawn(List<Move> validMoves, int i, int j) {
+        final int MIN_ROW = minus2IntoField(i);
+        final int MAX_ROW = plus2IntoField(i);
+
+        final int MIN_COLUMN = minus2IntoField(j);
+        final int MAX_COLUMN = plus2IntoField(j);
+
+        for (int aroundRow = MIN_ROW; aroundRow <= MAX_ROW; aroundRow++) {
+            for (int aroundColumn = MIN_COLUMN; aroundColumn <= MAX_COLUMN; aroundColumn++) {
+                if (field[aroundRow][aroundColumn] == null)
+                    validMoves.add(new Move(i, j, aroundRow, aroundColumn));
+            }
+        }
+    }
+
+    private int plus2IntoField(int coordinate) {
+        final int AUTHORIZED_DIFFERENCE = 2;
+        final int MAXIMUM_VALUE_FIELD = field.length - 1;
+
+        int difference = MAXIMUM_VALUE_FIELD - coordinate;
+        int differenceAdjustment = (difference < AUTHORIZED_DIFFERENCE) ? difference : AUTHORIZED_DIFFERENCE;
+
+        return coordinate + differenceAdjustment;
+    }
+
+    private int minus2IntoField(int coordinate) {
+        final int AUTHORIZED_DIFFERENCE = 2;
+        final int MINIMUM_VALUE_FIELD = 0;
+
+        int difference = (coordinate - AUTHORIZED_DIFFERENCE) - MINIMUM_VALUE_FIELD;
+
+        return (difference < MINIMUM_VALUE_FIELD) ? MINIMUM_VALUE_FIELD : difference;
+    }
+    //#endregion Outils méthode getValidMoves
     // #endregion Méthodes privé (boite à outils pour méthode public)
 }

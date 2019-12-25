@@ -163,8 +163,8 @@ public class Board {
         List<Move> validMoves = new ArrayList<>();
 
         // on parcourt toutes les cases
-        for (int startingRow = 0; startingRow < field.length; startingRow++) {
-            for (int startingColumn = 0; startingColumn < field.length; startingColumn++) {
+        for (int startingRow = 0; startingRow <= field.length; startingRow++) {
+            for (int startingColumn = 0; startingColumn <= field.length; startingColumn++) {
                 
                 // on vérifie si c'est une case qui appartient au joeur actuel 
                 if (validPlayer(field[startingRow][startingColumn], player))
@@ -181,8 +181,8 @@ public class Board {
         int nombre = 0;
         int i = 0;
         int j = 0;
-        while(i < field.length-1) {
-            while(j < field.length-1) {
+        while(i <= field.length-1) {
+            while(j <= field.length-1) {
                 if(validPlayer(field[i][j], player)){
                     nombre++;
                 }

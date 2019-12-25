@@ -229,8 +229,8 @@ public class Board {
     private boolean validDistance(int startingDistance, int arrivalDistance) {
         return respectsDistance(2, startingDistance, arrivalDistance);
     }
-    
-    private boolean respectsDistance(final int AUTHORIZED_DISTANCE,int startingDistance, int arrivalDistance){
+
+    private boolean respectsDistance(final int AUTHORIZED_DISTANCE, int startingDistance, int arrivalDistance) {
         int distance = Math.abs(startingDistance - arrivalDistance);
 
         return distance <= AUTHORIZED_DISTANCE;
@@ -240,10 +240,10 @@ public class Board {
 
     // #region Outils méthode movePawn
     private void colorAround(Square arrivalSquare) {
-        
+
         int arrivalRow = arrivalSquare.getRow();
         int arrivalColumn = arrivalSquare.getColumn();
-        
+
         Player actualPlayer = field[arrivalRow][arrivalColumn].getPlayer();
         int playerColor = actualPlayer.getColor();
 
@@ -259,7 +259,7 @@ public class Board {
 
                 // on vérifier si c'est une case qui peut être colorié
                 if (canColorWithPlayerColor(playerColor, field[aroundRow][aroundColumn]))
-                    colorSquare(actualPlayer, new Square( aroundRow, aroundColumn));
+                    colorSquare(actualPlayer, new Square(aroundRow, aroundColumn));
             }
         }
     }
@@ -276,17 +276,15 @@ public class Board {
     }
 
     private int plus1IntoField(int coordinate) {
-        final int MAXIMUM_VALUE_FIELD = field.length - 1;
-        return (coordinate == MAXIMUM_VALUE_FIELD) ? MAXIMUM_VALUE_FIELD : (coordinate + 1);
+        return plusIntoField(coordinate, 1);
     }
-    
+
     private int minus1IntoField(int coordinate) {
-        final int MINIMUM_VALUE_FIELD = 0;
-        return (coordinate == MINIMUM_VALUE_FIELD) ? MINIMUM_VALUE_FIELD : coordinate - 1;
+        return minusIntoField(coordinate, 1);
     }
     // #endregion Outils méthode movePawn
 
-    //#region Outils méthode getValidMoves
+    // #region Outils méthode getValidMoves
     private boolean validPlayer(Pawn startingPawn, Player player) {
         int playerColor = player.getColor();
         boolean pawnNotNull = startingPawn != null;
@@ -307,7 +305,7 @@ public class Board {
         // on parcourt toutes les cases autour de la case d'arrivée
         for (int aroundRow = MIN_ROW; aroundRow <= MAX_ROW; aroundRow++) {
             for (int aroundColumn = MIN_COLUMN; aroundColumn <= MAX_COLUMN; aroundColumn++) {
-                
+
                 // on vérifie si c'est une case où l'on peut jouer
                 if (field[aroundRow][aroundColumn] == null)
                     validMoves.add(new Move(startingRow, startingColumn, aroundRow, aroundColumn));
@@ -316,23 +314,24 @@ public class Board {
     }
 
     private int plus2IntoField(int coordinate) {
-        final int AUTHORIZED_DIFFERENCE = 2;
-        final int MAXIMUM_VALUE_FIELD = field.length - 1;
-
-        int difference = MAXIMUM_VALUE_FIELD - coordinate;
-        int differenceAdjustment = (difference < AUTHORIZED_DIFFERENCE) ? difference : AUTHORIZED_DIFFERENCE;
-
-        return coordinate + differenceAdjustment;
+        return plusIntoField(coordinate, 2);
     }
 
     private int minus2IntoField(int coordinate) {
-        final int AUTHORIZED_DIFFERENCE = 2;
-        final int MINIMUM_VALUE_FIELD = 0;
-
-        int difference = (coordinate - AUTHORIZED_DIFFERENCE) - MINIMUM_VALUE_FIELD;
-
-        return (difference < MINIMUM_VALUE_FIELD) ? MINIMUM_VALUE_FIELD : difference;
+        return minusIntoField(coordinate, 2);
     }
-    //#endregion Outils méthode getValidMoves
+    // #endregion Outils méthode getValidMoves
+
+    private int minusIntoField(int coordinate, final int SUBTRACTOR) {
+        final int MINIMUM_FIELD = 0;
+        int minimumCoordinate = (coordinate - SUBTRACTOR);
+        return (minimumCoordinate < MINIMUM_FIELD) ? MINIMUM_FIELD : minimumCoordinate;
+    }
+
+    private int plusIntoField(int coordinate, final int ADDER) {
+        final int MAXIMUM_FIELD = field.length - 1;
+        int maximumCoordinate = coordinate + ADDER;
+        return (maximumCoordinate > MAXIMUM_FIELD) ? MAXIMUM_FIELD : maximumCoordinate;
+    }
     // #endregion Méthodes privé (boite à outils pour méthode public)
 }

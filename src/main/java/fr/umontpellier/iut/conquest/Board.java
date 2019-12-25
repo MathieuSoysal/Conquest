@@ -2,7 +2,6 @@ package fr.umontpellier.iut.conquest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.Point;
 
 /**
  * Modélise un plateau.
@@ -104,8 +103,10 @@ public class Board {
      * - La distance entre la case d'arrivée est au plus 2.
      */
     public boolean isValid(Move move, Player player) {
+        Square startingSquare = new Square(move.getRow1(), move.getColumn1());
+        Square arrivalSquare = new Square(move.getRow2(), move.getColumn2());
 
-        return coordinatesIsIntoField(move) && validPlayer(move, player) && validArrivalCase(move)
+        return coordinatesIsIntoField(move) && validPlayer(startingSquare, player) && validArrivalSquare(arrivalSquare)
                 && validDistance(move);
     }
     
@@ -126,17 +127,22 @@ public class Board {
         int arrivalColumn = move.getColumn2();
         int arrivalRow = move.getRow2();
 
+        Player actualPlayer = field[startingColumn][startingRow].getPlayer();
+
         boolean respectedDistanceColumn = respectsDistance(1, startingColumn, arrivalColumn);
         boolean respectedDistanceRow = respectsDistance(1, startingRow, arrivalRow);
 
+        Square arrivalSquare = new Square(arrivalRow, arrivalColumn);
+
         // on remplie la case d'arrivée
-        transferOwnership(startingColumn, startingRow, arrivalRow, arrivalColumn);
+        colorSquare(actualPlayer, arrivalSquare);
 
         // on vide la case de départ s'il a fait une distance supérieur à 1
         if (!(respectedDistanceColumn && respectedDistanceRow))
             field[startingRow][startingColumn] = null;
 
-        colorAround(arrivalColumn, arrivalRow);
+        // on colorie les cases autour de la case d'arrivée
+        colorAround(arrivalSquare);
     }
 
     /**
@@ -146,10 +152,13 @@ public class Board {
     public List<Move> getValidMoves(Player player) {
         List<Move> validMoves = new ArrayList<>();
 
+        // on parcourt toutes les cases
         for (int startingRow = 0; startingRow < field.length; startingRow++) {
             for (int startingColumn = 0; startingColumn < field.length; startingColumn++) {
+                
+                // on vérifie si c'est une case qui appartient au joeur actuel 
                 if (validPlayer(field[startingRow][startingColumn], player))
-                    appendValidMovesAroundStartingPawn(validMoves, startingRow, startingColumn);
+                    appendValidMovesAroundStartingSquare(validMoves, new Square(startingRow, startingColumn));
             }
         }
         return validMoves;
@@ -169,17 +178,14 @@ public class Board {
     // #region coordinatesIsIntoField
     private boolean coordinatesIsIntoField(Move move) {
 
-        int startingRow = move.getRow1();
-        int startingColumn = move.getColumn1();
+        Square startingSquare = new Square(move.getRow1(), move.getColumn1());
+        Square arrivalSquare = new Square(move.getRow2(), move.getColumn2());
 
-        int arrivalRow = move.getRow2();
-        int arrivalColumn = move.getColumn2();
-
-        return isIntoField(startingRow, startingColumn) && isIntoField(arrivalRow, arrivalColumn);
+        return isIntoField(startingSquare) && isIntoField(arrivalSquare);
     }
 
-    private boolean isIntoField(int row, int column) {
-        return isIntoField(column) && isIntoField(row);
+    private boolean isIntoField(Square square) {
+        return isIntoField(square.getRow()) && isIntoField(square.getColumn());
     }
 
     private boolean isIntoField(int coordinate) {
@@ -188,14 +194,14 @@ public class Board {
     // #endregion coordinatesIsIntoField
 
     // validPlayer
-    private boolean validPlayer(Move move, Player player) {
-        Pawn startingPawn = field[move.getRow1()][move.getColumn1()];
+    private boolean validPlayer(Square startingSquare, Player player) {
+        Pawn startingPawn = field[startingSquare.getRow()][startingSquare.getColumn()];
         return validPlayer(startingPawn, player);
     }
 
-    // validArrivalCase
-    private boolean validArrivalCase(Move move) {
-        Pawn arrivalCase = field[move.getRow2()][move.getColumn2()];
+    // validArrivalSquare
+    private boolean validArrivalSquare(Square arrivalSquare) {
+        Pawn arrivalCase = field[arrivalSquare.getRow()][arrivalSquare.getColumn()];
 
         return arrivalCase == null;
     }
@@ -223,25 +229,40 @@ public class Board {
     // #endregion Outils méthode isValid
 
     // #region Outils méthode movePawn
-    private void colorAround(int arrivalColumn, int arrivalRow) {
-        int playerColor = field[arrivalRow][arrivalColumn].getPlayer().getColor();
+    private void colorAround(Square arrivalSquare) {
+        
+        int arrivalRow = arrivalSquare.getRow();
+        int arrivalColumn = arrivalSquare.getColumn();
+        
+        Player actualPlayer = field[arrivalRow][arrivalColumn].getPlayer();
+        int playerColor = actualPlayer.getColor();
 
-        for (int i = minus1IntoField(arrivalRow); i < plus1IntoField(arrivalRow); i++) {
-            for (int j = minus1IntoField(arrivalColumn); j < plus1IntoField(arrivalColumn); j++) {
+        final int MAX_COLUMN = plus1IntoField(arrivalColumn);
+        final int MIN_COLUMN = minus1IntoField(arrivalColumn);
 
-                if (canColorWithPlayerColor(playerColor, i, j))
-                    transferOwnership(arrivalColumn, arrivalRow, i, j);
+        final int MIN_ROW = minus1IntoField(arrivalRow);
+        final int MAX_ROW = plus1IntoField(arrivalRow);
+
+        // on parcours les cases autour de la case d'arrivée
+        for (int aroundRow = MIN_ROW; aroundRow < MAX_ROW; aroundRow++) {
+            for (int aroundColumn = MIN_COLUMN; aroundColumn < MAX_COLUMN; aroundColumn++) {
+
+                // on vérifier si c'est une case qui peut être colorié
+                if (canColorWithPlayerColor(playerColor, field[aroundRow][aroundColumn]))
+                    colorSquare(actualPlayer, new Square( aroundRow, aroundColumn));
             }
         }
     }
 
-    private void transferOwnership(int ownerColumn, int ownerRow, int tenantRow, int tenantColumn) {
-        Pawn ownerPawn = new Pawn(field[ownerRow][ownerColumn].getPlayer());
-        field[tenantRow][tenantColumn] = ownerPawn;
+    private void colorSquare(Player owner, Square aroundSquare) {
+        Pawn ownerPawn = new Pawn(owner);
+
+        field[aroundSquare.getRow()][aroundSquare.getColumn()] = ownerPawn;
     }
 
-    private boolean canColorWithPlayerColor(int playerColor, int i, int j) {
-        return field[i][j] != null && field[i][j].getPlayer().getColor() != playerColor;
+    private boolean canColorWithPlayerColor(int playerColor, Pawn targetedPawn) {
+
+        return targetedPawn != null && targetedPawn.getPlayer().getColor() != playerColor;
     }
 
     private int plus1IntoField(int coordinate) {
@@ -263,17 +284,23 @@ public class Board {
         return pawnNotNull && (startingPawn.getPlayer().getColor() == playerColor);
     }
 
-    private void appendValidMovesAroundStartingPawn(List<Move> validMoves, int i, int j) {
-        final int MIN_ROW = minus2IntoField(i);
-        final int MAX_ROW = plus2IntoField(i);
+    private void appendValidMovesAroundStartingSquare(List<Move> validMoves, Square startingSquare) {
+        int startingRow = startingSquare.getRow();
+        int startingColumn = startingSquare.getColumn();
 
-        final int MIN_COLUMN = minus2IntoField(j);
-        final int MAX_COLUMN = plus2IntoField(j);
+        final int MIN_ROW = minus2IntoField(startingRow);
+        final int MAX_ROW = plus2IntoField(startingRow);
 
+        final int MIN_COLUMN = minus2IntoField(startingColumn);
+        final int MAX_COLUMN = plus2IntoField(startingColumn);
+
+        // on parcourt toutes les cases autour de la case d'arrivée
         for (int aroundRow = MIN_ROW; aroundRow <= MAX_ROW; aroundRow++) {
             for (int aroundColumn = MIN_COLUMN; aroundColumn <= MAX_COLUMN; aroundColumn++) {
+                
+                // on vérifie si c'est une case où l'on peut jouer
                 if (field[aroundRow][aroundColumn] == null)
-                    validMoves.add(new Move(i, j, aroundRow, aroundColumn));
+                    validMoves.add(new Move(startingRow, startingColumn, aroundRow, aroundColumn));
             }
         }
     }

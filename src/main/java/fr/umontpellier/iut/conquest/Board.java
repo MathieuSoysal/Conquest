@@ -7,6 +7,16 @@ import java.util.List;
  * Modélise un plateau.
  */
 public class Board {
+    public static void main(String[] args) {
+        Board b;
+        Player player1 = new Player(null, null, null, 1);
+        Player player2 = new Player(null, null, null, 2);
+        b = new Board(5);
+        b.initField(player1, player2);
+        b.movePawn(new Move(0, 0, 0, 1));
+        b.movePawn(new Move(0, 1, 0, 3));
+        System.out.println(b.toString());
+    }
     /**
      * Tableau des pions.
      */
@@ -256,8 +266,8 @@ public class Board {
         final int MAX_ROW = plus1IntoField(arrivalRow);
 
         // on parcours les cases autour de la case d'arrivée
-        for (int aroundRow = MIN_ROW; aroundRow < MAX_ROW; aroundRow++) {
-            for (int aroundColumn = MIN_COLUMN; aroundColumn < MAX_COLUMN; aroundColumn++) {
+        for (int aroundRow = MIN_ROW; aroundRow <= MAX_ROW; aroundRow++) {
+            for (int aroundColumn = MIN_COLUMN; aroundColumn <= MAX_COLUMN; aroundColumn++) {
 
                 // on vérifier si c'est une case qui peut être colorié
                 if (canColorWithPlayerColor(playerColor, field[aroundRow][aroundColumn]))

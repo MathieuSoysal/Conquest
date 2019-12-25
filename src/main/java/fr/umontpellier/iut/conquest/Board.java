@@ -127,7 +127,7 @@ public class Board {
         int arrivalColumn = move.getColumn2();
         int arrivalRow = move.getRow2();
 
-        Player actualPlayer = field[startingColumn][startingRow].getPlayer();
+        Player actualPlayer = field[startingRow][startingColumn].getPlayer();
 
         boolean respectedDistanceColumn = respectsDistance(1, startingColumn, arrivalColumn);
         boolean respectedDistanceRow = respectsDistance(1, startingRow, arrivalRow);

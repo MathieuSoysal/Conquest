@@ -173,7 +173,7 @@ public class Board {
         int j = 0;
         while(i < field.length-1) {
             while(j < field.length-1) {
-                if (field[i][j].getPlayer().getColor() == player.getColor()){
+                if(validPlayer(field[i][j], player)){
                     nombre++;
                 }
                 j++;

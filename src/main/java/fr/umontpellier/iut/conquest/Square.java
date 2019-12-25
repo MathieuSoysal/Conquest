@@ -1,5 +1,8 @@
 package fr.umontpellier.iut.conquest;
-class Square{
+
+import java.util.Objects;
+
+class Square {
     private int row;
     private int column;
 
@@ -40,6 +43,23 @@ class Square{
         this.column = column;
     }
 
-    
-    
+    // #region equals and hashCode
+    /**
+     * Un coup est identifié par ses attributs.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Square square = (Square) o;
+        return row == square.getRow() && column == square.getColumn();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(row, column);
+    }
+    // #endregion equals and hashCode
 }

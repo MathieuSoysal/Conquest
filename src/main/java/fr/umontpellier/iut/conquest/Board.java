@@ -159,7 +159,19 @@ public class Board {
      * Retourne le nombre de pions d'un joueur.
      */
     public int getNbPawns(Player player) {
-        throw new RuntimeException("Not implemented");
+        int nombre = 0;
+        int i = 0;
+        int j = 0;
+        while(i < field.length-1) {
+            while(j < field.length-1) {
+                if (field[i][j].getPlayer().getColor() == player.getColor()){
+                    nombre++;
+                }
+                j++;
+            }
+            i++;
+        }
+        return nombre;
     }
 
     // #region Méthodes privé (boite à outils pour méthode public)

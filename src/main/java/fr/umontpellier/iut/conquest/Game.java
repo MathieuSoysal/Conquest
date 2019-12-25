@@ -86,7 +86,7 @@ public class Game {
             // Affiche le plateau.
             System.out.println(board);
 
-            // Demande au joueur courant de joueur.
+            // Demande au joueur courant de jouer.
             if (!board.getValidMoves(player).isEmpty()) {
                 board.movePawn(player.play());
             }
@@ -117,7 +117,7 @@ public class Game {
      * Prends un joueur en entrée et retourne l'autre joueur.
      */
     public Player getOtherPlayer(Player player) {
-        throw new RuntimeException("Not implemented");
+        return (player.equals(players[0]))?players[1]:players[0];
     }
 
     /**

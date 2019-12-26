@@ -171,15 +171,16 @@ public class Board {
      * Retourne le nombre de pions d'un joueur.
      */
     public int getNbPawns(Player player) {
-        int nombre = 0;
+        int sumPawnsPlayer = 0;
+
         for(int i = 0; i < field.length; i++){
             for(int j = 0; j < field.length; j++) {
-                if(validPlayer(field[i][j], player)) {
-                    nombre++;
+                if(isValidPlayer(field[i][j], player)) {
+                    sumPawnsPlayer++;
                 }
             }
         }
-        return nombre;
+        return sumPawnsPlayer;
     }
 
     // #region Méthodes privé (boite à outils pour méthode public)

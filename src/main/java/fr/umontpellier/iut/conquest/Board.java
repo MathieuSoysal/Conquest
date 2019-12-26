@@ -116,8 +116,8 @@ public class Board {
         Square startingSquare = new Square(move.getRow1(), move.getColumn1());
         Square arrivalSquare = new Square(move.getRow2(), move.getColumn2());
 
-        return coordinatesIsIntoField(move) && validPlayer(startingSquare, player) && validArrivalSquare(arrivalSquare)
-                && validDistance(move);
+        return coordinatesIsIntoField(move) && isValidPlayer(startingSquare, player) && isValidArrivalSquare(arrivalSquare)
+                && isValidDistance(move);
     }
     
     /**
@@ -130,25 +130,18 @@ public class Board {
      *             - Dans tous les cas, une fois que le pion est déplacé, tous les pions se trouvant dans les cases adjacentes à sa case d'arrivée prennent sa couleur.
      */
     public void movePawn(Move move) {
-
         int startingColumn = move.getColumn1();
         int startingRow = move.getRow1();
 
-        int arrivalColumn = move.getColumn2();
-        int arrivalRow = move.getRow2();
-
         Player actualPlayer = field[startingRow][startingColumn].getPlayer();
 
-        boolean respectedDistanceColumn = respectsDistance(1, startingColumn, arrivalColumn);
-        boolean respectedDistanceRow = respectsDistance(1, startingRow, arrivalRow);
-
-        Square arrivalSquare = new Square(arrivalRow, arrivalColumn);
+        Square arrivalSquare = new Square(move.getRow2(), move.getColumn2());
 
         // on remplie la case d'arrivée
         colorSquare(actualPlayer, arrivalSquare);
 
         // on vide la case de départ s'il a fait une distance supérieur à 1
-        if (!(respectedDistanceColumn && respectedDistanceRow))
+        if (!distanceIsRespected(move, 1))
             field[startingRow][startingColumn] = null;
 
         // on colorie les cases autour de la case d'arrivée
@@ -167,7 +160,7 @@ public class Board {
             for (int startingColumn = 0; startingColumn < field.length; startingColumn++) {
                 
                 // on vérifie si c'est une case qui appartient au joeur actuel 
-                if (validPlayer(field[startingRow][startingColumn], player))
+                if (isValidPlayer(field[startingRow][startingColumn], player))
                     appendValidMovesAroundStartingSquare(validMoves, new Square(startingRow, startingColumn));
             }
         }
@@ -187,7 +180,6 @@ public class Board {
 
     // #region coordinatesIsIntoField
     private boolean coordinatesIsIntoField(Move move) {
-
         Square startingSquare = new Square(move.getRow1(), move.getColumn1());
         Square arrivalSquare = new Square(move.getRow2(), move.getColumn2());
 
@@ -203,39 +195,42 @@ public class Board {
     }
     // #endregion coordinatesIsIntoField
 
-    // validPlayer
-    private boolean validPlayer(Square startingSquare, Player player) {
+    // isValidPlayer
+    private boolean isValidPlayer(Square startingSquare, Player player) {
         Pawn startingPawn = field[startingSquare.getRow()][startingSquare.getColumn()];
-        return validPlayer(startingPawn, player);
+
+        return isValidPlayer(startingPawn, player);
     }
 
-    // validArrivalSquare
-    private boolean validArrivalSquare(Square arrivalSquare) {
+    // isValidArrivalSquare
+    private boolean isValidArrivalSquare(Square arrivalSquare) {
         Pawn arrivalCase = field[arrivalSquare.getRow()][arrivalSquare.getColumn()];
 
         return arrivalCase == null;
     }
 
-    // #region validDistance
-    private boolean validDistance(Move move) {
+    // #region isValidDistance
+    private boolean isValidDistance(Move move) {
+        final int AUTHORIZED_DISTANCE = 2;
+        return distanceIsRespected(move, AUTHORIZED_DISTANCE);
+    }
+
+    private boolean distanceIsRespected(Move move, final int AUTHORIZED_DISTANCE){
         int startingRow = move.getRow1();
         int arrivalRow = move.getRow2();
         int startingColumn = move.getColumn1();
         int arrivalColumn = move.getColumn2();
 
-        return validDistance(startingRow, arrivalRow) && validDistance(startingColumn, arrivalColumn);
+        return distanceIsRespected(AUTHORIZED_DISTANCE, startingRow, arrivalRow)
+                && distanceIsRespected(AUTHORIZED_DISTANCE, startingColumn, arrivalColumn);
     }
 
-    private boolean validDistance(int startingDistance, int arrivalDistance) {
-        return respectsDistance(2, startingDistance, arrivalDistance);
-    }
-
-    private boolean respectsDistance(final int AUTHORIZED_DISTANCE, int startingDistance, int arrivalDistance) {
+    private boolean distanceIsRespected(final int AUTHORIZED_DISTANCE, int startingDistance, int arrivalDistance) {
         int distance = Math.abs(startingDistance - arrivalDistance);
 
         return distance <= AUTHORIZED_DISTANCE;
     }
-    // #endregion validDistance
+    // #endregion isValidDistance
     // #endregion Outils méthode isValid
 
     // #region Outils méthode movePawn
@@ -247,8 +242,8 @@ public class Board {
         Player actualPlayer = field[arrivalRow][arrivalColumn].getPlayer();
         int playerColor = actualPlayer.getColor();
 
-        final int MAX_COLUMN = plus1IntoField(arrivalColumn);
         final int MIN_COLUMN = minus1IntoField(arrivalColumn);
+        final int MAX_COLUMN = plus1IntoField(arrivalColumn);
 
         final int MIN_ROW = minus1IntoField(arrivalRow);
         final int MAX_ROW = plus1IntoField(arrivalRow);
@@ -265,13 +260,10 @@ public class Board {
     }
 
     private void colorSquare(Player owner, Square aroundSquare) {
-        Pawn ownerPawn = new Pawn(owner);
-
-        field[aroundSquare.getRow()][aroundSquare.getColumn()] = ownerPawn;
+        field[aroundSquare.getRow()][aroundSquare.getColumn()] = new Pawn(owner);
     }
 
     private boolean canColorWithPlayerColor(int playerColor, Pawn targetedPawn) {
-
         return targetedPawn != null && targetedPawn.getPlayer().getColor() != playerColor;
     }
 
@@ -285,7 +277,7 @@ public class Board {
     // #endregion Outils méthode movePawn
 
     // #region Outils méthode getValidMoves
-    private boolean validPlayer(Pawn startingPawn, Player player) {
+    private boolean isValidPlayer(Pawn startingPawn, Player player) {
         int playerColor = player.getColor();
         boolean pawnNotNull = startingPawn != null;
 

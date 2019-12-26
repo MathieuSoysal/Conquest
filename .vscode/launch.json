@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - AroundSquares",
+            "request": "launch",
+            "mainClass": "fr.umontpellier.iut.conquest.AroundSquares",
+            "projectName": "Conquest"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Board",
             "request": "launch",
             "mainClass": "fr.umontpellier.iut.conquest.Board",

@@ -457,7 +457,7 @@ class BoardTest {
         assertTrue("10 test : fails", validMoves.contains(new Move(2, 2, 1, 2)));
     }
 
-    @Disabled
+    //@Disabled
     @Test
     void from_starting_position_after_player1_does_one_distance_1_move_and_one_distance_2_move_and_taking_an_opponent_pawn_player1_should_have_four_pawns() {
         b.movePawn(new Move(0, 0, 0, 1));

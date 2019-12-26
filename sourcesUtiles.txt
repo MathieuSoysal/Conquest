@@ -1,0 +1,3 @@
+memento design pattern:
+  * https://dzone.com/articles/memento-pattern-1
+  * https://dzone.com/articles/design-patterns-memento

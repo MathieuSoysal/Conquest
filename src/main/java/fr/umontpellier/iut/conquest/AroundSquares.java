@@ -1,4 +1,6 @@
+
 package fr.umontpellier.iut.conquest;
+
 class AroundSquares {
     private int aroundSquareRow;
     private int aroundSquareColumn;
@@ -13,42 +15,51 @@ class AroundSquares {
 
     private int RANGE;
 
-    private int incr = 0;
+
+    public static void main(String[] args) {
+        for (AroundSquares aS = new AroundSquares(new Square(3, 3), 2, 4); aS.haseNext(); aS.next()) {
+            System.out
+                    .println("Row : " + aS.getAroundSquare().getRow() + " Column :" + aS.getAroundSquare().getColumn());
+        }
+    }
 
     /**
      * @param aroundSquare
      */
-    public AroundSquares(Square centerSquare,final int RANGE, final int MAXIMUM_FIELD) {
-        this.MAXIMUM_FIELD = MAXIMUM_FIELD; 
+    public AroundSquares(Square centerSquare, final int RANGE, final int MAXIMUM_FIELD) {
+
+        this.MAXIMUM_FIELD = MAXIMUM_FIELD;
         this.RANGE = RANGE;
-        
+
         aroundSquareRow = minimumCoordinate(centerSquare.getRow());
         aroundSquareColumn = minimumCoordinate(centerSquare.getColumn());
 
         aroundSquare = new Square(aroundSquareRow, aroundSquareColumn);
 
-        MAX_ROW = maximumCoordinate(aroundSquareRow);
-        MAX_COLUMN = maximumCoordinate(aroundSquareColumn);
+        MAX_ROW = maximumCoordinate(centerSquare.getRow());
+        MAX_COLUMN = maximumCoordinate(centerSquare.getColumn());
     }
 
-    public boolean haseNext(){
-        return (((aroundSquareColumn + incr) < MAX_COLUMN) || (aroundSquareRow++ <= MAX_ROW ));
+    public boolean haseNext() {
+        return (aroundSquareRow <= MAX_ROW);
     }
 
-    public void next(){
-        incr = (incr+1)%(RANGE+1);
-        aroundSquare.setRow(aroundSquareRow%(MAX_ROW+1));
-        aroundSquare.setColumn(aroundSquareColumn + incr);
+    public void next() {
+        aroundSquareRow += ((aroundSquareColumn == MAX_COLUMN) ? 1 : 0);
+        aroundSquareColumn = (aroundSquareColumn + 1) % ((MAX_COLUMN) + 1);
+
+        aroundSquare.setRow(aroundSquareRow);
+        aroundSquare.setColumn(aroundSquareColumn );
     }
 
-    private int minimumCoordinate(int coordinate){
+    private int minimumCoordinate(int coordinate) {
         int interval = coordinate - RANGE;
-        return (interval < MINIMUM_FIELD)?MINIMUM_FIELD:interval;
+        return (interval < MINIMUM_FIELD) ? MINIMUM_FIELD : interval;
     }
 
-    private int maximumCoordinate(int coordinate){
+    private int maximumCoordinate(int coordinate) {
         int interval = coordinate + RANGE;
-        return (interval > MAXIMUM_FIELD)?MAXIMUM_FIELD:interval;
+        return (interval > MAXIMUM_FIELD) ? MAXIMUM_FIELD : interval;
     }
 
     /**

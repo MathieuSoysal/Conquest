@@ -179,14 +179,12 @@ public class Board {
      */
     public int getNbPawns(Player player) {
         int nombre = 0;
-        for(int i = 0; i <= field.length-1; i++){
-            for(int j = 0; j <= field.length-1; j++) {
-                if(validPlayer(field[i][j], player)){
+        for(int i = 0; i < field.length; i++){
+            for(int j = 0; j < field.length; j++) {
+                if(validPlayer(field[i][j], player)) {
                     nombre++;
                 }
-                j++;
             }
-            i++;
         }
         return nombre;
     }

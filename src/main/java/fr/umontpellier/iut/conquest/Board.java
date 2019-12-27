@@ -148,7 +148,7 @@ public class Board {
         if (!distanceIsRespected(move, 1))
             field[startingRow][startingColumn] = null;
 
-        // on colorie les cases autour de la case d'arrivée
+        // on colorie les pions autour de la case d'arrivée
         colorAroundPawnsOfSquare(arrivalSquare);
     }
 
@@ -163,7 +163,7 @@ public class Board {
         for (int startingRow = 0; startingRow < field.length; startingRow++) {
             for (int startingColumn = 0; startingColumn < field.length; startingColumn++) {
                 
-                // on vérifie si c'est une case qui appartient au joeur actuel 
+                // on vérifie si c'est un pion qui appartient au joeur actuel 
                 if (isValidPlayer(field[startingRow][startingColumn], player))
                     appendValidMovesAroundStartingSquare(validMoves, new Square(startingRow, startingColumn));
             }
@@ -265,7 +265,7 @@ public class Board {
         for (int aroundRow = MIN_ROW; aroundRow <= MAX_ROW; aroundRow++) {
             for (int aroundColumn = MIN_COLUMN; aroundColumn <= MAX_COLUMN; aroundColumn++) {
 
-                // on vérifier si c'est une case qui peut être colorié
+                // on vérifier si c'est un pion qui peut être colorié
                 if (canColorWithPlayerColor(playerColor, field[aroundRow][aroundColumn]))
                     colorPawnOfSquare(actualPlayer, new Square(aroundRow, aroundColumn));
             }

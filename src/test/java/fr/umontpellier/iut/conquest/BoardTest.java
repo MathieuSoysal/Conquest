@@ -482,4 +482,59 @@ class BoardTest {
         assertEquals(2, b.getNbPawns(player1));
         assertEquals(2, b.getNbPawns(player2));
     }
+    
+    @Test
+    void the_payer1_forms_a_square_with_his_pawns_the_player2_places_one_in_the_center_of_the_square_all_the_pawns_of_the_square_must_belong_to_the_player2() {
+        b.movePawn(new Move(0, 0, 0, 1));
+        b.movePawn(new Move(0, 1, 0, 2));
+
+        b.movePawn(new Move(0, 2, 1, 2));
+        b.movePawn(new Move(1, 2, 2, 2));
+
+        b.movePawn(new Move(0, 0, 1, 0));
+        b.movePawn(new Move(1, 0, 2, 0));
+
+        b.movePawn(new Move(2, 0, 2, 1));
+        b.movePawn(new Move(2, 1, 2, 2));
+
+        b.movePawn(new Move(2, 1, 3, 2));
+
+/* premier plateau actuel :
+        __0_1_2_3_4
+        0|X X X _ O
+        1|X _ X _ _
+        2|X X X _ _
+        3|_ _ X _ _
+        4|O _ _ _ X
+*/
+        assertEquals("First board test (player1) : fails", 10, b.getNbPawns(player1));
+        assertEquals("First board test (player2) : fails", 2, b.getNbPawns(player2));
+
+        b.movePawn(new Move(4, 0, 4, 2));
+
+/* second plateau actuel :
+        __0_1_2_3_4
+        0|X X X _ O
+        1|X _ X _ _
+        2|X X X _ _
+        3|_ _ O _ _
+        4|_ _ O _ X
+*/
+        assertEquals("Second board test (player1) : fails", 9, b.getNbPawns(player1));
+        assertEquals("Second board test (player2) : fails", 3, b.getNbPawns(player2));
+
+        b.movePawn(new Move(3, 2, 1, 1));
+
+/* plateau résultant :
+        __0_1_2_3_4
+        0|O O O _ O
+        1|O O O _ _
+        2|O O O _ _
+        3|_ _ _ _ _
+        4|_ _ O _ X
+*/
+
+        assertEquals(11, b.getNbPawns(player2));
+        assertEquals(1, b.getNbPawns(player1));
+    }
 }

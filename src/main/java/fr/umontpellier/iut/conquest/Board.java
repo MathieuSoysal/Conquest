@@ -142,14 +142,14 @@ public class Board {
         Square arrivalSquare = new Square(move.getRow2(), move.getColumn2());
 
         // on remplie la case d'arrivée
-        colorSquare(actualPlayer, arrivalSquare);
+        colorPawnOfSquare(actualPlayer, arrivalSquare);
 
         // on vide la case de départ s'il a fait une distance supérieur à 1
         if (!distanceIsRespected(move, 1))
             field[startingRow][startingColumn] = null;
 
         // on colorie les cases autour de la case d'arrivée
-        colorAround(arrivalSquare);
+        colorAroundPawnsOfSquare(arrivalSquare);
     }
 
     /**
@@ -247,7 +247,7 @@ public class Board {
     // #endregion Outils méthode isValid
 
     // #region Outils méthode movePawn
-    private void colorAround(Square arrivalSquare) {
+    private void colorAroundPawnsOfSquare(Square arrivalSquare) {
 
         int arrivalRow = arrivalSquare.getRow();
         int arrivalColumn = arrivalSquare.getColumn();
@@ -267,12 +267,12 @@ public class Board {
 
                 // on vérifier si c'est une case qui peut être colorié
                 if (canColorWithPlayerColor(playerColor, field[aroundRow][aroundColumn]))
-                    colorSquare(actualPlayer, new Square(aroundRow, aroundColumn));
+                    colorPawnOfSquare(actualPlayer, new Square(aroundRow, aroundColumn));
             }
         }
     }
 
-    private void colorSquare(Player owner, Square aroundSquare) {
+    private void colorPawnOfSquare(Player owner, Square aroundSquare) {
         field[aroundSquare.getRow()][aroundSquare.getColumn()] = new Pawn(owner);
     }
 

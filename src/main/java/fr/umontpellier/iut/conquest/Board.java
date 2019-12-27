@@ -312,10 +312,14 @@ public class Board {
             for (int aroundColumn = MIN_COLUMN; aroundColumn <= MAX_COLUMN; aroundColumn++) {
 
                 // on vérifie si c'est une case où l'on peut jouer
-                if (field[aroundRow][aroundColumn] == null)
+                if (canPlayInSquare(new Square(aroundRow, aroundColumn)))
                     validMoves.add(new Move(startingRow, startingColumn, aroundRow, aroundColumn));
             }
         }
+    }
+
+    private boolean canPlayInSquare(Square targetedSquare) {
+        return field[targetedSquare.getRow()][targetedSquare.getColumn()] == null;
     }
 
     private int plus2IntoField(int coordinate) {

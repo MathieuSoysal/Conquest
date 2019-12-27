@@ -468,6 +468,30 @@ class BoardTest {
     }
 
     @Test
+    void run_around_the_board_with_a_pawn_player1_should_have_16_pawns(){
+        b.movePawn(new Move(0, 0, 0, 1));
+        b.movePawn(new Move(0, 1, 0, 2));
+        b.movePawn(new Move(0, 2, 0, 3));
+        b.movePawn(new Move(0, 3, 0, 4));
+
+        b.movePawn(new Move(0, 4, 1, 4));
+        b.movePawn(new Move(1, 4, 2, 4));
+        b.movePawn(new Move(2, 4, 3, 4));
+        b.movePawn(new Move(3, 4, 4, 4));
+        
+        b.movePawn(new Move(4, 4, 4, 3));
+        b.movePawn(new Move(4, 3, 4, 2));
+        b.movePawn(new Move(4, 2, 4, 1));
+        b.movePawn(new Move(4, 1, 4, 0));
+
+        b.movePawn(new Move(4, 0, 3, 0));
+        b.movePawn(new Move(3, 0, 2, 0));
+        b.movePawn(new Move(2, 0, 1, 0));
+
+        assertEquals(16,b.getNbPawns(player1));
+    }
+
+    @Test
     void from_the_starting_position_after_player_1_has_made_a_distance_movement_1_and_a_distance_movement_2_and_taking_an_opponent_pawn_from_the_top_right_corner_and_performs_the_same_operation_towards_the_opponent_pawn_from_below_on_the_left_the_opponent_player2_should_have_0_pawn_and_player1_should_have_six_pawns() {
         b.movePawn(new Move(0, 0, 0, 1));
         b.movePawn(new Move(0, 1, 0, 3));
@@ -537,4 +561,6 @@ class BoardTest {
         assertEquals("final board test (player1) : fails",11, b.getNbPawns(player2));
         assertEquals("final board test (player2) : fails",1, b.getNbPawns(player1));
     }
+
+
 }

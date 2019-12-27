@@ -534,7 +534,7 @@ class BoardTest {
         4|_ _ O _ X
 */
 
-        assertEquals(11, b.getNbPawns(player2));
-        assertEquals(1, b.getNbPawns(player1));
+        assertEquals("final board test (player1) : fails",11, b.getNbPawns(player2));
+        assertEquals("final board test (player2) : fails",1, b.getNbPawns(player1));
     }
 }

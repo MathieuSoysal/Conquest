@@ -499,7 +499,7 @@ class BoardTest {
 
         b.movePawn(new Move(2, 1, 3, 2));
 
-/* premier plateau actuel :
+/* premier plateau :
         __0_1_2_3_4
         0|X X X _ O
         1|X _ X _ _
@@ -512,7 +512,7 @@ class BoardTest {
 
         b.movePawn(new Move(4, 0, 4, 2));
 
-/* second plateau actuel :
+/* second plateau :
         __0_1_2_3_4
         0|X X X _ O
         1|X _ X _ _
@@ -525,7 +525,7 @@ class BoardTest {
 
         b.movePawn(new Move(3, 2, 1, 1));
 
-/* plateau résultant :
+/* plateau résultante :
         __0_1_2_3_4
         0|O O O _ O
         1|O O O _ _

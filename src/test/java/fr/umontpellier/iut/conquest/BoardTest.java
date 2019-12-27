@@ -476,4 +476,10 @@ class BoardTest {
         assertEquals(6, b.getNbPawns(player1));
         assertEquals(0, b.getNbPawns(player2));
     }
+    
+    @Test
+    void in_starting_player1_should_have_two_pawns_and_player2_should_have_two_pawns(){
+        assertEquals(2, b.getNbPawns(player1));
+        assertEquals(2, b.getNbPawns(player2));
+    }
 }

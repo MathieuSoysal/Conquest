@@ -456,6 +456,8 @@ class BoardTest {
         assertTrue("8 test : fails", validMoves.contains(new Move(2, 2, 1, 1)));
         assertTrue("9 test : fails", validMoves.contains(new Move(2, 2, 2, 1)));
         assertTrue("10 test : fails", validMoves.contains(new Move(2, 2, 1, 2)));
+
+        assertEquals("Size test : fails",validMoves.size(),10);
     }
 
     //@Disabled

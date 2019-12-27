@@ -110,7 +110,7 @@ public class Game {
      * Initialise le jeu.
      */
     private void initGame() {
-        throw new RuntimeException("Not implemented");
+        board.initField(players[0], players[1]);
     }
 
     /**

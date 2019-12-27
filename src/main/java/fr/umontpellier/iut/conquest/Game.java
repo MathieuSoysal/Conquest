@@ -117,7 +117,7 @@ public class Game {
      * Prends un joueur en entrée et retourne l'autre joueur.
      */
     public Player getOtherPlayer(Player player) {
-        return (player.equals(players[0]))?players[1]:players[0];
+        return (player.equals(players[0])) ? players[1] : players[0];
     }
 
     /**
@@ -127,7 +127,7 @@ public class Game {
      * - La partie est finie quand l'un des deux joueurs n'a plus de pions.
      */
     public boolean isFinished() {
-        return nbPawnsPlayer0() + nbPawnsPlayer1() == board.getSize() << 1;
+        return nbPawnsPlayer0() + nbPawnsPlayer1() == board.getSize() * board.getSize();
     }
 
     private int nbPawnsPlayer1() {

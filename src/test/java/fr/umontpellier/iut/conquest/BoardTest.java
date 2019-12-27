@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -459,9 +460,10 @@ class BoardTest {
 
     //@Disabled
     @Test
-    void from_starting_position_after_player1_does_one_distance_1_move_and_one_distance_2_move_and_taking_an_opponent_pawn_player1_should_have_four_pawns() {
+    void from_starting_position_after_player1_does_one_distance_1_move_and_one_distance_2_move_and_taking_an_opponent_pawn_player1_should_have_four_pawns_and_player2_should_have_1_pawn() {
         b.movePawn(new Move(0, 0, 0, 1));
         b.movePawn(new Move(0, 1, 0, 3));
         assertEquals(4, b.getNbPawns(player1));
+        assertEquals(1, b.getNbPawns(player2));
     }
 }

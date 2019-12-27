@@ -466,4 +466,14 @@ class BoardTest {
         assertEquals(4, b.getNbPawns(player1));
         assertEquals(1, b.getNbPawns(player2));
     }
+
+    @Test
+    void from_the_starting_position_after_player_1_has_made_a_distance_movement_1_and_a_distance_movement_2_and_taking_an_opponent_pawn_from_the_top_right_corner_and_performs_the_same_operation_towards_the_opponent_pawn_from_below_on_the_left_the_opponent_player2_should_have_0_pawn_and_player1_should_have_six_pawns() {
+        b.movePawn(new Move(0, 0, 0, 1));
+        b.movePawn(new Move(0, 1, 0, 3));
+        b.movePawn(new Move(0, 0, 1, 0));
+        b.movePawn(new Move(1, 0, 3, 0));
+        assertEquals(6, b.getNbPawns(player1));
+        assertEquals(0, b.getNbPawns(player2));
+    }
 }

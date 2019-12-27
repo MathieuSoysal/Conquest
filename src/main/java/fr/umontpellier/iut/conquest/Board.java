@@ -11,10 +11,14 @@ public class Board {
         Board b;
         Player player1 = new Player(null, null, null, 1);
         Player player2 = new Player(null, null, null, 2);
-        b = new Board(5);
-        b.initField(player1, player2);
-        b.movePawn(new Move(0, 0, 0, 1));
-        b.movePawn(new Move(0, 1, 0, 3));
+        Pawn[][] field = { // field :
+                { null, null, null, null, null }, // row 0
+                { null, null, null, null, null }, // row 1
+                { null, null, new Pawn(player1), null, null }, // row 2
+                { null, null, null, null, null }, // row 3
+                { null, null, null, null, null }, // row 4
+        };
+        b = new Board(field);
         System.out.println(b.toString());
     }
     /**

@@ -9,6 +9,7 @@ import java.io.PrintStream;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -485,6 +486,41 @@ class BoardTest {
 
         List<Move> validMoves = b.getValidMoves(player2);
         assertTrue(validMoves.isEmpty());
+    }
+
+    @Test
+    void test_range_of_getValidesMoves_When_pawn_is_in_center() {
+        Pawn pawn =new Pawn(player1);
+        Pawn[][] field = { // field :
+            { null, null, null, null, null, null, null }, // row 0
+            { null, null, null, null, null, null, null }, // row 1
+            { null, null, pawn, null, null, null, null }, // row 2
+            { null, null, null, null, null, null, null }, // row 3
+            { null, null, null, null, null, null, null }, // row 4
+            { null, null, null, null, null, null, null }, // row 5
+            { null, null, null, null, null, null, null }, // row 6
+    };
+        Board board = new Board(field);
+
+        List<Move> validMoves = board.getValidMoves(player1);
+        
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field.length; j++) {
+
+                boolean isSquareOfActualPawn = i == 2 && j == 2;
+                boolean isInRange = i <= 4 && j <= 4;
+
+                if (!isSquareOfActualPawn && isInRange)
+                    assertTrue(" in range " + localization(i, j), validMoves.contains(new Move(2, 2, i, j)));
+                else
+                    assertFalse(" over range " + localization(i, j), validMoves.contains(new Move(2, 2, i, j)));
+            }
+        }
+
+    }
+
+    private String localization(int i,int j) {
+        return String.format(" is localized in : %s %s ",((i<2)?"top":((i>2)?"botom":"center")),((j<2)?"left":((j>2)?"right":"center")) );
     }
 
     //@Disabled

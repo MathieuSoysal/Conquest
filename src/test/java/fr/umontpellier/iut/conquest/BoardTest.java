@@ -460,6 +460,33 @@ class BoardTest {
         assertEquals("Size test : fails",validMoves.size(),10);
     }
 
+    @Test
+    void when_the_pawns_of_the_player1_is_surrounded_by_pawns_of_player2(){
+        b.movePawn(new Move(0, 4, 1, 4));
+        b.movePawn(new Move(0, 4, 0, 3));
+        b.movePawn(new Move(0, 4, 1, 3));
+        b.movePawn(new Move(1, 3, 1, 2));
+        b.movePawn(new Move(1, 3, 2, 3));
+        b.movePawn(new Move(1, 3, 2, 2));
+        b.movePawn(new Move(0, 0, 1, 0));
+        b.movePawn(new Move(1, 0, 3, 0));
+        b.movePawn(new Move(0, 0, 0, 2));
+        b.movePawn(new Move(4, 4, 2, 4));
+        b.movePawn(new Move(3, 0, 2, 1));
+
+        /* 
+        __0_1_2_3_4
+        0|_ _ X X O
+        1|_ _ X X X
+        2|_ X X X X
+        3|X _ _ _ _
+        4|X _ _ _ _
+        */
+
+        List<Move> validMoves = b.getValidMoves(player2);
+        assertTrue(validMoves.isEmpty());
+    }
+
     //@Disabled
     @Test
     void from_starting_position_after_player1_does_one_distance_1_move_and_one_distance_2_move_and_taking_an_opponent_pawn_player1_should_have_four_pawns_and_player2_should_have_1_pawn() {

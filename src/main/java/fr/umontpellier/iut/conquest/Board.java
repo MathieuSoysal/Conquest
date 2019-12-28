@@ -21,6 +21,7 @@ public class Board {
         b = new Board(field);
         System.out.println(b.toString());
     }
+
     /**
      * Tableau des pions.
      */
@@ -99,14 +100,13 @@ public class Board {
 
     private void initPawnsFirstPlayer(Player player1) {
         field[0][0] = new Pawn(player1);
-        field[field.length-1][field.length-1] = new Pawn(player1);
+        field[field.length - 1][field.length - 1] = new Pawn(player1);
     }
 
     private void initPawnsSecondPlayer(Player player2) {
-        field[0][field.length-1] = new Pawn(player2);
-        field[field.length-1][0] = new Pawn(player2);
+        field[0][field.length - 1] = new Pawn(player2);
+        field[field.length - 1][0] = new Pawn(player2);
     }
-
 
     /**
      * Vérifie si un coup est valide.
@@ -120,10 +120,10 @@ public class Board {
         Square startingSquare = new Square(move.getRow1(), move.getColumn1());
         Square arrivalSquare = new Square(move.getRow2(), move.getColumn2());
 
-        return coordinatesIsIntoField(move) && isValidPlayer(startingSquare, player) && isValidArrivalSquare(arrivalSquare)
-                && isValidDistance(move);
+        return coordinatesIsIntoField(move) && isValidPlayer(startingSquare, player)
+                && isValidArrivalSquare(arrivalSquare) && isValidDistance(move);
     }
-    
+
     /**
      * Déplace un pion.
      *
@@ -162,8 +162,8 @@ public class Board {
         // on parcourt toutes les cases
         for (int startingRow = 0; startingRow < field.length; startingRow++) {
             for (int startingColumn = 0; startingColumn < field.length; startingColumn++) {
-                
-                // on vérifie si c'est un pion qui appartient au joeur actuel 
+
+                // on vérifie si c'est un pion qui appartient au joeur actuel
                 if (isValidPlayer(field[startingRow][startingColumn], player))
                     appendValidMovesAroundStartingSquare(validMoves, new Square(startingRow, startingColumn));
             }
@@ -177,11 +177,12 @@ public class Board {
     public int getNbPawns(Player player) {
         int sumPawnsPlayer = 0;
 
-        for(int i = 0; i < field.length; i++){
-            for(int j = 0; j < field.length; j++) {
-                if(isValidPlayer(field[i][j], player)) {
+        for (int row = 0; row < field.length; row++) {
+            for (int column = 0; column < field.length; column++) {
+
+                if (isValidPlayer(field[row][column], player))
                     sumPawnsPlayer++;
-                }
+
             }
         }
         return sumPawnsPlayer;
@@ -228,7 +229,7 @@ public class Board {
         return distanceIsRespected(move, AUTHORIZED_DISTANCE);
     }
 
-    private boolean distanceIsRespected(Move move, final int AUTHORIZED_DISTANCE){
+    private boolean distanceIsRespected(Move move, final int AUTHORIZED_DISTANCE) {
         int startingRow = move.getRow1();
         int arrivalRow = move.getRow2();
         int startingColumn = move.getColumn1();
@@ -281,11 +282,13 @@ public class Board {
     }
 
     private int plus1IntoField(int coordinate) {
-        return plusIntoField(coordinate, 1);
+        final int ADDER = 1;
+        return plusIntoField(coordinate, ADDER);
     }
 
     private int minus1IntoField(int coordinate) {
-        return minusIntoField(coordinate, 1);
+        final int SUBTRACTOR = 1;
+        return minusIntoField(coordinate, SUBTRACTOR);
     }
     // #endregion Outils méthode movePawn
 
@@ -323,11 +326,13 @@ public class Board {
     }
 
     private int plus2IntoField(int coordinate) {
-        return plusIntoField(coordinate, 2);
+        final int ADDER = 2;
+        return plusIntoField(coordinate, ADDER);
     }
 
     private int minus2IntoField(int coordinate) {
-        return minusIntoField(coordinate, 2);
+        final int SUBTRACTOR = 2;
+        return minusIntoField(coordinate, SUBTRACTOR);
     }
     // #endregion Outils méthode getValidMoves
 

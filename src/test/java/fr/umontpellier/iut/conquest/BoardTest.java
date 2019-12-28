@@ -60,7 +60,8 @@ class BoardTest {
         Pawn[][] tab = b.getField();
         for (int i = 0; i < b.getSize(); i++) {
             for (int j = 0; j < b.getSize(); j++) {
-                if (!(i == 0 && (j == 0 || j == b.getSize() - 1)) && !(i == b.getSize() - 1 && (j == 0 || j == b.getSize() - 1))) {
+                if (!(i == 0 && (j == 0 || j == b.getSize() - 1))
+                        && !(i == b.getSize() - 1 && (j == 0 || j == b.getSize() - 1))) {
                     assertNull(tab[i][j]);
                 }
             }
@@ -458,11 +459,11 @@ class BoardTest {
         assertTrue("9 test : fails", validMoves.contains(new Move(2, 2, 2, 1)));
         assertTrue("10 test : fails", validMoves.contains(new Move(2, 2, 1, 2)));
 
-        assertEquals("Size test : fails",validMoves.size(),10);
+        assertEquals("Size test : fails", validMoves.size(), 10);
     }
 
     @Test
-    void when_the_pawns_of_the_player1_is_surrounded_by_pawns_of_player2(){
+    void when_the_pawns_of_the_player1_is_surrounded_by_pawns_of_player2() {
         b.movePawn(new Move(0, 4, 1, 4));
         b.movePawn(new Move(0, 4, 0, 3));
         b.movePawn(new Move(0, 4, 1, 3));
@@ -475,14 +476,12 @@ class BoardTest {
         b.movePawn(new Move(4, 4, 2, 4));
         b.movePawn(new Move(3, 0, 2, 1));
 
-        /* 
-        __0_1_2_3_4
-        0|_ _ X X O
-        1|_ _ X X X
-        2|_ X X X X
-        3|X _ _ _ _
-        4|X _ _ _ _
-        */
+        // __0_1_2_3_4
+        // 0|_ _ X X O
+        // 1|_ _ X X X
+        // 2|_ X X X X
+        // 3|X _ _ _ _
+        // 4|X _ _ _ _
 
         List<Move> validMoves = b.getValidMoves(player2);
         assertTrue(validMoves.isEmpty());
@@ -490,20 +489,20 @@ class BoardTest {
 
     @Test
     void test_range_of_getValidesMoves_When_pawn_is_in_center() {
-        Pawn pawn =new Pawn(player1);
+        Pawn pawn = new Pawn(player1);
         Pawn[][] field = { // field :
-            { null, null, null, null, null, null, null }, // row 0
-            { null, null, null, null, null, null, null }, // row 1
-            { null, null, pawn, null, null, null, null }, // row 2
-            { null, null, null, null, null, null, null }, // row 3
-            { null, null, null, null, null, null, null }, // row 4
-            { null, null, null, null, null, null, null }, // row 5
-            { null, null, null, null, null, null, null }, // row 6
-    };
+                { null, null, null, null, null, null, null }, // row 0
+                { null, null, null, null, null, null, null }, // row 1
+                { null, null, pawn, null, null, null, null }, // row 2
+                { null, null, null, null, null, null, null }, // row 3
+                { null, null, null, null, null, null, null }, // row 4
+                { null, null, null, null, null, null, null }, // row 5
+                { null, null, null, null, null, null, null }, // row 6
+        };
         Board board = new Board(field);
 
         List<Move> validMoves = board.getValidMoves(player1);
-        
+
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field.length; j++) {
 
@@ -535,11 +534,11 @@ class BoardTest {
 
         List<Move> validMoves = board.getValidMoves(player1);
 
-        //Parcours toute les cases
+        // Parcours toute les cases
         for (int startingRow = 0; startingRow < field.length; startingRow++) {
             for (int startingColulmn = 0; startingColulmn < field.length; startingColulmn++) {
 
-                //Parcours toutes les cases
+                // Parcours toutes les cases
                 for (int arrivalRow = 0; arrivalRow < field.length; arrivalRow++) {
                     for (int arrivalColumn = 0; arrivalColumn < field.length; arrivalColumn++) {
 
@@ -572,7 +571,7 @@ class BoardTest {
         return String.format(" localized in : Row %s Column : %s ", i, j);
     }
 
-    //@Disabled
+    // @Disabled
     @Test
     void from_starting_position_after_player1_does_one_distance_1_move_and_one_distance_2_move_and_taking_an_opponent_pawn_player1_should_have_four_pawns_and_player2_should_have_1_pawn() {
         b.movePawn(new Move(0, 0, 0, 1));
@@ -582,7 +581,7 @@ class BoardTest {
     }
 
     @Test
-    void run_around_the_board_with_a_pawn_player1_should_have_16_pawns(){
+    void run_around_the_board_with_a_pawn_player1_should_have_16_pawns() {
         b.movePawn(new Move(0, 0, 0, 1));
         b.movePawn(new Move(0, 1, 0, 2));
         b.movePawn(new Move(0, 2, 0, 3));
@@ -592,7 +591,7 @@ class BoardTest {
         b.movePawn(new Move(1, 4, 2, 4));
         b.movePawn(new Move(2, 4, 3, 4));
         b.movePawn(new Move(3, 4, 4, 4));
-        
+
         b.movePawn(new Move(4, 4, 4, 3));
         b.movePawn(new Move(4, 3, 4, 2));
         b.movePawn(new Move(4, 2, 4, 1));
@@ -602,7 +601,7 @@ class BoardTest {
         b.movePawn(new Move(3, 0, 2, 0));
         b.movePawn(new Move(2, 0, 1, 0));
 
-        assertEquals(16,b.getNbPawns(player1));
+        assertEquals(16, b.getNbPawns(player1));
     }
 
     @Test
@@ -614,13 +613,13 @@ class BoardTest {
         assertEquals(6, b.getNbPawns(player1));
         assertEquals(0, b.getNbPawns(player2));
     }
-    
+
     @Test
-    void in_starting_player1_should_have_two_pawns_and_player2_should_have_two_pawns(){
+    void in_starting_player1_should_have_two_pawns_and_player2_should_have_two_pawns() {
         assertEquals(2, b.getNbPawns(player1));
         assertEquals(2, b.getNbPawns(player2));
     }
-    
+
     @Test
     void the_payer1_forms_a_square_with_his_pawns_the_player2_places_one_in_the_center_of_the_square_all_the_pawns_of_the_square_must_belong_to_the_player2() {
         b.movePawn(new Move(0, 0, 0, 1));
@@ -637,42 +636,40 @@ class BoardTest {
 
         b.movePawn(new Move(2, 1, 3, 2));
 
-/* premier plateau :
-        __0_1_2_3_4
-        0|X X X _ O
-        1|X _ X _ _
-        2|X X X _ _
-        3|_ _ X _ _
-        4|O _ _ _ X
-*/
+        // premier plateau :
+        // __0_1_2_3_4
+        // 0|X X X _ O
+        // 1|X _ X _ _
+        // 2|X X X _ _
+        // 3|_ _ X _ _
+        // 4|O _ _ _ X
         assertEquals("First board test (player1) : fails", 10, b.getNbPawns(player1));
         assertEquals("First board test (player2) : fails", 2, b.getNbPawns(player2));
 
         b.movePawn(new Move(4, 0, 4, 2));
 
-/* second plateau :
-        __0_1_2_3_4
-        0|X X X _ O
-        1|X _ X _ _
-        2|X X X _ _
-        3|_ _ O _ _
-        4|_ _ O _ X
-*/
+        // second plateau :
+        // __0_1_2_3_4
+        // 0|X X X _ O
+        // 1|X _ X _ _
+        // 2|X X X _ _
+        // 3|_ _ O _ _
+        // 4|_ _ O _ X
+
         assertEquals("Second board test (player1) : fails", 9, b.getNbPawns(player1));
         assertEquals("Second board test (player2) : fails", 3, b.getNbPawns(player2));
 
         b.movePawn(new Move(3, 2, 1, 1));
 
-/* plateau résultante :
-        __0_1_2_3_4
-        0|O O O _ O
-        1|O O O _ _
-        2|O O O _ _
-        3|_ _ _ _ _
-        4|_ _ O _ X
-*/
+        // plateau résultante :
+        // __0_1_2_3_4
+        // 0|O O O _ O
+        // 1|O O O _ _
+        // 2|O O O _ _
+        // 3|_ _ _ _ _
+        // 4|_ _ O _ X
 
-        assertEquals("final board test (player1) : fails",11, b.getNbPawns(player2));
-        assertEquals("final board test (player2) : fails",1, b.getNbPawns(player1));
+        assertEquals("final board test (player1) : fails", 11, b.getNbPawns(player2));
+        assertEquals("final board test (player2) : fails", 1, b.getNbPawns(player1));
     }
 }

@@ -7,20 +7,6 @@ import java.util.List;
  * Modélise un plateau.
  */
 public class Board {
-    public static void main(String[] args) {
-        Board b;
-        Player player1 = new Player(null, null, null, 1);
-        Player player2 = new Player(null, null, null, 2);
-        Pawn[][] field = { // field :
-                { null, null, null, null, null }, // row 0
-                { null, null, null, null, null }, // row 1
-                { null, null, new Pawn(player1), null, null }, // row 2
-                { null, null, null, null, null }, // row 3
-                { null, null, null, null, null }, // row 4
-        };
-        b = new Board(field);
-        System.out.println(b.toString());
-    }
 
     /**
      * Tableau des pions.

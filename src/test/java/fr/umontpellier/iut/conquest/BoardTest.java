@@ -550,9 +550,9 @@ class BoardTest {
                         String localizations = localizations(startingRow, startingColulmn, arrivalRow, arrivalColumn);
 
                         if (isEmptyArrivalCase && isNotEmptyStartingCase && isInRange)
-                            assertTrue(" Is in range : arrival square" + localizations, validMoves.contains(move));
+                            assertTrue(" excepted : in range ; but was : over range : \n" + localizations, validMoves.contains(move));
                         else {
-                            assertFalse(" Is in over range : arrival square" + localizations,
+                            assertFalse(" excepted : in over range ; but was : in range : \n" + localizations,
                                     validMoves.contains(move));
                         }
                     }
@@ -563,12 +563,14 @@ class BoardTest {
     }
 
     private String localizations(int startingRow, int startingColulmn, int arrivalRow, int arrivalColumn) {
-        return localization(arrivalRow, arrivalColumn) + "\n starting Square "
-                + localization(startingRow, startingColulmn);
+        String arrivalSquare = localization(arrivalRow, arrivalColumn);
+        String startingSquare = localization(startingRow, startingColulmn);
+
+        return String.format(" Starting square %s \n Arrival square %s", startingSquare, arrivalSquare);
     }
 
-    private String localization(int i, int j) {
-        return String.format(" localized in : Row %s Column : %s ", i, j);
+    private String localization(int row, int column) {
+        return String.format(" localized in : Row %s Column %s ", row, column);
     }
 
     // @Disabled

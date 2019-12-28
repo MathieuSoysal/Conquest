@@ -519,8 +519,57 @@ class BoardTest {
 
     }
 
-    private String localization(int i,int j) {
-        return String.format(" is localized in : %s %s ",((i<2)?"top":((i>2)?"botom":"center")),((j<2)?"left":((j>2)?"right":"center")) );
+    @Test
+    void test_getValidesMoves_whith_just_1_case_empty() {
+        Pawn pawn = new Pawn(player1);
+        Pawn[][] field = { // field :
+                { pawn, pawn, pawn, pawn, pawn, pawn, pawn }, // row 0
+                { pawn, pawn, pawn, pawn, pawn, pawn, pawn }, // row 1
+                { pawn, pawn, pawn, pawn, pawn, pawn, pawn }, // row 2
+                { pawn, pawn, pawn, pawn, pawn, pawn, pawn }, // row 3
+                { pawn, pawn, pawn, null, pawn, pawn, pawn }, // row 4
+                { pawn, pawn, pawn, pawn, pawn, pawn, pawn }, // row 5
+                { pawn, pawn, pawn, pawn, pawn, pawn, pawn }, // row 6
+        };
+        Board board = new Board(field);
+
+        List<Move> validMoves = board.getValidMoves(player1);
+
+        //Parcours toute les cases
+        for (int startingRow = 0; startingRow < field.length; startingRow++) {
+            for (int startingColulmn = 0; startingColulmn < field.length; startingColulmn++) {
+
+                //Parcours toutes les cases
+                for (int arrivalRow = 0; arrivalRow < field.length; arrivalRow++) {
+                    for (int arrivalColumn = 0; arrivalColumn < field.length; arrivalColumn++) {
+
+                        boolean isEmptyArrivalCase = (arrivalRow == 4 && arrivalColumn == 3);
+                        boolean isNotEmptyStartingCase = (startingRow != 4 || startingColulmn != 3);
+                        boolean isInRange = Math.abs(startingRow - 4) <= 2 && Math.abs(startingColulmn - 3) <= 2;
+
+                        Move move = new Move(startingRow, startingColulmn, arrivalRow, arrivalColumn);
+                        String localizations = localizations(startingRow, startingColulmn, arrivalRow, arrivalColumn);
+
+                        if (isEmptyArrivalCase && isNotEmptyStartingCase && isInRange)
+                            assertTrue(" Is in range : arrival square" + localizations, validMoves.contains(move));
+                        else {
+                            assertFalse(" Is in over range : arrival square" + localizations,
+                                    validMoves.contains(move));
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    private String localizations(int startingRow, int startingColulmn, int arrivalRow, int arrivalColumn) {
+        return localization(arrivalRow, arrivalColumn) + "\n starting Square "
+                + localization(startingRow, startingColulmn);
+    }
+
+    private String localization(int i, int j) {
+        return String.format(" localized in : Row %s Column : %s ", i, j);
     }
 
     //@Disabled

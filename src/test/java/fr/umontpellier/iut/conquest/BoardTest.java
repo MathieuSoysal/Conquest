@@ -516,6 +516,9 @@ class BoardTest {
             }
         }
 
+        int nbSquareAroundOfPawn = 5 * 5 - 1;
+        assertEquals("Size test :", nbSquareAroundOfPawn, validMoves.size());
+
     }
 
     @Test
@@ -542,14 +545,14 @@ class BoardTest {
                 for (int arrivalRow = 0; arrivalRow < field.length; arrivalRow++) {
                     for (int arrivalColumn = 0; arrivalColumn < field.length; arrivalColumn++) {
 
-                        boolean isEmptyArrivalCase = (arrivalRow == 4 && arrivalColumn == 3);
-                        boolean isNotEmptyStartingCase = (startingRow != 4 || startingColulmn != 3);
+                        boolean isEmptyArrivalSquare = (arrivalRow == 4 && arrivalColumn == 3);
+                        boolean isNotEmptyStartingSquare = (startingRow != 4 || startingColulmn != 3);
                         boolean isInRange = Math.abs(startingRow - 4) <= 2 && Math.abs(startingColulmn - 3) <= 2;
 
                         Move move = new Move(startingRow, startingColulmn, arrivalRow, arrivalColumn);
                         String localizations = localizations(startingRow, startingColulmn, arrivalRow, arrivalColumn);
 
-                        if (isEmptyArrivalCase && isNotEmptyStartingCase && isInRange)
+                        if (isEmptyArrivalSquare && isNotEmptyStartingSquare && isInRange)
                             assertTrue(" excepted : in range ; but was : over range : \n" + localizations, validMoves.contains(move));
                         else {
                             assertFalse(" excepted : in over range ; but was : in range : \n" + localizations,
@@ -559,6 +562,9 @@ class BoardTest {
                 }
             }
         }
+        
+        int nbSquareAroundOfEmptySquare = 5 * 5 - 1;
+        assertEquals("Size test :", nbSquareAroundOfEmptySquare, validMoves.size());
 
     }
 

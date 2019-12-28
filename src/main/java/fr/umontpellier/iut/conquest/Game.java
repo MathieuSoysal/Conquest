@@ -2,6 +2,8 @@ package fr.umontpellier.iut.conquest;
 
 import fr.umontpellier.iut.conquest.strategies.Strategy;
 
+import static java.lang.Math.pow;
+
 import java.io.InputStream;
 import java.util.Scanner;
 
@@ -127,7 +129,13 @@ public class Game {
      * - La partie est finie quand l'un des deux joueurs n'a plus de pions.
      */
     public boolean isFinished() {
-        return nbPawnsPlayer0() + nbPawnsPlayer1() == board.getSize() * board.getSize();
+        int nbPawnsPlayer0 = nbPawnsPlayer0();
+        int nbPawnsPlayer1 = nbPawnsPlayer1();
+
+        boolean noFreeCases = nbPawnsPlayer0 + nbPawnsPlayer1 == pow(board.getSize(), 2);
+        boolean noPawns = nbPawnsPlayer0 == 0 || nbPawnsPlayer1 == 0;
+
+        return noFreeCases || noPawns;
     }
 
     private int nbPawnsPlayer1() {
@@ -143,7 +151,7 @@ public class Game {
      * Rappel : Le joueur qui gagne est celui qui possède le plus de pions.
      */
     public Player getWinner() {
-        return (nbPawnsPlayer0() > nbPawnsPlayer1()) ? players[0] : (players[1]);
+        return (nbPawnsPlayer0() > nbPawnsPlayer1()) ? players[0] : players[1];
     }
 
     /**

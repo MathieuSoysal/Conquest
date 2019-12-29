@@ -166,11 +166,15 @@ public class Game {
      */
     private Player confirmOrUndoMove(Player player) {
         int nbUndoMove = askPlayerHowMuchToUndoMove();
-        boolean nbUndoIsPair = (nbUndoMove % 2) == 0;
 
-        if (nbUndoMove > 0) {
+        if (nbUndoMove > 0)
             throw new RuntimeException("Not implemented");
-        }
+
+        return getPlayerOfTurn(player, nbUndoMove);
+    }
+    
+    private Player getPlayerOfTurn(Player player, int nbUndoMove) {
+        boolean nbUndoIsPair = (nbUndoMove % 2) == 0;
         return nbUndoIsPair ? getOtherPlayer(player) : player;
     }
 

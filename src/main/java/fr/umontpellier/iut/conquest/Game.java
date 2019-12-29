@@ -165,23 +165,27 @@ public class Game {
      * @return Player : le joueur dont il est le tour de jouer.
      */
     private Player confirmOrUndoMove(Player player) {
-        int nbUndoMove = askPlayerHowMuchToUndoMove();
+        int nbUndoMove = 0;
 
-        if (nbUndoMove > 0)
+        while (playerWantsUndoMove()) {
+            nbUndoMove++;
             throw new RuntimeException("Not implemented");
-
+        }
         return getPlayerOfTurn(player, nbUndoMove);
     }
-    
+
     private Player getPlayerOfTurn(Player player, int nbUndoMove) {
         boolean nbUndoIsPair = (nbUndoMove % 2) == 0;
-        return nbUndoIsPair ? getOtherPlayer(player) : player;
+        return nbUndoIsPair ? player : getOtherPlayer(player);
     }
 
-    private int askPlayerHowMuchToUndoMove(){
-        System.out.println("Entrez  les coordonnées de départ :");
-        int nbUndo = scan.nextInt();
-        return nbUndo;
+    private boolean playerWantsUndoMove() {
+        int nbUndo;
+        do {
+            System.out.println("Voulez-vous annuler le tour (1 pour Oui : 0 pour Non) :");
+            nbUndo = scan.nextInt();
+        } while (nbUndo > 1);
+        return nbUndo == 1;
     }
 }
 

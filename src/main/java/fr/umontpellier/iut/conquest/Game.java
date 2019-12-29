@@ -165,7 +165,19 @@ public class Game {
      * @return Player : le joueur dont il est le tour de jouer.
      */
     private Player confirmOrUndoMove(Player player) {
-        throw new RuntimeException("Not implemented");
+        int nbUndoMove = askPlayerHowMuchToUndoMove();
+        boolean nbUndoIsPair = (nbUndoMove % 2) == 0;
+
+        if (nbUndoMove > 0) {
+            throw new RuntimeException("Not implemented");
+        }
+        return nbUndoIsPair ? getOtherPlayer(player) : player;
+    }
+
+    private int askPlayerHowMuchToUndoMove(){
+        System.out.println("Entrez  les coordonnées de départ :");
+        int nbUndo = scan.nextInt();
+        return nbUndo;
     }
 }
 

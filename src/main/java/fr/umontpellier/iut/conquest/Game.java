@@ -129,21 +129,7 @@ public class Game {
      * - La partie est finie quand l'un des deux joueurs n'a plus de pions.
      */
     public boolean isFinished() {
-        int nbPawnsPlayer0 = nbPawnsPlayer0();
-        int nbPawnsPlayer1 = nbPawnsPlayer1();
-
-        boolean noFreeCases = nbPawnsPlayer0 + nbPawnsPlayer1 == pow(board.getSize(), 2);
-        boolean noPawns = nbPawnsPlayer0 == 0 || nbPawnsPlayer1 == 0;
-
-        return noFreeCases || noPawns;
-    }
-
-    private int nbPawnsPlayer1() {
-        return board.getNbPawns(players[1]);
-    }
-
-    private int nbPawnsPlayer0() {
-        return board.getNbPawns(players[0]);
+        return noFreeSquare() || noPawns();
     }
 
     /**
@@ -187,5 +173,26 @@ public class Game {
         } while (nbUndo > 1);
         return nbUndo == 1;
     }
+
+    // #region méthode privées isFinished()
+    private boolean noPawns() {
+        return nbPawnsPlayer0() == 0 || nbPawnsPlayer1() == 0;
+    }
+
+    private boolean noFreeSquare() {
+        final double NUMBER_OF_SQUARE = pow(board.getSize(), 2);
+        int numberOfPawns = nbPawnsPlayer0() + nbPawnsPlayer1();
+
+        return numberOfPawns == NUMBER_OF_SQUARE;
+    }
+
+    private int nbPawnsPlayer1() {
+        return board.getNbPawns(players[1]);
+    }
+
+    private int nbPawnsPlayer0() {
+        return board.getNbPawns(players[0]);
+    }
+    // #endregion méthode privées isFinished()
 }
 

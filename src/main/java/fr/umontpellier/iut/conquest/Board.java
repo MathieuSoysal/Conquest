@@ -179,6 +179,10 @@ public class Board {
         return boardMemento;
     }
     
+    public void undoFromMemento(BoardMemento memento) {
+        this.field = memento.getField();
+    }
+
     // #region Méthodes privé (boite à outils pour méthode public)
 
     // #region Outils méthode isValid

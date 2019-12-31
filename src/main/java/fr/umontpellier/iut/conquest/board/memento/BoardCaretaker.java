@@ -1,4 +1,4 @@
-package fr.umontpellier.iut.conquest;
+package fr.umontpellier.iut.conquest.board.memento;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

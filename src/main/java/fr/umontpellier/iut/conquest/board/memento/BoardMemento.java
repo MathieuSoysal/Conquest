@@ -1,6 +1,8 @@
-package fr.umontpellier.iut.conquest;
+package fr.umontpellier.iut.conquest.board.memento;
 
 import java.util.Arrays;
+
+import fr.umontpellier.iut.conquest.Pawn;
 
 public class BoardMemento {
     private Pawn[][] field;

@@ -174,6 +174,11 @@ public class Board {
         return sumPawnsPlayer;
     }
 
+    public BoardMemento saveToMemento() {
+        BoardMemento boardMemento = new BoardMemento(this.field);
+        return boardMemento;
+    }
+    
     // #region Méthodes privé (boite à outils pour méthode public)
 
     // #region Outils méthode isValid

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import fr.umontpellier.iut.conquest.Board;
+import fr.umontpellier.iut.conquest.Game;
 import fr.umontpellier.iut.conquest.Move;
 import fr.umontpellier.iut.conquest.Pawn;
 import fr.umontpellier.iut.conquest.Player;
@@ -30,6 +31,11 @@ public class NaiveTest {
             Move move = naive.getMove(board, player1);
             assertTrue(move.toString(),board.isValid(move, player1));
         }
+    }
 
+    @Test
+    public void two_naive_in_game() {
+        Game game = new Game(21, naive, "dev", naive, "sys");
+        game.run(1);
     }
 }

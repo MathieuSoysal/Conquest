@@ -49,6 +49,22 @@ public class NaiveTest {
     }
 
     @Test
+    public void getmove_with_other_pawns() {
+        Pawn pawnO = new Pawn(new Player(naive, null, null, 2));
+        Pawn[][] field = { // field :
+                { null, null, null, null }, // row 0
+                { null, pawnO, pawnO, pawnO }, // row 1
+                { null, pawnO, pawn, pawnO }, // row 2
+                { null, pawnO, pawnO, pawnO }, // row 3
+        };
+        Board board = new Board(field);
+        for (int i = 0; i < 100; i++) {
+            Move move = naive.getMove(board, player1);
+            assertTrue(move.toString(), board.isValid(move, player1));
+        }
+    }
+
+    @Test
     public void two_naive_in_game() {
         Game game = new Game(21, naive, "dev", naive, "sys");
         game.run(1);

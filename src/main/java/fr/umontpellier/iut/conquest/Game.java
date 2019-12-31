@@ -2,6 +2,8 @@ package fr.umontpellier.iut.conquest;
 
 import fr.umontpellier.iut.conquest.strategies.Strategy;
 
+import static java.lang.Math.pow;
+
 import java.io.InputStream;
 import java.util.Scanner;
 
@@ -86,7 +88,7 @@ public class Game {
             // Affiche le plateau.
             System.out.println(board);
 
-            // Demande au joueur courant de joueur.
+            // Demande au joueur courant de jouer.
             if (!board.getValidMoves(player).isEmpty()) {
                 board.movePawn(player.play());
             }
@@ -110,14 +112,14 @@ public class Game {
      * Initialise le jeu.
      */
     private void initGame() {
-        throw new RuntimeException("Not implemented");
+        board.initField(players[0], players[1]);
     }
 
     /**
      * Prends un joueur en entrée et retourne l'autre joueur.
      */
     public Player getOtherPlayer(Player player) {
-        throw new RuntimeException("Not implemented");
+        return (player.equals(players[0])) ? players[1] : players[0];
     }
 
     /**
@@ -127,7 +129,7 @@ public class Game {
      * - La partie est finie quand l'un des deux joueurs n'a plus de pions.
      */
     public boolean isFinished() {
-        throw new RuntimeException("Not implemented");
+        return noFreeSquare() || noPawns();
     }
 
     /**
@@ -135,7 +137,7 @@ public class Game {
      * Rappel : Le joueur qui gagne est celui qui possède le plus de pions.
      */
     public Player getWinner() {
-        throw new RuntimeException("Not implemented");
+        return (nbPawnsPlayer0() > nbPawnsPlayer1()) ? players[0] : players[1];
     }
 
     /**
@@ -149,7 +151,48 @@ public class Game {
      * @return Player : le joueur dont il est le tour de jouer.
      */
     private Player confirmOrUndoMove(Player player) {
-        throw new RuntimeException("Not implemented");
+        int nbUndoMove = 0;
+
+        while (playerWantsUndoMove()) {
+            nbUndoMove++;
+            throw new RuntimeException("Not implemented");
+        }
+        return getPlayerOfTurn(player, nbUndoMove);
     }
+
+    private Player getPlayerOfTurn(Player player, int nbUndoMove) {
+        boolean nbUndoIsPair = (nbUndoMove % 2) == 0;
+        return nbUndoIsPair ? player : getOtherPlayer(player);
+    }
+
+    private boolean playerWantsUndoMove() {
+        int nbUndo;
+        do {
+            System.out.println("Voulez-vous annuler le tour (1 pour Oui : 0 pour Non) :");
+            nbUndo = scan.nextInt();
+        } while (nbUndo > 1);
+        return nbUndo == 1;
+    }
+
+    // #region méthode privées isFinished()
+    private boolean noPawns() {
+        return nbPawnsPlayer0() == 0 || nbPawnsPlayer1() == 0;
+    }
+
+    private boolean noFreeSquare() {
+        final double NUMBER_OF_SQUARE = pow(board.getSize(), 2);
+        int numberOfPawns = nbPawnsPlayer0() + nbPawnsPlayer1();
+
+        return numberOfPawns == NUMBER_OF_SQUARE;
+    }
+
+    private int nbPawnsPlayer1() {
+        return board.getNbPawns(players[1]);
+    }
+
+    private int nbPawnsPlayer0() {
+        return board.getNbPawns(players[0]);
+    }
+    // #endregion méthode privées isFinished()
 }
 

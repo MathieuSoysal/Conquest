@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - AppConquest",
+            "request": "launch",
+            "mainClass": "fr.umontpellier.iut.conquest.AppConquest",
+            "projectName": "Conquest"
+        }
+    ]
+}

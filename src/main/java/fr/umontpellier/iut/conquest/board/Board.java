@@ -1,7 +1,11 @@
-package fr.umontpellier.iut.conquest;
+package fr.umontpellier.iut.conquest.board;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import fr.umontpellier.iut.conquest.Pawn;
+import fr.umontpellier.iut.conquest.Player;
+import fr.umontpellier.iut.conquest.board.memento.BoardMemento;
 
 /**
  * Modélise un plateau.
@@ -172,6 +176,15 @@ public class Board {
             }
         }
         return sumPawnsPlayer;
+    }
+
+    public BoardMemento saveToMemento() {
+        BoardMemento boardMemento = new BoardMemento(this.field);
+        return boardMemento;
+    }
+    
+    public void undoFromMemento(BoardMemento memento) {
+        this.field = memento.getField();
     }
 
     // #region Méthodes privé (boite à outils pour méthode public)

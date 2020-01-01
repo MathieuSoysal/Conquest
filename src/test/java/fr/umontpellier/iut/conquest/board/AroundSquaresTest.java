@@ -1,4 +1,4 @@
-package fr.umontpellier.iut.conquest;
+package fr.umontpellier.iut.conquest.board;
 
 import static org.junit.Assert.assertTrue;
 
@@ -6,6 +6,9 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import org.junit.Test;
+
+import fr.umontpellier.iut.conquest.board.AroundSquares;
+import fr.umontpellier.iut.conquest.board.Square;
 
 public class AroundSquaresTest {
 

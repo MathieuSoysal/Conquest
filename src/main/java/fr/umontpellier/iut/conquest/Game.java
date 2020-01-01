@@ -1,5 +1,6 @@
 package fr.umontpellier.iut.conquest;
 
+import fr.umontpellier.iut.conquest.board.Board;
 import fr.umontpellier.iut.conquest.strategies.Strategy;
 
 import static java.lang.Math.pow;
@@ -153,11 +154,16 @@ public class Game {
     private Player confirmOrUndoMove(Player player) {
         int nbUndoMove = 0;
 
-        while (playerWantsUndoMove()) {
+        while (canUndoMove() && playerWantsUndoMove()) {
             nbUndoMove++;
             throw new RuntimeException("Not implemented");
         }
+        //TODO ajout board dans les souvenirs
         return getPlayerOfTurn(player, nbUndoMove);
+    }
+
+    private boolean canUndoMove() {
+        throw new RuntimeException("Not implemented");
     }
 
     private Player getPlayerOfTurn(Player player, int nbUndoMove) {

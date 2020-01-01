@@ -1,5 +1,6 @@
 package fr.umontpellier.iut.conquest;
 
+import fr.umontpellier.iut.conquest.board.Board;
 import fr.umontpellier.iut.conquest.strategies.Strategy;
 
 import static java.lang.Math.pow;

@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - BoardCaretakerTest",
+            "request": "launch",
+            "mainClass": "fr.umontpellier.iut.conquest.board.memento.BoardCaretakerTest",
+            "projectName": "Conquest"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - AppConquest",
             "request": "launch",
             "mainClass": "fr.umontpellier.iut.conquest.AppConquest",

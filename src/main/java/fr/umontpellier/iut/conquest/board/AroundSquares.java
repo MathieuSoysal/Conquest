@@ -1,5 +1,5 @@
 
-package fr.umontpellier.iut.conquest;
+package fr.umontpellier.iut.conquest.board;
 
 class AroundSquares {
     private int aroundSquareRow;

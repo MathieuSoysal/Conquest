@@ -154,11 +154,15 @@ public class Game {
     private Player confirmOrUndoMove(Player player) {
         int nbUndoMove = 0;
 
-        while (playerWantsUndoMove()) {
+        while (canUndoMove() && playerWantsUndoMove()) {
             nbUndoMove++;
             throw new RuntimeException("Not implemented");
         }
         return getPlayerOfTurn(player, nbUndoMove);
+    }
+
+    private boolean canUndoMove() {
+        throw new RuntimeException("Not implemented");
     }
 
     private Player getPlayerOfTurn(Player player, int nbUndoMove) {

@@ -157,6 +157,7 @@ public class Game {
             nbUndoMove++;
             throw new RuntimeException("Not implemented");
         }
+        //TODO ajout board dans les souvenirs
         return getPlayerOfTurn(player, nbUndoMove);
     }
 

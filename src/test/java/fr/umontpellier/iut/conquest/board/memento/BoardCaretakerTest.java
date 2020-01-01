@@ -66,7 +66,6 @@ public class BoardCaretakerTest {
         assertEquals(board.toString(), new Board(field).toString());
     }
 
-    @Ignore
     @Test
     public void one_undo_test(){
         BoardMemento memento = board.saveToMemento();

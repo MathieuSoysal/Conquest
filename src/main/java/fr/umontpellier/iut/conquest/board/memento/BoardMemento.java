@@ -11,7 +11,12 @@ public class BoardMemento {
      * @param field
      */
     public BoardMemento(Pawn[][] field) {
-        this.field = field;
+        this.field = new Pawn[field.length][field.length];
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field.length; j++) {
+                this.field[i][j] = (field[i][j] == null) ? null : new Pawn(field[i][j].getPlayer());
+            }
+        }
     }
 
     /**

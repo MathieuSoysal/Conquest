@@ -82,4 +82,62 @@ public class BoardCaretakerTest {
         board.undoFromMemento(memento);
         assertEquals(board.toString(), new Board(field).toString());
     }
+
+    @Test
+    public void undo_test_to_back_first_move_steps_by_steps() {
+        BoardMemento memento = board.saveToMemento();
+        caretaker.addMemento(memento);
+        Pawn[][] fieldStep1 = { // field :
+                { pawnP1, null, null, null, pawnP2 }, // row 0
+                { null, null, null, null, null }, // row 1
+                { null, null, null, null, null }, // row 2
+                { null, null, null, null, null }, // row 3
+                { pawnP2, null, null, null, pawnP1 }// row 4
+        };
+
+        board.movePawn(new Move(0, 0, 1, 0));
+        memento = board.saveToMemento();
+        caretaker.addMemento(memento);
+
+        Pawn[][] fieldStep2 = { // field :
+                { pawnP1, null, null, null, pawnP2 }, // row 0
+                { pawnP1, null, null, null, null }, // row 1
+                { null, null, null, null, null }, // row 2
+                { null, null, null, null, null }, // row 3
+                { pawnP2, null, null, null, pawnP1 }// row 4
+        };
+
+        board.movePawn(new Move(4, 4, 3, 4));
+        memento = board.saveToMemento();
+        caretaker.addMemento(memento);
+
+        Pawn[][] fieldStep3 = { // field :
+                { pawnP1, null, null, null, pawnP2 }, // row 0
+                { pawnP1, null, null, null, null }, // row 1
+                { null, null, null, null, null }, // row 2
+                { null, null, null, null, pawnP1 }, // row 3
+                { pawnP2, null, null, null, pawnP1 }// row 4
+        };
+
+        board.movePawn(new Move(4, 0, 3, 0));
+
+        Pawn[][] fieldStep4 = { // field :
+                { pawnP1, null, null, null, pawnP2 }, // row 0
+                { pawnP1, null, null, null, null }, // row 1
+                { null, null, null, null, null }, // row 2
+                { pawnP2, null, null, null, pawnP1 }, // row 3
+                { pawnP2, null, null, null, pawnP1 }// row 4
+        };
+
+        assertEquals(board.toString(), new Board(fieldStep4).toString());
+
+        board.undoFromMemento(caretaker.getMemento());
+        assertEquals("\n"+board.toString(),"\n"+ new Board(fieldStep3).toString());
+
+        board.undoFromMemento(caretaker.getMemento());
+        assertEquals("\n"+board.toString(),"\n"+ new Board(fieldStep2).toString());
+
+        board.undoFromMemento(caretaker.getMemento());
+        assertEquals("\n"+board.toString(),"\n"+ new Board(fieldStep1).toString());
+    }
 }

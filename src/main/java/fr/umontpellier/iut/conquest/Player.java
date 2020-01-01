@@ -1,5 +1,6 @@
 package fr.umontpellier.iut.conquest;
 
+import fr.umontpellier.iut.conquest.board.Move;
 import fr.umontpellier.iut.conquest.strategies.Strategy;
 
 import java.util.Objects;

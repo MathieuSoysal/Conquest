@@ -47,15 +47,15 @@ public class BoardCaretakerTest {
     }
 
     @Before
-    public void init(){
+    public void init() {
         caretaker = new BoardCaretaker();
         board.initField(player1, player2);
     }
 
     @Test
-    public void init_test(){
+    public void init_test() {
         caretaker.addMemento(board.saveToMemento());
-        Pawn [][] field = {//field :
+        Pawn[][] field = { // field :
                 { pawnP1, null, null, null, pawnP2 }, // row 1
                 { null, null, null, null, null }, // row 2
                 { null, null, null, null, null }, // row 3
@@ -67,17 +67,17 @@ public class BoardCaretakerTest {
     }
 
     @Test
-    public void one_undo_test(){
+    public void one_undo_test_to_back_init() {
         BoardMemento memento = board.saveToMemento();
         caretaker.addMemento(memento);
-        Pawn [][] field = {//field :
+        Pawn[][] field = { // field :
                 { pawnP1, null, null, null, pawnP2 }, // row 1
                 { null, null, null, null, null }, // row 2
                 { null, null, null, null, null }, // row 3
                 { null, null, null, null, null }, // row 4
                 { pawnP2, null, null, null, pawnP1 }// row 5
         };
-        board.movePawn(new Move(0,0,1,0));
+        board.movePawn(new Move(0, 0, 1, 0));
         memento = caretaker.getMemento();
         board.undoFromMemento(memento);
         assertEquals(board.toString(), new Board(field).toString());

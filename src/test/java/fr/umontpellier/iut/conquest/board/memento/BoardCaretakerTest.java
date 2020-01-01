@@ -21,31 +21,6 @@ public class BoardCaretakerTest {
     private Pawn pawnP1 = new Pawn(player1);
     private Pawn pawnP2 = new Pawn(player2);
 
-    public static void main(String[] args) {
-        // Déclaration :
-        BoardCaretaker caretaker = new BoardCaretaker();
-        Board board = new Board(5);
-        Player player1 = new Player(null, null, null, 1);
-        Player player2 = new Player(null, null, null, 2);
-
-        board.initField(player1, player2);
-
-        // On garde en souvenir l'état actuel de board
-        BoardMemento memento = board.saveToMemento();
-        caretaker.addMemento(memento);
-
-        // On récupére le souvenir
-        memento = caretaker.getMemento();
-
-        // On modifie board
-        board.movePawn(new Move(0, 0, 1, 0));
-
-        // On crée une nouvelle board avec le souvenir
-        Board boardInMemento = new Board(memento.getField());
-
-        System.out.println(boardInMemento.toString());
-    }
-
     @Before
     public void init() {
         caretaker = new BoardCaretaker();

@@ -118,4 +118,28 @@ public class MinMaxTest {
         board.movePawn(move);
         assertEquals(board.toString(), 4, board.getNbPawns(player1));
     }
+
+    // Test issue d'une situation réelle (en jeu)
+    @Ignore
+    @Test
+    public void getmove_in_context_game_with_anticipation_2() {
+        MinMax myRobot = new MinMax(2);
+        Player player1 = new Player(myRobot, null, null, 1);
+        Player player2 = new Player(null, null, null, 2);
+        Pawn pawn = new Pawn(player1);
+        Pawn pawn2 = new Pawn(player2);
+
+        Pawn[][] field = { // field :
+                { pawn, pawn, pawn2, pawn2, pawn2 }, // row 0
+                { pawn, pawn, pawn, pawn2, null }, // row 1
+                { pawn, pawn, pawn2, pawn2, pawn2 }, // row 2
+                { pawn2, pawn2, pawn2, pawn2, pawn2 }, // row 3
+                { pawn2, pawn2, pawn2, pawn2, pawn2 } // row 4
+        };
+        Board board = new Board(field);
+        Move move = myRobot.getMove(board, player1);
+        assertTrue("move non valide :", board.isValid(move, player1));
+        board.movePawn(move);
+        assertNotEquals(board.toString(), null, board.getField()[1][4]);
+    }
 }

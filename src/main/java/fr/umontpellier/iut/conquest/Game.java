@@ -1,6 +1,7 @@
 package fr.umontpellier.iut.conquest;
 
 import fr.umontpellier.iut.conquest.board.Board;
+import fr.umontpellier.iut.conquest.board.memento.BoardCaretaker;
 import fr.umontpellier.iut.conquest.strategies.Strategy;
 
 import static java.lang.Math.pow;
@@ -154,14 +155,12 @@ public class Game {
      */
     private Player confirmOrUndoMove(Player player) {
         int nbUndoMove = 0;
-
+        BoardCaretaker caretaker = new BoardCaretaker();
         while (canUndoMove() && playerWantsUndoMove()) {
             nbUndoMove++;
-
-
+            this.getBoard().undoFromMemento(caretaker.getMemento());
         }
-        //TODO ajout board dans les souvenirs
-        // this.getBoard().saveToMemento();
+        this.getBoard().saveToMemento();
         return getPlayerOfTurn(player, nbUndoMove);
     }
 

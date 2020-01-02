@@ -157,10 +157,11 @@ public class Game {
 
         while (canUndoMove() && playerWantsUndoMove()) {
             nbUndoMove++;
-           // this.getBoard().saveToMemento(); ici
+
+
         }
         //TODO ajout board dans les souvenirs
-        // this.getBoard().saveToMemento(); ou ici?
+        // this.getBoard().saveToMemento();
         return getPlayerOfTurn(player, nbUndoMove);
     }
 

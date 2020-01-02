@@ -28,6 +28,7 @@ public class Game {
      */
     private Player[] players = new Player[2];
 
+    private BoardCaretaker caretaker = new BoardCaretaker();
     /**
      * Constructeur.
      * Crée un plateau à partir de sa taille (impaire).
@@ -155,7 +156,6 @@ public class Game {
      */
     private Player confirmOrUndoMove(Player player) {
         int nbUndoMove = 0;
-        BoardCaretaker caretaker = new BoardCaretaker();
         while (canUndoMove() && playerWantsUndoMove()) {
             nbUndoMove++;
             this.getBoard().undoFromMemento(caretaker.getMemento());

@@ -13,7 +13,7 @@ import fr.umontpellier.iut.conquest.board.Move;
 public class MinMaxTest {
 
     @Test
-    public void getmove_with_just_one_Pawn_with_IAlevel_1() {
+    public void getmove_with_board_size_3_with_IAlevel_1() {
         MinMax myRobot = new MinMax(1);
         Player player1 = new Player(myRobot, null, null, 1);
         Player player2 = new Player(null, null, null, 2);
@@ -33,7 +33,7 @@ public class MinMaxTest {
     }
 
     @Test
-    public void getmove_with_just_one_Pawn_with_IAlevel_2() {
+    public void getmove_with_board_size_3_with_IAlevel_2() {
         MinMax myRobot = new MinMax(2);
         Player player1 = new Player(myRobot, null, null, 1);
         Player player2 = new Player(null, null, null, 2);
@@ -53,7 +53,7 @@ public class MinMaxTest {
     }
 
     @Test
-    public void getmove_with_just_one_Pawn_with_IAlevel_3() {
+    public void getmove_with_board_size_3_with_IAlevel_3() {
         MinMax myRobot = new MinMax(3);
         Player player1 = new Player(myRobot, null, null, 1);
         Player player2 = new Player(null, null, null, 2);
@@ -73,7 +73,7 @@ public class MinMaxTest {
     }
 
     @Test
-    public void getmove_with_just_one_Pawn_with_IAlevel_4() {
+    public void getmove_with_board_size_3_with_IAlevel_4() {
         MinMax myRobot = new MinMax(3);
         Player player1 = new Player(myRobot, null, null, 1);
         Player player2 = new Player(null, null, null, 2);

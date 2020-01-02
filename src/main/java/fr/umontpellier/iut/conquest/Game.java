@@ -9,7 +9,8 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 /**
- * Modélise une partie de Conquest.
+ * Modélise u
+ * ne partie de Conquest.
  */
 
 public class Game {
@@ -156,9 +157,10 @@ public class Game {
 
         while (canUndoMove() && playerWantsUndoMove()) {
             nbUndoMove++;
-            throw new RuntimeException("Not implemented");
+           // this.getBoard().saveToMemento(); ici
         }
         //TODO ajout board dans les souvenirs
+        // this.getBoard().saveToMemento(); ou ici?
         return getPlayerOfTurn(player, nbUndoMove);
     }
 

@@ -158,9 +158,9 @@ public class Game {
         int nbUndoMove = 0;
         while (canUndoMove() && playerWantsUndoMove()) {
             nbUndoMove++;
-            this.getBoard().undoFromMemento(caretaker.getMemento());
+            board.undoFromMemento(caretaker.getMemento());
         }
-        this.getBoard().saveToMemento();
+        caretaker.addMemento(board.saveToMemento());
         return getPlayerOfTurn(player, nbUndoMove);
     }
 

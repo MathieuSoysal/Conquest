@@ -14,4 +14,15 @@ public class BoardCaretaker {
     public void addMemento(BoardMemento memento) {
         mementos.push(memento);
     }
+
+    /**
+     * @return
+     * @see java.util.Collection#isEmpty()
+     */
+
+    public boolean isEmpty() {
+        return mementos.isEmpty();
+    }
+
+    
 }

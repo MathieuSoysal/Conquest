@@ -117,6 +117,7 @@ public class Game {
      */
     private void initGame() {
         board.initField(players[0], players[1]);
+        caretaker.addMemento(board.saveToMemento());
     }
 
     /**

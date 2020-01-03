@@ -156,7 +156,7 @@ public class Game {
      */
     private Player confirmOrUndoMove(Player player) {
         int nbUndoMove = 0;
-        while (canUndoMove() && playerWantsUndoMove()) {
+        while (canUndoMove() && playerWantsUndoMoveInShowedBoard()) {
             nbUndoMove++;
             board.undoFromMemento(caretaker.getMemento());
         }
@@ -173,8 +173,9 @@ public class Game {
         return nbUndoIsPair ? player : getOtherPlayer(player);
     }
 
-    private boolean playerWantsUndoMove() {
+    private boolean playerWantsUndoMoveInShowedBoard() {
         int nbUndo;
+        System.out.println(board);
         do {
             System.out.println("Voulez-vous annuler le tour (1 pour Oui : 0 pour Non) :");
             nbUndo = scan.nextInt();

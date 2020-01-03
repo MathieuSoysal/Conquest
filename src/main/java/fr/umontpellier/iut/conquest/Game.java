@@ -165,7 +165,7 @@ public class Game {
     }
 
     private boolean canUndoMove() {
-        throw new RuntimeException("Not implemented");
+        return !caretaker.isEmpty();
     }
 
     private Player getPlayerOfTurn(Player player, int nbUndoMove) {

@@ -7,6 +7,7 @@ import fr.umontpellier.iut.conquest.board.memento.BoardMemento;
 
 public class MinMax implements Strategy {
 
+    private Speculation speculation = new Speculation();
     private int anticipation;
     private Move moveOptimum;
     private Move chosenMove;
@@ -38,7 +39,7 @@ public class MinMax implements Strategy {
                 maxNbPawns = board.getNbPawns(player1);
             }
         } else {
-            BoardMemento player2Memento = getMoveOtherPlayer(memento);
+            BoardMemento player2Memento = speculation.getMove(memento, board, player2);
             if (player2Memento != memento) {
                 board.undoFromMemento(player2Memento);
                 for (Move move : board.getValidMoves(player1)) {
@@ -53,22 +54,6 @@ public class MinMax implements Strategy {
                 }
             }
         }
-    }
-
-    private BoardMemento getMoveOtherPlayer(BoardMemento memento) {
-        int maxNbPawns2 = 0;
-        BoardMemento optimumMemento = memento;
-
-        board.undoFromMemento(memento);
-        for (Move move : board.getValidMoves(player2)) {
-            board.movePawn(move);
-            if (board.getNbPawns(player2) > maxNbPawns2) {
-                optimumMemento = board.saveToMemento();
-                maxNbPawns2 = board.getNbPawns(player2);
-            }
-            board.undoFromMemento(memento);
-        }
-        return optimumMemento;
     }
 
     /**

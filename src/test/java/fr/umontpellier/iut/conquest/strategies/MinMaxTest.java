@@ -94,9 +94,8 @@ public class MinMaxTest {
         assertEquals(board.toString(), 5, board.getNbPawns(player1));
     }
 
-    @Ignore
     @Test
-    public void getmove_with_just_one_Pawn_and_two_pawns_other_player_with_anticipation_2() {
+    public void getmove_with_just_one_Pawn_and_two_pawns_other_player_with_IAlevel2() {
         MinMax myRobot = new MinMax(2);
         Player player1 = new Player(myRobot, null, null, 1);
         Player player2 = new Player(null, null, null, 2);

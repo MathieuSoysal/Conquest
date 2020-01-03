@@ -119,10 +119,9 @@ public class MinMaxTest {
     }
 
     // Test issue d'une situation réelle (en jeu)
-    @Ignore
     @Test
     public void getmove_in_context_game_with_anticipation_2() {
-        MinMax myRobot = new MinMax(2);
+        MinMax myRobot = new MinMax(1);
         Player player1 = new Player(myRobot, null, null, 1);
         Player player2 = new Player(null, null, null, 2);
         Pawn pawn = new Pawn(player1);

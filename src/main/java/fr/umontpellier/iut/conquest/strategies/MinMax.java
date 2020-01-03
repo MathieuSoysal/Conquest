@@ -1,5 +1,7 @@
 package fr.umontpellier.iut.conquest.strategies;
 
+import java.util.List;
+
 import fr.umontpellier.iut.conquest.Player;
 import fr.umontpellier.iut.conquest.board.Board;
 import fr.umontpellier.iut.conquest.board.Move;
@@ -40,11 +42,19 @@ public class MinMax implements Strategy {
             }
         } else {
             BoardMemento player2Memento = speculation.getMove(memento, board, player2);
-                board.undoFromMemento(player2Memento);
-                for (Move move : board.getValidMoves(player1)) {
+            board.undoFromMemento(player2Memento);
+            List<Move> validMoves = board.getValidMoves(player1);
+            if (!validMoves.isEmpty())
+                for (Move move : validMoves) {
                     board.movePawn(move);
                     getMove(anticipation - 1, board.saveToMemento());
                     board.undoFromMemento(player2Memento);
+                }
+            else {
+                if ((board.getNbPawns(player1) - board.getNbPawns(player2)) > maxNbPawns) {
+                    moveOptimum = chosenMove;
+                    maxNbPawns = board.getNbPawns(player1);
+                }
             }
         }
     }

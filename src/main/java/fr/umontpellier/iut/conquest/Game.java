@@ -1,6 +1,7 @@
 package fr.umontpellier.iut.conquest;
 
 import fr.umontpellier.iut.conquest.board.Board;
+import fr.umontpellier.iut.conquest.board.memento.BoardCaretaker;
 import fr.umontpellier.iut.conquest.strategies.Strategy;
 
 import static java.lang.Math.pow;
@@ -9,7 +10,8 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 /**
- * Modélise une partie de Conquest.
+ * Modélise u
+ * ne partie de Conquest.
  */
 
 public class Game {
@@ -26,6 +28,7 @@ public class Game {
      */
     private Player[] players = new Player[2];
 
+    private BoardCaretaker caretaker = new BoardCaretaker();
     /**
      * Constructeur.
      * Crée un plateau à partir de sa taille (impaire).
@@ -114,6 +117,7 @@ public class Game {
      */
     private void initGame() {
         board.initField(players[0], players[1]);
+        caretaker.addMemento(board.saveToMemento());
     }
 
     /**
@@ -153,17 +157,16 @@ public class Game {
      */
     private Player confirmOrUndoMove(Player player) {
         int nbUndoMove = 0;
-
-        while (canUndoMove() && playerWantsUndoMove()) {
+        while (canUndoMove() && playerWantsUndoMoveInShowedBoard()) {
             nbUndoMove++;
-            throw new RuntimeException("Not implemented");
+            board.undoFromMemento(caretaker.getMemento());
         }
-        //TODO ajout board dans les souvenirs
+        caretaker.addMemento(board.saveToMemento());
         return getPlayerOfTurn(player, nbUndoMove);
     }
 
     private boolean canUndoMove() {
-        throw new RuntimeException("Not implemented");
+        return !caretaker.isEmpty();
     }
 
     private Player getPlayerOfTurn(Player player, int nbUndoMove) {
@@ -171,8 +174,9 @@ public class Game {
         return nbUndoIsPair ? player : getOtherPlayer(player);
     }
 
-    private boolean playerWantsUndoMove() {
+    private boolean playerWantsUndoMoveInShowedBoard() {
         int nbUndo;
+        System.out.println(board);
         do {
             System.out.println("Voulez-vous annuler le tour (1 pour Oui : 0 pour Non) :");
             nbUndo = scan.nextInt();

@@ -38,7 +38,7 @@ public class MinMax implements Strategy {
         if (anticipation == 0) {
             if ((board.getNbPawns(player1) - board.getNbPawns(player2)) > maxNbPawns) {
                 moveOptimum = chosenMove;
-                maxNbPawns = board.getNbPawns(player1);
+                maxNbPawns = board.getNbPawns(player1)  - board.getNbPawns(player2);
             }
         } else {
             BoardMemento player2Memento = speculation.getMove(memento, board, player2);
@@ -53,7 +53,7 @@ public class MinMax implements Strategy {
             else {
                 if ((board.getNbPawns(player1) - board.getNbPawns(player2)) > maxNbPawns) {
                     moveOptimum = chosenMove;
-                    maxNbPawns = board.getNbPawns(player1);
+                    maxNbPawns = board.getNbPawns(player1)  - board.getNbPawns(player2);
                 }
             }
         }

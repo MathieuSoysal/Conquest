@@ -10,6 +10,8 @@ import java.io.ByteArrayInputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameTest {
@@ -95,7 +97,6 @@ class GameTest {
         assertEquals(player2, game.getWinner());
     }
 
-    @Disabled
     @Test
     void test_undo_one_move() {
         // Create input
@@ -219,7 +220,6 @@ class GameTest {
 
     }
 
-    @Disabled
     @Test
     void test_undo_two_move() {
         // Create input
@@ -273,7 +273,7 @@ class GameTest {
          * 2|O _ X
          */
 
-         //TODO : On met automatiquement 0 lorsqu'il ne reste plus d'undo move ?
+        // TODO : On met automatiquement 0 lorsqu'il ne reste plus d'undo move ?
 
         // Set player1 second move to (2,2) -> (1,0)
         input = input + "2 2 ";
@@ -293,7 +293,7 @@ class GameTest {
         input = input + "1 1 ";
         /*
          * __0_1_2
-         * 0|O _ _
+         * 0|O _ O
          * 1|O O _
          * 2|O _ _
          */
@@ -314,28 +314,136 @@ class GameTest {
         assertTrue(game.isFinished());
 
         // Test if the board state is correct
-        Pawn[][] field = game.getBoard().getField();
+        Pawn pawnP2 = new Pawn(game.getPlayers()[1]);
+        Pawn[][] expectedField = { // field :
+                { pawnP2, null, pawnP2 }, // row 0
+                { pawnP2, pawnP2, null }, // row 1
+                { pawnP2, null, null } // row 2
+        };
+        Board expectedBoard = new Board(expectedField);
 
-        // Top left pawn should belong to player2
-        assertEquals(2, field[0][0].getPlayer().getColor());
-        // Top center pawn should not exist
-        assertNull(field[0][1]);
-        // Top right pawn should not exist
-        assertNull(field[0][2]);
-        
-        // Middle left pawn should belong to player2
-        assertEquals(2, field[1][0].getPlayer().getColor());
-        // Middle center pawn should belong to player2
-        assertEquals(2, field[1][1].getPlayer().getColor());
-        // Middle right pawn should not exist
-        assertNull(field[1][2]);
-        
-        // Bottom left pawn should belong to player2
-        assertEquals(2, field[2][0].getPlayer().getColor());
-        // Bottom center pawn should not exist
-        assertNull(field[2][1]);
-        // Bottom left pawn should not exist
-        assertNull(field[2][2]);
+        assertEquals("\n"+expectedBoard.toString(), "\n"+game.getBoard().toString());
     }
 
+    @Test
+    void test_undo_move_when_player_win() {
+        // Create input
+        String input = "";
+        /*
+         * __0_1_2
+         * 0|X _ O
+         * 1|_ _ _
+         * 2|O _ X
+         */
+
+        // Set player1 first move to (0,0) -> (1,1)
+        input = input + "0 0 ";
+        input = input + "1 1 ";
+
+        /*
+         * __0_1_2
+         * 0|X _ X
+         * 1|_ X _
+         * 2|X _ X
+         */
+
+        // Undo player1 first move
+        input = input + "1 ";
+
+        /*
+         * __0_1_2
+         * 0|X _ O
+         * 1|_ _ _
+         * 2|O _ X
+         */
+
+        // Set player1 first move to (0,0) -> (1,0)
+        input = input + "0 0 ";
+        input = input + "1 0 ";
+
+        /*
+         * __0_1_2
+         * 0|X _ O
+         * 1|X _ _
+         * 2|X _ X
+         */
+
+        // Valid player1 first move
+        input = input + "0 ";
+
+        // Set player2 first move to (0,2) -> (1,1)
+        input = input + "0 2 ";
+        input = input + "1 1 ";
+
+        /*
+         * __0_1_2
+         * 0|O _ O
+         * 1|O O _
+         * 2|O _ O
+         */
+
+        // Undo player2 first move
+        input = input + "1 ";
+
+        /*
+         * __0_1_2
+         * 0|X _ O
+         * 1|X _ _
+         * 2|X _ X
+         */
+
+        // Stop Undo Move
+        input = input + "0 ";
+
+        // Set player2 first move to (0,2) -> (0,1)
+        input = input + "0 2 ";
+        input = input + "0 1 ";
+
+        /*
+         * __0_1_2
+         * 0|O O O
+         * 1|O _ _
+         * 2|X _ X
+         */
+
+        // Valid player2 first move
+        input = input + "0 ";
+
+        // Set player1 second move to (2,0) -> (1,1)
+        input = input + "2 0 ";
+        input = input + "1 1 ";
+
+        /*
+         * __0_1_2
+         * 0|X X X
+         * 1|X X _
+         * 2|X _ X
+         */
+
+        // Valid player2 second move
+        input = input + "0 ";
+
+        // Set System.in to input
+        set_input(input);
+
+        // Create game
+        Game game = new Game(3, new Human(Game.getScan()), null, new Human(Game.getScan()), null);
+
+        // Play in pvp non-hardcore mode
+        game.run(0);
+
+        // Play is finished
+        assertTrue(game.isFinished());
+
+        // Test if the board state is correct
+        Pawn pawnP1 = new Pawn(game.getPlayers()[0]);
+        Pawn[][] expectedField = { // field :
+                { pawnP1, pawnP1, pawnP1 }, // row 0
+                { pawnP1, pawnP1, null }, // row 1
+                { pawnP1, null, pawnP1 } // row 2
+        };
+        Board expectedBoard = new Board(expectedField);
+
+        assertEquals("\n"+expectedBoard.toString(), "\n"+game.getBoard().toString());
+    }
 }

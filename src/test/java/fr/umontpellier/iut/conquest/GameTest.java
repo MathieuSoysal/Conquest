@@ -10,6 +10,8 @@ import java.io.ByteArrayInputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameTest {
@@ -218,7 +220,6 @@ class GameTest {
 
     }
 
-    @Disabled
     @Test
     void test_undo_two_move() {
         // Create input
@@ -272,7 +273,7 @@ class GameTest {
          * 2|O _ X
          */
 
-         //TODO : On met automatiquement 0 lorsqu'il ne reste plus d'undo move ?
+        // TODO : On met automatiquement 0 lorsqu'il ne reste plus d'undo move ?
 
         // Set player1 second move to (2,2) -> (1,0)
         input = input + "2 2 ";
@@ -292,7 +293,7 @@ class GameTest {
         input = input + "1 1 ";
         /*
          * __0_1_2
-         * 0|O _ _
+         * 0|O _ O
          * 1|O O _
          * 2|O _ _
          */
@@ -313,28 +314,15 @@ class GameTest {
         assertTrue(game.isFinished());
 
         // Test if the board state is correct
-        Pawn[][] field = game.getBoard().getField();
+        Pawn pawnP2 = new Pawn(game.getPlayers()[1]);
+        Pawn[][] expectedField = { // field :
+                { pawnP2, null, pawnP2 }, // row 0
+                { pawnP2, pawnP2, null }, // row 1
+                { pawnP2, null, null } // row 2
+        };
+        Board expectedBoard = new Board(expectedField);
 
-        // Top left pawn should belong to player2
-        assertEquals(2, field[0][0].getPlayer().getColor());
-        // Top center pawn should not exist
-        assertNull(field[0][1]);
-        // Top right pawn should not exist
-        assertNull(field[0][2]);
-        
-        // Middle left pawn should belong to player2
-        assertEquals(2, field[1][0].getPlayer().getColor());
-        // Middle center pawn should belong to player2
-        assertEquals(2, field[1][1].getPlayer().getColor());
-        // Middle right pawn should not exist
-        assertNull(field[1][2]);
-        
-        // Bottom left pawn should belong to player2
-        assertEquals(2, field[2][0].getPlayer().getColor());
-        // Bottom center pawn should not exist
-        assertNull(field[2][1]);
-        // Bottom left pawn should not exist
-        assertNull(field[2][2]);
+        assertEquals("\n"+expectedBoard.toString(), "\n"+game.getBoard().toString());
     }
 
 }

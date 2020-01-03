@@ -62,7 +62,6 @@ public class SpeculationTest {
         assertEquals(board.toString(), 4, board.getNbPawns(player1));
     }
 
-    @Ignore
     @Test
     public void getmove_with_just_one_Pawn_and_two_pawns_other_player_when_player_can_kill_all() {
         Speculation myRobot = new Speculation();

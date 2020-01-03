@@ -11,12 +11,13 @@ public class Speculation implements Strategy{
     @Override
     public Move getMove(Board board, Player player){
         initialMemento = board.saveToMemento();
+        Player player2 = new Player(null, null, null, 1 + (player.getColor() % 2));
         int maxNbPawns = 0;
         Move optimumMove = null;
 
         for (Move move : board.getValidMoves(player)) {
             board.movePawn(move);
-            if (board.getNbPawns(player) > maxNbPawns) {
+            if ((board.getNbPawns(player) - board.getNbPawns(player2)) > maxNbPawns) {
                 optimumMove = move;
                 maxNbPawns = board.getNbPawns(player);
             }

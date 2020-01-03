@@ -95,7 +95,6 @@ class GameTest {
         assertEquals(player2, game.getWinner());
     }
 
-   // @Disabled
     @Test
     void test_undo_one_move() {
         // Create input

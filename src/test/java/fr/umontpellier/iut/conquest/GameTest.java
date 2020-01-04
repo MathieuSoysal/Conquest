@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.NoSuchElementException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -450,12 +451,11 @@ class GameTest {
         assertEquals("\n"+expectedBoard.toString(), "\n"+game.getBoard().toString());
     }
 
-    @Ignore
     @Test
     public void test_MinMax() {
         String input = "";
 
-                /*
+        /*
          * __0_1_2_3_4
          * 0|X _ _ _ O
          * 1|_ _ _ _ _
@@ -466,7 +466,7 @@ class GameTest {
 
          input += "0 0 1 1 ";
 
-                         /*
+        /*
          * __0_1_2_3_4
          * 0|X _ _ _ O
          * 1|_ X _ _ _
@@ -475,7 +475,7 @@ class GameTest {
          * 4|O _ _ _ X
          */
 
-                                 /* trun of MinMax
+        /* trun of MinMax
          * __0_1_2_3_4
          * 0|X _ _ _ _
          * 1|_ O _ _ _
@@ -485,7 +485,7 @@ class GameTest {
          */
         input += "4 4 2 3 ";
 
-                                 /* trun of MinMax
+        /* trun of MinMax
          * __0_1_2_3_4
          * 0|X _ _ _ _
          * 1|_ O _ _ _
@@ -494,29 +494,14 @@ class GameTest {
          * 4|O _ _ _ _
          */
 
-
         set_input(input);
 
         // Create game
         Game game = new Game(5, new Human(Game.getScan()), null, new MinMax(4), null);
 
-        assertAll(() -> {
+        assertThrows( NoSuchElementException.class ,() -> {
             game.run(1);
         });
         // Play in pvp non-hardcore mode
-
-        // Play is finished
-        assertTrue(game.isFinished());
-
-        // Test if the board state is correct
-        Pawn pawnP2 = new Pawn(game.getPlayers()[1]);
-        Pawn[][] expectedField = { // field :
-                { pawnP2, null, pawnP2 }, // row 0
-                { pawnP2, pawnP2, null }, // row 1
-                { pawnP2, null, null } // row 2
-        };
-        Board expectedBoard = new Board(expectedField);
-
-        assertEquals("\n"+expectedBoard.toString(), "\n"+game.getBoard().toString());
     }
 }

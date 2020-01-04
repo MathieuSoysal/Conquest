@@ -287,7 +287,7 @@ public class MinMaxTest {
         Move move = myRobot.getMove(board, player1);
         assertTrue("move non valide :", board.isValid(move, player1));
         board.movePawn(move);
-        assertEquals(board.toString(), 4, board.getNbPawns(player1));
+        assertEquals(board.toString(), 5, board.getNbPawns(player1));
         assertEquals(board.toString(), 1, board.getNbPawns(player2));
     }
 

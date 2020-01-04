@@ -1,32 +1,15 @@
 {
-    // Utilisez IntelliSense pour en savoir plus sur les attributs possibles.
-    // Pointez pour afficher la description des attributs existants.
-    // Pour plus d'informations, visitez : https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
     "configurations": [
         {
             "type": "java",
-            "name": "CodeLens (Launch) - AroundSquares",
+            "name": "CodeLens (Launch) - BoardCaretakerTest",
             "request": "launch",
-            "mainClass": "fr.umontpellier.iut.conquest.AroundSquares",
+            "mainClass": "fr.umontpellier.iut.conquest.board.memento.BoardCaretakerTest",
             "projectName": "Conquest"
         },
         {
             "type": "java",
-            "name": "CodeLens (Launch) - Board",
-            "request": "launch",
-            "mainClass": "fr.umontpellier.iut.conquest.Board",
-            "projectName": "Conquest"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch) - Current File",
-            "request": "launch",
-            "mainClass": "${file}"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-AppConquest<Conquest>",
+            "name": "CodeLens (Launch) - AppConquest",
             "request": "launch",
             "mainClass": "fr.umontpellier.iut.conquest.AppConquest",
             "projectName": "Conquest"

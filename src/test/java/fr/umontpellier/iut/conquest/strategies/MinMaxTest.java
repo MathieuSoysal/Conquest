@@ -3,6 +3,7 @@ package fr.umontpellier.iut.conquest.strategies;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -284,4 +285,26 @@ public class MinMaxTest {
         assertEquals(board.toString(), 1, board.getNbPawns(player2));
     }
 
+    @Test
+    public void getmove_does_not_throw_exception_with_two_Pawns_and_three_pawns_other_player_with_IAlevel4() {
+        MinMax myRobot = new MinMax(4);
+        Player player1 = new Player(myRobot, null, null, 1);
+        Player player2 = new Player(null, null, null, 2);
+        Pawn pawn = new Pawn(player1);
+        Pawn pawn2 = new Pawn(player2);
+
+        Pawn[][] field = { // field :
+                { pawn2, null, null, null, null }, // row 0
+                { null, pawn, null, null, null }, // row 1
+                { null, null, pawn2, pawn2, null }, // row 2
+                { null, null, null, null, null }, // row 3
+                { pawn, null, null, null, null }, // row 4
+        };
+        Board board = new Board(field);
+        Move move = myRobot.getMove(board, player1);
+        assertTrue("move non valide :", board.isValid(move, player1));
+        assertAll(() -> {
+            board.movePawn(move);
+        });
+    }
 }

@@ -447,6 +447,7 @@ class GameTest {
         assertEquals("\n"+expectedBoard.toString(), "\n"+game.getBoard().toString());
     }
 
+    @Ignore
     @Test
     public void test_MinMax() {
         String input = "";

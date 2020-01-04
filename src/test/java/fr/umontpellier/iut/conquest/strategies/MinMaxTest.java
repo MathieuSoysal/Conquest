@@ -76,7 +76,7 @@ public class MinMaxTest {
 
     @Test
     public void getmove_with_board_size_3_with_IAlevel_4() {
-        MinMax myRobot = new MinMax(3);
+        MinMax myRobot = new MinMax(4);
         Player player1 = new Player(myRobot, null, null, 1);
         Player player2 = new Player(null, null, null, 2);
         Pawn pawn = new Pawn(player1);

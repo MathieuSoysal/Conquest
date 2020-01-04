@@ -446,4 +446,73 @@ class GameTest {
 
         assertEquals("\n"+expectedBoard.toString(), "\n"+game.getBoard().toString());
     }
+
+    @Test
+    public void test_MinMax() {
+        String input = "";
+
+                /*
+         * __0_1_2_3_4
+         * 0|X _ _ _ O
+         * 1|_ _ _ _ _
+         * 2|_ _ _ _ _
+         * 3|_ _ _ _ _
+         * 4|O _ _ _ X
+         */
+
+         input += "0 0 1 1 ";
+
+                         /*
+         * __0_1_2_3_4
+         * 0|X _ _ _ O
+         * 1|_ X _ _ _
+         * 2|_ _ _ _ _
+         * 3|_ _ _ _ _
+         * 4|O _ _ _ X
+         */
+
+                                 /* trun of MinMax
+         * __0_1_2_3_4
+         * 0|X _ _ _ _
+         * 1|_ O _ _ _
+         * 2|_ _ O _ _
+         * 3|_ _ _ _ _
+         * 4|O _ _ _ X
+         */
+        input += "4 4 2 3 ";
+
+                                 /* trun of MinMax
+         * __0_1_2_3_4
+         * 0|X _ _ _ _
+         * 1|_ O _ _ _
+         * 2|_ _ O X _
+         * 3|_ _ _ _ _
+         * 4|O _ _ _ _
+         */
+
+
+        set_input(input);
+
+        // Create game
+        Game game = new Game(5, new Human(Game.getScan()), null, new MinMax(4), null);
+
+        assertAll(() -> {
+            game.run(1);
+        });
+        // Play in pvp non-hardcore mode
+
+        // Play is finished
+        assertTrue(game.isFinished());
+
+        // Test if the board state is correct
+        Pawn pawnP2 = new Pawn(game.getPlayers()[1]);
+        Pawn[][] expectedField = { // field :
+                { pawnP2, null, pawnP2 }, // row 0
+                { pawnP2, pawnP2, null }, // row 1
+                { pawnP2, null, null } // row 2
+        };
+        Board expectedBoard = new Board(expectedField);
+
+        assertEquals("\n"+expectedBoard.toString(), "\n"+game.getBoard().toString());
+    }
 }

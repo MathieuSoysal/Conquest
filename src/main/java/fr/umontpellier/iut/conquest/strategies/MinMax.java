@@ -1,5 +1,6 @@
 package fr.umontpellier.iut.conquest.strategies;
 
+//TODO Oublie pas de néttoyer la class
 import java.util.List;
 
 import fr.umontpellier.iut.conquest.Player;
@@ -17,6 +18,7 @@ public class MinMax implements Strategy {
     private Player player1 = null;
     private Player player2 = null;
     private Board board;
+    private int finishedTurn = Integer.MAX_VALUE;
 
     @Override
     public Move getMove(Board board, Player player) {
@@ -28,35 +30,52 @@ public class MinMax implements Strategy {
         for (Move move : board.getValidMoves(player)) {
             chosenMove = move;
             board.movePawn(move);
-            getMove(anticipation, board.saveToMemento());
+            getMove(0, board.saveToMemento());
             board.undoFromMemento(initialBoard);
         }
         return moveOptimum;
     }
 
-    public void getMove(int anticipation, BoardMemento memento) {
-        if (anticipation == 0) {
-            if ((board.getNbPawns(player1) - board.getNbPawns(player2)) > maxNbPawns) {
+    public void getMove(int turn, BoardMemento memento) {
+        if (gameIsFinishedInTurn(turn)) {
+            if (NbPawnsIsOptimum(turn)) {
                 moveOptimum = chosenMove;
-                maxNbPawns = board.getNbPawns(player1)  - board.getNbPawns(player2);
+                maxNbPawns = board.getNbPawns(player1) - board.getNbPawns(player2);
             }
         } else {
-            BoardMemento player2Memento = speculation.getMove(memento, board, player2);
-            board.undoFromMemento(player2Memento);
-            List<Move> validMoves = board.getValidMoves(player1);
-            if (!validMoves.isEmpty())
-                for (Move move : validMoves) {
-                    board.movePawn(move);
-                    getMove(anticipation - 1, board.saveToMemento());
-                    board.undoFromMemento(player2Memento);
-                }
-            else {
-                if ((board.getNbPawns(player1) - board.getNbPawns(player2)) > maxNbPawns) {
+            if (turn != anticipation) {
+                if (NbPawnsIsOptimum(turn)) {
                     moveOptimum = chosenMove;
-                    maxNbPawns = board.getNbPawns(player1)  - board.getNbPawns(player2);
+                    maxNbPawns = board.getNbPawns(player1) - board.getNbPawns(player2);
+                }
+            } else {
+                BoardMemento player2Memento = speculation.getMove(memento, board, player2);
+                board.undoFromMemento(player2Memento);
+                List<Move> validMoves = board.getValidMoves(player1);
+                if (!validMoves.isEmpty())
+                    for (Move move : validMoves) {
+                        board.movePawn(move);
+                        if (turn < finishedTurn)
+                            getMove(turn + 1, board.saveToMemento());
+                        board.undoFromMemento(player2Memento);
+                    }
+                else {
+                    if (NbPawnsIsOptimum(turn)) {
+                        moveOptimum = chosenMove;
+                        maxNbPawns = board.getNbPawns(player1) - board.getNbPawns(player2);
+                    }
                 }
             }
         }
+    }
+
+    private boolean NbPawnsIsOptimum(int turn) {
+        boolean NbPawnsIsOptimum = (board.getNbPawns(player1) - board.getNbPawns(player2)) > maxNbPawns;
+        return NbPawnsIsOptimum;
+    }
+
+    private boolean gameIsFinishedInTurn(int turn) {
+        return (board.getNbPawns(player2) == 0) && turn <= finishedTurn;
     }
 
     /**

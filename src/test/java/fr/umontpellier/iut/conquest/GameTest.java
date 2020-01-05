@@ -455,7 +455,7 @@ class GameTest {
     public void test_MinMax() {
         String input = "";
 
-        /*
+        /* init board
          * __0_1_2_3_4
          * 0|X _ _ _ O
          * 1|_ _ _ _ _
@@ -466,7 +466,7 @@ class GameTest {
 
          input += "0 0 1 1 ";
 
-        /*
+        /* player turn
          * __0_1_2_3_4
          * 0|X _ _ _ O
          * 1|_ X _ _ _
@@ -485,11 +485,11 @@ class GameTest {
          */
         input += "4 4 2 3 ";
 
-        /* trun of MinMax
+        /* player turn
          * __0_1_2_3_4
          * 0|X _ _ _ _
          * 1|_ O _ _ _
-         * 2|_ _ O X _
+         * 2|_ _ X X _
          * 3|_ _ _ _ _
          * 4|O _ _ _ _
          */
@@ -502,6 +502,6 @@ class GameTest {
         assertThrows( NoSuchElementException.class ,() -> {
             game.run(1);
         });
-        // Play in pvp non-hardcore mode
+        // Play in pve non-hardcore mode
     }
 }

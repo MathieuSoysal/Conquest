@@ -180,7 +180,7 @@ public class Game {
         do {
             System.out.println("Voulez-vous annuler le tour (1 pour Oui : 0 pour Non) :");
             nbUndo = scan.nextInt();
-        } while (nbUndo > 1);
+        } while (nbUndo > 1 || nbUndo < 0);
         return nbUndo == 1;
     }
 

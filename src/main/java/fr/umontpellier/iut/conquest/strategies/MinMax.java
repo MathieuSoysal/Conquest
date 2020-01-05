@@ -47,7 +47,7 @@ public class MinMax implements Strategy {
         this.maxNbPawns = Integer.MIN_VALUE;
     }
 
-    public void findAndActualiseOptimumMove(int turn, BoardMemento memento) {
+    private void findAndActualiseOptimumMove(int turn, BoardMemento memento) {
         if (turn < finishedTurn) {
             if (moveFinishedGameInThisTurn(turn))
                 recordMoveWasFinishedGame(turn);
@@ -66,7 +66,6 @@ public class MinMax implements Strategy {
                         }
                     } else
                         recordIfIsOptimumMove(turn);
-
                 }
             }
         }

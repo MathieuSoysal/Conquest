@@ -5,11 +5,11 @@ import fr.umontpellier.iut.conquest.board.Board;
 import fr.umontpellier.iut.conquest.board.Move;
 import fr.umontpellier.iut.conquest.board.memento.BoardMemento;
 
-public class Speculation implements Strategy{
+public class Speculation implements Strategy {
     private BoardMemento initialMemento;
 
     @Override
-    public Move getMove(Board board, Player player){
+    public Move getMove(Board board, Player player) {
         initialMemento = board.saveToMemento();
         Player player2 = new Player(null, null, null, 1 + (player.getColor() % 2));
         int maxNbPawns = 0;
@@ -26,7 +26,7 @@ public class Speculation implements Strategy{
         return optimumMove;
     }
 
-    public BoardMemento getMove(BoardMemento memento, Board board, Player player){
+    BoardMemento getMove(BoardMemento memento, Board board, Player player) {
         BoardMemento optimimumMemento = memento;
         int maxNbPawns = 0;
         Move optimumMove = null;
@@ -40,7 +40,7 @@ public class Speculation implements Strategy{
             board.undoFromMemento(memento);
         }
 
-        if(optimumMove!=null){
+        if (optimumMove != null) {
             board.movePawn(optimumMove);
             optimimumMemento = board.saveToMemento();
         }

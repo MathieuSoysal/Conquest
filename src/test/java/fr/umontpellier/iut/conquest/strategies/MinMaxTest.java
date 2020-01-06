@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import fr.umontpellier.iut.conquest.Game;
 import fr.umontpellier.iut.conquest.Pawn;
 import fr.umontpellier.iut.conquest.Player;
 import fr.umontpellier.iut.conquest.board.Board;
@@ -306,5 +307,21 @@ public class MinMaxTest {
         assertAll(() -> {
             board.movePawn(move);
         });
+    }
+
+    @Test
+    public void test_MinMax_IAlevel4_30s() {
+
+        Game game = new Game(5, new MinMax(4), null, new MinMax(4), null);
+
+        Long startTime = System.currentTimeMillis();
+
+        game.run(1);
+
+        assertTrue(game.isFinished());
+
+        Long time = (System.currentTimeMillis() - startTime);
+        double timeSeconde = (time / 1000);
+        assertTrue("Time : " + timeSeconde, timeSeconde < 30);
     }
 }

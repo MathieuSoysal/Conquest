@@ -502,6 +502,6 @@ class GameTest {
         assertThrows( NoSuchElementException.class ,() -> {
             game.run(1);
         });
-        // Play in pve non-hardcore mode
+        // Play in pve hardcore mode
     }
 }

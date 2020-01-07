@@ -218,7 +218,7 @@ public class MinMaxTest {
         assertNull(board.toString(), board.getField()[3][4]);
     }
 
-    @Ignore
+    // @Ignore
     @Test
     public void getmove_should_is_optimum_with_one_Pawn_and_three_pawns_other_player_with_IAlevel1() {
         MinMax myRobot = new MinMax(1);
@@ -315,8 +315,8 @@ public class MinMaxTest {
     }
 
     @Test
-    public void getmove_is_optimum_move_with_just_three_Pawsn_and_three_pawns_other_player_with_IAlevel4() {
-        MinMax myRobot = new MinMax(4);
+    public void getmove_is_optimum_move_with_just_three_Pawsn_and_three_pawns_other_player_with_IAlevel1() {
+        MinMax myRobot = new MinMax(1);
         Player player1 = new Player(myRobot, null, null, 1);
         Player player2 = new Player(null, null, null, 2);
         Pawn pawn = new Pawn(player1);

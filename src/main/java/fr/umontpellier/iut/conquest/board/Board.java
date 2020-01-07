@@ -107,11 +107,14 @@ public class Board {
      * - La distance entre la case d'arrivée est au plus 2.
      */
     public boolean isValid(Move move, Player player) {
-        Square startingSquare = new Square(move.getRow1(), move.getColumn1());
-        Square arrivalSquare = new Square(move.getRow2(), move.getColumn2());
+        if (move != null) {
+            Square startingSquare = new Square(move.getRow1(), move.getColumn1());
+            Square arrivalSquare = new Square(move.getRow2(), move.getColumn2());
 
-        return coordinatesIsIntoField(move) && isValidPlayer(startingSquare, player)
-                && isValidArrivalSquare(arrivalSquare) && isValidDistance(move);
+            return coordinatesIsIntoField(move) && isValidPlayer(startingSquare, player)
+                    && isValidArrivalSquare(arrivalSquare) && isValidDistance(move);
+        }
+        return false;
     }
 
     /**

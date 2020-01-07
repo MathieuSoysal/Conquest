@@ -36,7 +36,7 @@ public class MinMax implements Strategy {
         for (Move move : board.getValidMoves(player1)) {
             chosenMove = move;
             board.movePawn(move);
-            findAndActualiseOptimumMove(0, board.saveToMemento());
+            findAndActualiseOptimumMove(1, board.saveToMemento());
             board.undoFromMemento(initialBoard);
         }
     }
@@ -55,17 +55,21 @@ public class MinMax implements Strategy {
                 if (turn == anticipation)
                     recordIfIsOptimumMove(turn);
                 else {
-                    BoardMemento speculatedMemento = speculatesMoveOtherPlayer(memento);
-                    board.undoFromMemento(speculatedMemento);
-                    List<Move> validMoves = board.getValidMoves(player1);
-                    if (!validMoves.isEmpty()) {
-                        for (Move move : validMoves) {
-                            board.movePawn(move);
-                            findAndActualiseOptimumMove(turn + 1, board.saveToMemento());
-                            board.undoFromMemento(speculatedMemento);
-                        }
-                    } else
-                        recordIfIsOptimumMove(turn);
+                    if (turn % 2 == 0) {
+                        BoardMemento speculatedMemento = speculatesMoveOtherPlayer(memento);
+                        findAndActualiseOptimumMove(turn + 1, speculatedMemento);
+                        board.undoFromMemento(memento);
+                    } else {
+                        List<Move> validMoves = board.getValidMoves(player1);
+                        if (!validMoves.isEmpty()) {
+                            for (Move move : validMoves) {
+                                board.movePawn(move);
+                                findAndActualiseOptimumMove(turn + 1, board.saveToMemento());
+                                board.undoFromMemento(memento);
+                            }
+                        } else
+                            recordIfIsOptimumMove(turn);
+                    }
                 }
             }
         }

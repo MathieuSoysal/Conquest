@@ -53,7 +53,7 @@ public class MinMax implements Strategy {
                 recordMoveWasFinishedGame(turn);
             else {
                 if (turn == anticipation)
-                    recordIfIsOptimumMove(turn);
+                    recordIfIsOptimumMove();
                 else {
                     if (turn % 2 == 0) {
                         BoardMemento speculatedMemento = speculatesMoveOtherPlayer(memento);
@@ -68,7 +68,7 @@ public class MinMax implements Strategy {
                                 board.undoFromMemento(memento);
                             }
                         } else
-                            recordIfIsOptimumMove(turn);
+                            recordIfIsOptimumMove();
                     }
                 }
             }
@@ -81,7 +81,7 @@ public class MinMax implements Strategy {
             moveOptimum = chosenMove;
             maxNbPawns = board.getNbPawns(player1);
         } else {
-            recordIfIsOptimumMove(turn);
+            recordIfIsOptimumMove();
         }
     }
 
@@ -89,14 +89,14 @@ public class MinMax implements Strategy {
         return speculation.getMove(memento, board, player2);
     }
 
-    private void recordIfIsOptimumMove(int turn) {
-        if (finishedTurn > 4 && nbPawnsIsOptimum(turn)) {
+    private void recordIfIsOptimumMove() {
+        if (finishedTurn > 4 && nbPawnsIsOptimum()) {
             moveOptimum = chosenMove;
             maxNbPawns = board.getNbPawns(player1) - board.getNbPawns(player2);
         }
     }
 
-    private boolean nbPawnsIsOptimum(int turn) {
+    private boolean nbPawnsIsOptimum() {
         return (board.getNbPawns(player1) - board.getNbPawns(player2)) > maxNbPawns;
     }
 
@@ -105,7 +105,7 @@ public class MinMax implements Strategy {
     }
 
     /**
-     * @param IAlevel
+     * @param IAlevel Le niveau actuel de l'intelligence artificielle
      */
     public MinMax(int IAlevel) {
         this.anticipation = IAlevel;

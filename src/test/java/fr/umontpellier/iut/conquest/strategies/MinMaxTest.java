@@ -381,6 +381,29 @@ public class MinMaxTest {
         board.movePawn(move);
         assertEquals(board.toString(), 8, board.getNbPawns(player1));
         assertEquals(board.toString(), 2, board.getNbPawns(player2));
+    }    
+    
+    @Test
+    public void getmove_is_optimum_move_with_six_Pawsn_and_three_pawns_other_player_with_IAlevel2() {
+        MinMax myRobot = new MinMax(2);
+        Player player1 = new Player(myRobot, null, null, 1);
+        Player player2 = new Player(null, null, null, 2);
+        Pawn pawn = new Pawn(player1);
+        Pawn pawn2 = new Pawn(player2);
+
+        Pawn[][] field = { // field :
+                { null, pawn2, null, pawn2, null }, // row 0
+                { null, null, null, null, null }, // row 1
+                { pawn, pawn, null, null, null }, // row 2
+                { pawn2, null, pawn, null, null }, // row 3
+                { pawn, pawn, pawn, null, null }, // row 4
+        };
+        Board board = new Board(field);
+        Move move = myRobot.getMove(board, player1);
+        assertTrue("move non valide :", board.isValid(move, player1));
+        board.movePawn(move);
+        assertEquals(board.toString(), 8, board.getNbPawns(player1));
+        assertEquals(board.toString(), 2, board.getNbPawns(player2));
     }
 
     @Test

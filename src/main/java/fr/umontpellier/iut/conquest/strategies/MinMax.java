@@ -101,7 +101,7 @@ public class MinMax implements Strategy {
     }
 
     /**
-     * @param IAlevel
+     * @param IAlevel Le niveau actuel de l'intelligence artificielle
      */
     public MinMax(int IAlevel) {
         this.anticipation = IAlevel;

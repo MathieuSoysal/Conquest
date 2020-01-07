@@ -2,6 +2,7 @@ package fr.umontpellier.iut.conquest.strategies;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -215,6 +216,31 @@ public class MinMaxTest {
         assertTrue("move non valide :", board.isValid(move, player1));
         board.movePawn(move);
         assertNull(board.toString(), board.getField()[3][4]);
+    }
+
+    @Ignore
+    @Test
+    public void getmove_should_is_optimum_with_one_Pawn_and_three_pawns_other_player_with_IAlevel1() {
+        MinMax myRobot = new MinMax(1);
+        Player player1 = new Player(myRobot, null, null, 1);
+        Player player2 = new Player(null, null, null, 2);
+        Pawn pawn = new Pawn(player1);
+        Pawn pawn2 = new Pawn(player2);
+
+        Pawn[][] field = { // field :
+                { null, null, null, null, null, null, null }, // row 0
+                { null, null, null, null, null, null, null }, // row 1
+                { null, null, pawn, null, null, null, null }, // row 2
+                { null, null, null, null, null, null, pawn2 }, // row 3
+                { null, null, null, null, pawn2, pawn2, null }, // row 4
+                { null, null, null, null, null, null, null }, // row 5
+                { null, null, null, null, null, null, null }, // row 6
+        };
+        Board board = new Board(field);
+        Move move = myRobot.getMove(board, player1);
+        assertTrue("move non valide :", board.isValid(move, player1));
+        board.movePawn(move);
+        assertNotNull(board.toString(), board.getField()[3][4]);
     }
 
     // Test issue d'une situation réelle (en jeu)

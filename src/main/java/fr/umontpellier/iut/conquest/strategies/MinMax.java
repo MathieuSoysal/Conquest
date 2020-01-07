@@ -55,7 +55,7 @@ public class MinMax implements Strategy {
                 if (turn == anticipation)
                     recordIfIsOptimumMove();
                 else {
-                    if (turn % 2 == 0) {
+                    if (turn % 2 == 1) {
                         BoardMemento speculatedMemento = speculatesMoveOtherPlayer(memento);
                         findAndActualiseOptimumMove(turn + 1, speculatedMemento);
                         board.undoFromMemento(memento);

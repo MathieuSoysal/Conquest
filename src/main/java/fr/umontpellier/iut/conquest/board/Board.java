@@ -170,18 +170,16 @@ public class Board {
     public int getNbPawns(Player player) {
         int sumPawnsPlayer = 0;
 
-        for (Pawn[] pawnsInRow : field) {
-            for (Pawn pawn : pawnsInRow) {
+        for (Pawn[] pawnsInRow : field)
+            for (Pawn pawn : pawnsInRow)
                 if (isValidPlayer(pawn, player))
-                    sumPawnsPlayer++;                
-            }
-        }
+                    sumPawnsPlayer++;
+
         return sumPawnsPlayer;
     }
 
     public BoardMemento saveToMemento() {
-        BoardMemento boardMemento = new BoardMemento(this.field);
-        return boardMemento;
+        return new BoardMemento(this.field);
     }
     
     public void undoFromMemento(BoardMemento memento) {

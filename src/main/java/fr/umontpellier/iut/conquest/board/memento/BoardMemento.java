@@ -1,7 +1,5 @@
 package fr.umontpellier.iut.conquest.board.memento;
 
-import java.util.Arrays;
-
 import fr.umontpellier.iut.conquest.Pawn;
 
 public class BoardMemento {
@@ -30,18 +28,4 @@ public class BoardMemento {
     public Pawn[][] getField() {
         return deepCopy(field);
     }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#toString()
-     */
-
-    @Override
-    public String toString() {
-        return "BoardMemento [field=" + Arrays.toString(field) + "]";
-    }
-
-
-    
 }

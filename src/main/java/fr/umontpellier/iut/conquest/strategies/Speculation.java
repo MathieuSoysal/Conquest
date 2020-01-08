@@ -5,7 +5,7 @@ import fr.umontpellier.iut.conquest.board.Board;
 import fr.umontpellier.iut.conquest.board.Move;
 import fr.umontpellier.iut.conquest.board.memento.BoardMemento;
 
-public class Speculation implements Strategy {
+class Speculation implements Strategy {
     private BoardMemento initialMemento;
 
     @Override

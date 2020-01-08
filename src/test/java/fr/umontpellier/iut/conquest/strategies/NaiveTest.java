@@ -1,6 +1,7 @@
 package fr.umontpellier.iut.conquest.strategies;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 import org.junit.Test;
 
@@ -67,6 +68,6 @@ public class NaiveTest {
     @Test
     public void two_naive_in_game() {
         Game game = new Game(21, naive, "dev", naive, "sys");
-        game.run(1);
+        assertAll(() -> game.run(1));
     }
 }

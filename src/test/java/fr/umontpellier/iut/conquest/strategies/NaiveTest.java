@@ -1,6 +1,7 @@
 package fr.umontpellier.iut.conquest.strategies;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 import org.junit.Test;
 
@@ -29,7 +30,7 @@ public class NaiveTest {
         Board board = new Board(field);
         for (int i = 0; i < 100; i++) {
             Move move = naive.getMove(board, player1);
-            assertTrue(move.toString(), board.isValid(move, player1));
+            assertTrue(board.isValid(move, player1));
         }
     }
 
@@ -44,7 +45,7 @@ public class NaiveTest {
         Board board = new Board(field);
         for (int i = 0; i < 100; i++) {
             Move move = naive.getMove(board, player1);
-            assertTrue(move.toString(), board.isValid(move, player1));
+            assertTrue(board.isValid(move, player1));
         }
     }
 
@@ -60,13 +61,13 @@ public class NaiveTest {
         Board board = new Board(field);
         for (int i = 0; i < 100; i++) {
             Move move = naive.getMove(board, player1);
-            assertTrue(move.toString(), board.isValid(move, player1));
+            assertTrue(board.isValid(move, player1));
         }
     }
 
     @Test
     public void two_naive_in_game() {
         Game game = new Game(21, naive, "dev", naive, "sys");
-        game.run(1);
+        assertAll(() -> game.run(1));
     }
 }

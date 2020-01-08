@@ -170,12 +170,10 @@ public class Board {
     public int getNbPawns(Player player) {
         int sumPawnsPlayer = 0;
 
-        for (int row = 0; row < field.length; row++) {
-            for (int column = 0; column < field.length; column++) {
-
-                if (isValidPlayer(field[row][column], player))
-                    sumPawnsPlayer++;
-
+        for (Pawn[] pawnsInRow : field) {
+            for (Pawn pawn : pawnsInRow) {
+                if (isValidPlayer(pawn, player))
+                    sumPawnsPlayer++;                
             }
         }
         return sumPawnsPlayer;

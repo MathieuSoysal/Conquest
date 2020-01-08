@@ -30,7 +30,7 @@ public class NaiveTest {
         Board board = new Board(field);
         for (int i = 0; i < 100; i++) {
             Move move = naive.getMove(board, player1);
-            assertTrue(move.toString(), board.isValid(move, player1));
+            assertTrue(board.isValid(move, player1));
         }
     }
 
@@ -45,7 +45,7 @@ public class NaiveTest {
         Board board = new Board(field);
         for (int i = 0; i < 100; i++) {
             Move move = naive.getMove(board, player1);
-            assertTrue(move.toString(), board.isValid(move, player1));
+            assertTrue(board.isValid(move, player1));
         }
     }
 
@@ -61,7 +61,7 @@ public class NaiveTest {
         Board board = new Board(field);
         for (int i = 0; i < 100; i++) {
             Move move = naive.getMove(board, player1);
-            assertTrue(move.toString(), board.isValid(move, player1));
+            assertTrue(board.isValid(move, player1));
         }
     }
 

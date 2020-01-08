@@ -3,8 +3,8 @@ package fr.umontpellier.iut.conquest.board;
 import java.util.Objects;
 
 class Square {
-    private int row;
-    private int column;
+    private final int row;
+    private final int column;
 
     /**
      * @param row
@@ -23,24 +23,10 @@ class Square {
     }
 
     /**
-     * @param row the row to set
-     */
-    public void setRow(int row) {
-        this.row = row;
-    }
-
-    /**
      * @return the column
      */
     public int getColumn() {
         return column;
-    }
-
-    /**
-     * @param column the column to set
-     */
-    public void setColumn(int column) {
-        this.column = column;
     }
 
     // #region equals and hashCode

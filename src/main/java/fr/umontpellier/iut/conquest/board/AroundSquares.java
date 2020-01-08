@@ -8,12 +8,12 @@ class AroundSquares {
     private Square aroundSquare;
 
     private static final int MINIMUM_FIELD = 0;
-    private int MAXIMUM_FIELD;
+    private final int MAXIMUM_FIELD;
 
-    private int MAX_COLUMN;
-    private int MAX_ROW;
+    private final int MAX_COLUMN;
+    private final int MAX_ROW;
 
-    private int RANGE;
+    private final int RANGE;
 
 
     public static void main(String[] args) {
@@ -48,8 +48,7 @@ class AroundSquares {
         aroundSquareRow += ((aroundSquareColumn == MAX_COLUMN) ? 1 : 0);
         aroundSquareColumn = (aroundSquareColumn + 1) % ((MAX_COLUMN) + 1);
 
-        aroundSquare.setRow(aroundSquareRow);
-        aroundSquare.setColumn(aroundSquareColumn );
+        aroundSquare = new Square(aroundSquareRow, aroundSquareColumn);
     }
 
     private int minimumCoordinate(int coordinate) {

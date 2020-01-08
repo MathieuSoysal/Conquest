@@ -6,46 +6,58 @@ import fr.umontpellier.iut.conquest.board.Move;
 import fr.umontpellier.iut.conquest.board.memento.BoardMemento;
 
 class Speculation implements Strategy {
-    private BoardMemento initialMemento;
+
+    private Board board;
+
+    private Player player1;
+    private Player player2;
+
+    private int maxNbPawns;
 
     @Override
     public Move getMove(Board board, Player player) {
-        initialMemento = board.saveToMemento();
-        Player player2 = new Player(null, null, null, 1 + (player.getColor() % 2));
-        int maxNbPawns = 0;
-        Move optimumMove = null;
-
-        for (Move move : board.getValidMoves(player)) {
-            board.movePawn(move);
-            if ((board.getNbPawns(player) - board.getNbPawns(player2)) > maxNbPawns) {
-                optimumMove = move;
-                maxNbPawns = board.getNbPawns(player);
-            }
-            board.undoFromMemento(initialMemento);
-        }
-        return optimumMove;
+        init(board, player);
+        return getMaxMoveIntoMemento(board.saveToMemento());
     }
 
-    BoardMemento getMove(BoardMemento memento, Board board, Player player) {
+    BoardMemento getMemento(BoardMemento memento, Board board, Player player) {
         BoardMemento optimimumMemento = memento;
-        int maxNbPawns = 0;
-        Move optimumMove = null;
+        init(board, player);
+        Move maxMove = getMaxMoveIntoMemento(memento);
+        if (maxMove != null) {
+            board.movePawn(maxMove);
+            optimimumMemento = board.saveToMemento();
+        }
+        return optimimumMemento;
+    }
 
-        for (Move move : board.getValidMoves(player)) {
+    private Move getMaxMoveIntoMemento(BoardMemento memento) {
+        Move maxMove = null;
+        maxNbPawns = 0;
+        for (Move move : board.getValidMoves(player1)) {
             board.movePawn(move);
-            if (board.getNbPawns(player) > maxNbPawns) {
-                optimumMove = move;
-                maxNbPawns = board.getNbPawns(player);
+            if (isMax()) {
+                maxMove = move;
+                maxNbPawns = board.getNbPawns(player1);
             }
             board.undoFromMemento(memento);
         }
+        return maxMove;
+    }
 
-        if (optimumMove != null) {
-            board.movePawn(optimumMove);
-            optimimumMemento = board.saveToMemento();
-        }
+    private Player getOtherPlayer() {
+        return new Player(null, null, null, 1 + (player1.getColor() % 2));
+    }
 
-        return optimimumMemento;
+    private boolean isMax() {
+        return (board.getNbPawns(player1) - board.getNbPawns(player2)) > maxNbPawns;
+    }
+
+    private void init(Board board, Player player) {
+        this.player1 = player;
+        this.player2 = getOtherPlayer();
+        this.board = board;
+        this.maxNbPawns = 0;
     }
 
 }

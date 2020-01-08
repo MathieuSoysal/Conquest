@@ -86,7 +86,7 @@ public class MinMax implements Strategy {
     }
 
     private BoardMemento speculatesMoveOtherPlayer(BoardMemento memento) {
-        return speculation.getMove(memento, board, player2);
+        return speculation.getMemento(memento, board, player2);
     }
 
     private void recordIfIsOptimumMove() {

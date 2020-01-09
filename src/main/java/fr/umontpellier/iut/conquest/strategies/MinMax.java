@@ -11,12 +11,12 @@ import fr.umontpellier.iut.conquest.board.memento.BoardMemento;
 public class MinMax implements Strategy {
 
     private Speculation speculation = new Speculation();
-    private int NbOfAnticipeTurn;
+    private int anticipatedTurn;
     private Move maxMove = null;
     private Move chosenMove;
     private int maxRateOfPawns;
-    private Player player1 = null;
-    private Player player2 = null;
+    private Player player1;
+    private Player player2;
     private Board board;
 
     @Override
@@ -40,22 +40,23 @@ public class MinMax implements Strategy {
     }
 
     private void findAndActualiseMaxMove(int turn, BoardMemento memento) {
-        if (turn == NbOfAnticipeTurn)
+        if (turn == anticipatedTurn)
             recordChosenMoveIfIsMaxMove();
         else {
             if (turn % 2 == 1) {
-                findMinMoveInMemento(turn, memento);
+                findMinMoveInMementoAndContinuefindAndActualiseMaxMove(turn, memento);
             } else {
                 List<Move> validMoves = board.getValidMoves(player1);
                 if (!validMoves.isEmpty()) {
-                    findMaxMoveInMemento(turn, memento, validMoves);
+                    findMaxMoveInMementoAndContinuefindAndActualiseMaxMove(turn, memento, validMoves);
                 } else
                     recordChosenMoveIfIsMaxMove();
             }
         }
     }
 
-    private void findMaxMoveInMemento(int turn, BoardMemento memento, List<Move> validMoves) {
+    private void findMaxMoveInMementoAndContinuefindAndActualiseMaxMove(int turn, BoardMemento memento,
+            List<Move> validMoves) {
         for (Move move : validMoves) {
             board.movePawn(move);
             findAndActualiseMaxMove(turn + 1, board.saveToMemento());
@@ -63,7 +64,7 @@ public class MinMax implements Strategy {
         }
     }
 
-    private void findMinMoveInMemento(int turn, BoardMemento memento) {
+    private void findMinMoveInMementoAndContinuefindAndActualiseMaxMove(int turn, BoardMemento memento) {
         BoardMemento speculatedMemento = speculatesMoveOtherPlayer(memento);
         findAndActualiseMaxMove(turn + 1, speculatedMemento);
         board.undoFromMemento(memento);
@@ -96,7 +97,7 @@ public class MinMax implements Strategy {
      * @param IAlevel Le niveau actuel de l'intelligence artificielle
      */
     public MinMax(int IAlevel) {
-        this.NbOfAnticipeTurn = IAlevel;
+        this.anticipatedTurn = IAlevel;
     }
 
 }

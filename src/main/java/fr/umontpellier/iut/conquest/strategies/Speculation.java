@@ -33,12 +33,12 @@ class Speculation implements Strategy {
 
     private Move getMaxMoveIntoMemento(BoardMemento memento) {
         Move maxMove = null;
-        maxNbPawns = 0;
+        maxNbPawns = Integer.MIN_VALUE;
         for (Move move : board.getValidMoves(player1)) {
             board.movePawn(move);
             if (isMax()) {
                 maxMove = move;
-                maxNbPawns = board.getNbPawns(player1);
+                maxNbPawns = board.getNbPawns(player1) - board.getNbPawns(player2);
             }
             board.undoFromMemento(memento);
         }
@@ -57,7 +57,6 @@ class Speculation implements Strategy {
         this.player1 = player;
         this.player2 = getOtherPlayer();
         this.board = board;
-        this.maxNbPawns = 0;
     }
 
 }

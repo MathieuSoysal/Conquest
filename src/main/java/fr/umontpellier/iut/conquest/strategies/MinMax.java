@@ -48,10 +48,6 @@ public class MinMax implements Strategy {
     }
 
     private void findAndActualiseOptimumMove(int turn, BoardMemento memento) {
-        if (turn < finishedTurn) {
-            if (moveFinishedGameInThisTurn(turn))
-                recordMoveWasFinishedGame(turn);
-            else {
                 if (turn == anticipation)
                     recordIfIsOptimumMove();
                 else {
@@ -69,20 +65,8 @@ public class MinMax implements Strategy {
                             }
                         } else
                             recordIfIsOptimumMove();
-                    }
                 }
             }
-        }
-    }
-
-    private void recordMoveWasFinishedGame(int turn) {
-        if (finishedTurn != turn) {
-            finishedTurn = turn;
-            moveOptimum = chosenMove;
-            maxNbPawns = board.getNbPawns(player1);
-        } else {
-            recordIfIsOptimumMove();
-        }
     }
 
     private BoardMemento speculatesMoveOtherPlayer(BoardMemento memento) {
@@ -98,10 +82,6 @@ public class MinMax implements Strategy {
 
     private boolean nbPawnsIsOptimum() {
         return (board.getNbPawns(player1) - board.getNbPawns(player2)) > maxNbPawns;
-    }
-
-    private boolean moveFinishedGameInThisTurn(int turn) {
-        return (board.getNbPawns(player2) == 0) && turn <= finishedTurn;
     }
 
     /**

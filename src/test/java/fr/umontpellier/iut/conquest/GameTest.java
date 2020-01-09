@@ -277,7 +277,6 @@ class GameTest {
          * 2|O _ X
          */
 
-        // TODO : On met automatiquement 0 lorsqu'il ne reste plus d'undo move ?
 
         // Set player1 second move to (2,2) -> (1,0)
         input = input + "2 2 ";

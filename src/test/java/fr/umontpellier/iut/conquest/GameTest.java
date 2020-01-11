@@ -376,6 +376,44 @@ class GameTest {
     }
 
     @Test
+    public void test_player1_has_all_pawns_of_the_field() {
+        Player player1 = new Player(null, null, null, 1);
+        Pawn pawnP1 = new Pawn(player1); 
+        Pawn[][] field = { // field :
+            { pawnP1, pawnP1, pawnP1 }, // row 0
+            { pawnP1, pawnP1, pawnP1 }, // row 1
+            { pawnP1, pawnP1, pawnP1 } // row 2
+    };
+
+    Game game = new Game(new Board(field), null, null, null, null);
+    game.run(1);
+
+    player1 = game.getPlayers()[0];
+
+    assertTrue(game.isFinished());
+    assertEquals(player1, game.getWinner());
+    }
+
+    @Test
+    public void test_player2_has_all_pawns_of_the_field() {
+        Player player2 = new Player(null, null, null, 2);
+        Pawn pawnP2 = new Pawn(player2); 
+        Pawn[][] field = { // field :
+            { pawnP2, pawnP2, pawnP2 }, // row 0
+            { pawnP2, pawnP2, pawnP2 }, // row 1
+            { pawnP2, pawnP2, pawnP2 } // row 2
+    };
+
+    Game game = new Game(new Board(field), null, null, null, null);
+    game.run(1);
+
+    player2 = game.getPlayers()[1];
+
+    assertTrue(game.isFinished());
+    assertEquals(player2, game.getWinner());
+    }
+
+    @Test
     void test_undo_move_when_player_win() {
         // Create input
         String input = "";

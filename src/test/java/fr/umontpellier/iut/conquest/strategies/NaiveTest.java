@@ -2,6 +2,7 @@ package fr.umontpellier.iut.conquest.strategies;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.Test;
 
@@ -62,6 +63,22 @@ public class NaiveTest {
         for (int i = 0; i < 100; i++) {
             Move move = naive.getMove(board, player1);
             assertTrue(board.isValid(move, player1));
+        }
+    }
+
+    @Test
+    public void getmove_when_cant_move() {
+        Pawn pawnO = new Pawn(new Player(naive, null, null, 2));
+        Pawn[][] field = { // field :
+                { null, null, null, null }, // row 0
+                { null, pawnO, pawnO, pawnO }, // row 1
+                { null, pawnO, pawnO, pawnO }, // row 2
+                { null, pawnO, pawnO, pawn }, // row 3
+        };
+        Board board = new Board(field);
+        for (int i = 0; i < 100; i++) {
+            Move move = naive.getMove(board, player1);
+            assertFalse(board.isValid(move, player1));
         }
     }
 

@@ -73,6 +73,53 @@ class GameTest {
     }
 
     @Test
+    void if_player1_has_no_pawn_left_then_the_game_should_be_finished_and_player2_should_win() {
+        // Create input
+        String input = "";
+        /*
+         * __0_1_2
+         * 0|X _ O
+         * 1|_ _ _
+         * 2|O _ X
+         */
+
+        // Set player1 first move to (0,0) -> (1,1)
+        input = input + "0 0 ";
+        input = input + "0 1 ";
+        /*
+         * __0_1_2
+         * 0|X X X
+         * 1|_ _ _
+         * 2|O _ X
+         */
+
+         // Set player2 first move to (2,0) -> (1,1)
+        input = input + "2 0 ";
+        input = input + "1 1 ";
+        /*
+         * __0_1_2
+         * 0|O O O
+         * 1|_ O _
+         * 2|O _ O
+         */
+
+        // Set System.in to input
+        set_input(input);
+
+        // Create game and players
+        Game game = new Game(3, new Human(Game.getScan()), null, new Human(Game.getScan()), null);
+        Player player2 = game.getPlayers()[1];
+
+        // Play in pvp hardcore mode
+        game.run(1);
+
+        // The game is finished and the winner is player1
+        assertTrue(game.isFinished());
+        assertEquals(player2, game.getWinner());
+        assertEquals(6, game.getBoard().getNbPawns(player2));
+    }
+
+    @Test
     void if_the_board_is_filled_and_player2_has_more_pawns_then_the_game_should_be_finished_and_player2_should_win() {
         // Create predefined game
         Pawn[][] field = new Pawn[3][3];

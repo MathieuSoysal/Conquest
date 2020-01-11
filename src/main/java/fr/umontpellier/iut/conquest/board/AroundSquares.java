@@ -14,14 +14,7 @@ class AroundSquares {
     private final int MAX_ROW;
 
     private final int RANGE;
-
-
-    public static void main(String[] args) {
-        for (AroundSquares aS = new AroundSquares(new Square(3, 3), 2, 4); aS.haseNext(); aS.next()) {
-            System.out
-                    .println("Row : " + aS.getAroundSquare().getRow() + " Column :" + aS.getAroundSquare().getColumn());
-        }
-    }
+    private final int MIN_ROW;
 
     /**
      * @param aroundSquare
@@ -31,7 +24,8 @@ class AroundSquares {
         this.MAXIMUM_FIELD = MAXIMUM_FIELD;
         this.RANGE = RANGE;
 
-        aroundSquareRow = minimumCoordinate(centerSquare.getRow());
+        MIN_ROW = minimumCoordinate(centerSquare.getRow());
+        aroundSquareRow = MIN_ROW;
         aroundSquareColumn = minimumCoordinate(centerSquare.getColumn());
 
         aroundSquare = new Square(aroundSquareRow, aroundSquareColumn);
@@ -46,7 +40,8 @@ class AroundSquares {
 
     public void next() {
         aroundSquareRow += ((aroundSquareColumn == MAX_COLUMN) ? 1 : 0);
-        aroundSquareColumn = (aroundSquareColumn + 1) % ((MAX_COLUMN) + 1);
+        aroundSquareColumn = ((aroundSquareColumn + 1) % (MAX_COLUMN + 1) == MINIMUM_FIELD) ? MIN_ROW
+                : (aroundSquareColumn + 1) % (MAX_COLUMN + 1);
 
         aroundSquare = new Square(aroundSquareRow, aroundSquareColumn);
     }

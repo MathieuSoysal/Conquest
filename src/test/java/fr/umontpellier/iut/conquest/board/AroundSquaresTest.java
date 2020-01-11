@@ -34,7 +34,7 @@ public class AroundSquaresTest {
     }
 
     @Test
-    public void test_around_squares_with_the_border_of_board() {
+    public void test_around_squares_with_the_border_top_left_of_board() {
         Queue<Square> aroundTrue = new LinkedList<Square>();
 
         aroundTrue.add(new Square(0,0));
@@ -45,6 +45,22 @@ public class AroundSquaresTest {
         int i =0;
 
         for (AroundSquares aS = new AroundSquares(new Square(0, 0), 1, 3); aS.haseNext(); aS.next()) {
+            assertTrue(String.valueOf(i++),aS.getAroundSquare().equals(aroundTrue.poll()));
+        }
+    }
+
+    @Test
+    public void test_around_squares_with_the_border_bottom_right_of_board() {
+        Queue<Square> aroundTrue = new LinkedList<Square>();
+
+        aroundTrue.add(new Square(2,2));
+        aroundTrue.add(new Square(2,3));
+        aroundTrue.add(new Square(3,2));
+        aroundTrue.add(new Square(3,3));
+        
+        int i =0;
+
+        for (AroundSquares aS = new AroundSquares(new Square(3, 3), 1, 3); aS.haseNext(); aS.next()) {
             assertTrue(String.valueOf(i++),aS.getAroundSquare().equals(aroundTrue.poll()));
         }
     }

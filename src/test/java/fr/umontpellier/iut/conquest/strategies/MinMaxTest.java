@@ -426,8 +426,8 @@ public class MinMaxTest {
         board.movePawn(move);
         assertEquals(board.toString(), 8, board.getNbPawns(player1));
         assertEquals(board.toString(), 2, board.getNbPawns(player2));
-    }   
-    
+    }
+
     @Test
     public void getmove_is_optimum_move_with_five_Pawns_and_three_pawns_other_player_with_IAlevel2() {
         MinMax myRobot = new MinMax(2);
@@ -449,7 +449,7 @@ public class MinMaxTest {
         board.movePawn(move);
         assertEquals(board.toString(), 6, board.getNbPawns(player1));
         assertEquals(board.toString(), 2, board.getNbPawns(player2));
-    } 
+    }
 
     @Test
     public void getmove_is_optimum_move_with_Ten_Pawns_and_fiveteen_pawns_other_player_with_IAlevel4_should_pawns_equals_14() {
@@ -472,7 +472,7 @@ public class MinMaxTest {
         board.movePawn(move);
         assertEquals(board.toString(), 14, board.getNbPawns(player1));
         assertEquals(board.toString(), 10, board.getNbPawns(player2));
-    } 
+    }
 
     @Test
     public void getmove_is_optimum_move_with_Ten_Pawns_and_fiveteen_pawns_other_player_with_IAlevel3_should_pawns_equals_14() {
@@ -495,7 +495,7 @@ public class MinMaxTest {
         board.movePawn(move);
         assertEquals(board.toString(), 14, board.getNbPawns(player1));
         assertEquals(board.toString(), 10, board.getNbPawns(player2));
-    } 
+    }
 
     @Test
     public void getmove_is_optimum_move_with_Ten_Pawns_and_fiveteen_pawns_other_player_with_IAlevel2_should_pawns_equals_15() {
@@ -518,7 +518,7 @@ public class MinMaxTest {
         board.movePawn(move);
         assertEquals(board.toString(), 15, board.getNbPawns(player1));
         assertEquals(board.toString(), 10, board.getNbPawns(player2));
-    } 
+    }
 
     @Test
     public void getmove_is_optimum_move_with_Ten_Pawns_and_fiveteen_pawns_other_player_with_IAlevel1_should_pawns_equals_15() {
@@ -541,8 +541,8 @@ public class MinMaxTest {
         board.movePawn(move);
         assertEquals(board.toString(), 15, board.getNbPawns(player1));
         assertEquals(board.toString(), 10, board.getNbPawns(player2));
-    } 
-    
+    }
+
     @Test
     public void getmove_is_optimum_move_with_six_Pawsn_and_three_pawns_other_player_with_IAlevel2() {
         MinMax myRobot = new MinMax(2);
@@ -589,19 +589,9 @@ public class MinMaxTest {
         });
     }
 
-    @Test
+    @Test(timeout = 30_000)
     public void test_MinMax_IAlevel4_30s() {
-
         Game game = new Game(5, new MinMax(4), null, new MinMax(4), null);
-
-        Long startTime = System.currentTimeMillis();
-
         game.run(1);
-
-        assertTrue(game.isFinished());
-
-        Long time = (System.currentTimeMillis() - startTime);
-        double timeSeconde = (time / 1000);
-        assertTrue("Time : " + timeSeconde, timeSeconde < 30);
     }
 }

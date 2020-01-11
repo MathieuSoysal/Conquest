@@ -62,20 +62,6 @@ class AroundSquares {
     }
 
     /**
-     * @return the aroundSquareRow
-     */
-    public int getAroundSquareRow() {
-        return aroundSquareRow;
-    }
-
-    /**
-     * @return the aroundSquareColumn
-     */
-    public int getAroundSquareColumn() {
-        return aroundSquareColumn;
-    }
-
-    /**
      * @return the aroundSquare
      */
     public Square getAroundSquare() {

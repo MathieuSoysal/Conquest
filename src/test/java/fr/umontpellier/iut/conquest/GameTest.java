@@ -37,6 +37,38 @@ class GameTest {
     }
 
     @Test
+    public void test_getPlayers() {
+        // Create input
+        String input = "";
+        /*
+         * __0_1_2
+         * 0|X _ O
+         * 1|_ _ _
+         * 2|O _ X
+         */
+
+        // Set player1 first move to (0,0) -> (1,1)
+        input = input + "0 0 ";
+        input = input + "1 1 ";
+        /*
+         * __0_1_2
+         * 0|X _ X
+         * 1|_ X _
+         * 2|X _ X
+         */
+
+        // Set System.in to input
+        set_input(input);
+
+        // Create game and players
+        Game game = new Game(3, new Human(Game.getScan()), null, null, null);
+        Player[] players = {new Player(null, null, null, 1), new Player(null, null, null, 2)};
+
+        assertEquals(players[0], game.getPlayers()[0]);
+        assertEquals(players[1], game.getPlayers()[1]);
+    }
+
+    @Test
     void if_player2_has_no_pawn_left_then_the_game_should_be_finished_and_player1_should_win() {
         // Create input
         String input = "";

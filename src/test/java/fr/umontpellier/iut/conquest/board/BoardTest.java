@@ -74,6 +74,12 @@ class BoardTest {
     }
 
     @Test
+    void a_move_that_null_should_be_invalid() {
+        Move move = null;
+        assertFalse(b.isValid(move,player1));
+    }
+
+    @Test
     void a_move_that_starts_from_a_negative_row_should_be_invalid() {
         assertFalse(b.isValid(new Move(-1, 0, 0, 1), player1));
     }

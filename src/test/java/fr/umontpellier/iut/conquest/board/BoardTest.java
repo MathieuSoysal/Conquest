@@ -100,6 +100,11 @@ class BoardTest {
     }
 
     @Test
+    void a_move_that_starts_from_too_large_column_and_row_should_be_invalid() {
+        assertFalse(b.isValid(new Move(b.getSize(), b.getSize(), b.getSize() - 1, b.getSize() - 1), player1));
+    }
+
+    @Test
     void a_move_that_ends_in_a_negative_row_should_be_invalid() {
         assertFalse(b.isValid(new Move(0, 0, -1, 1), player1));
     }
@@ -117,6 +122,21 @@ class BoardTest {
     @Test
     void a_move_that_ends_in_a_too_large_column_should_be_invalid() {
         assertFalse(b.isValid(new Move(0, 0, 0, b.getSize()), player1));
+    }
+    
+    @Test
+    void a_move_that_ends_in_a_too_large_column_and_row_should_be_invalid() {
+        assertFalse(b.isValid(new Move(b.getSize() - 1, b.getSize() - 1, b.getSize(), b.getSize()), player1));
+    }
+
+    @Test
+    void a_move_that_starts_and_ends_from_too_large_column_and_row_should_be_invalid() {
+        assertFalse(b.isValid(new Move(b.getSize(), b.getSize(), b.getSize() + 1, b.getSize() + 1), player1));
+    }
+
+    @Test
+    void a_move_that_starts_and_ends_in_a_negative_column_and_row_should_be_invalid() {
+        assertFalse(b.isValid(new Move(-1, -1, -2, -2), player1));
     }
 
     @Test

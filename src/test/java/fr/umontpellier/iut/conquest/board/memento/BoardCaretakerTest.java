@@ -42,6 +42,11 @@ public class BoardCaretakerTest {
     }
 
     @Test
+    public void test_caretaker_isEmpty() {
+            assertTrue(caretaker.isEmpty());
+    }
+
+    @Test
     public void one_undo_test_to_back_init() {
         BoardMemento memento = board.saveToMemento();
         caretaker.addMemento(memento);

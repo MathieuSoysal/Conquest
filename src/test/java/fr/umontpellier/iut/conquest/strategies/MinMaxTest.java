@@ -451,7 +451,6 @@ public class MinMaxTest {
         assertEquals(board.toString(), 2, board.getNbPawns(player2));
     } 
 
-    @Ignore
     @Test
     public void getmove_is_optimum_move_with_Ten_Pawns_and_fiveteen_pawns_other_player_with_IAlevel3_should_pawns_equals_20() {
         MinMax myRobot = new MinMax(3);

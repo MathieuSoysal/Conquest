@@ -15,6 +15,7 @@ public class MinMax implements Strategy {
     private Move maxMove = null;
     private Move chosenMove;
     private int maxRateOfPawns;
+    private int nbTurnForMax;
     private Player player1;
     private Player player2;
     private Board board;
@@ -31,6 +32,7 @@ public class MinMax implements Strategy {
     private void findMaxMove() {
         BoardMemento initialBoard = board.saveToMemento();
         maxRateOfPawns = Integer.MIN_VALUE;
+        nbTurnForMax = Integer.MAX_VALUE;
         for (Move move : board.getValidMoves(player1)) {
             chosenMove = move;
             board.movePawn(move);
@@ -41,7 +43,7 @@ public class MinMax implements Strategy {
 
     private void findAndActualiseMaxMove(int turn, BoardMemento memento) {
         if (turn == anticipatedTurn)
-            recordChosenMoveIfIsMaxMove();
+            recordChosenMoveIfIsMaxMove(turn);
         else {
             if (turn % 2 == 1) {
                 findMinMoveInMementoAndContinuefindAndActualiseMaxMove(turn, memento);
@@ -50,7 +52,7 @@ public class MinMax implements Strategy {
                 if (!validMoves.isEmpty()) {
                     findMaxMoveInMementoAndContinuefindAndActualiseMaxMove(turn, memento, validMoves);
                 } else
-                    recordChosenMoveIfIsMaxMove();
+                    recordChosenMoveIfIsMaxMove(turn);
             }
         }
     }
@@ -78,11 +80,16 @@ public class MinMax implements Strategy {
         return new Player(null, null, null, 1 + (player1.getColor() % 2));
     }
 
-    private void recordChosenMoveIfIsMaxMove() {
-        if (nbPawnsIsMax()) {
+    private void recordChosenMoveIfIsMaxMove(int turn) {
+        if (nbPawnsIsMax() || nbTurnIsMax(turn)) {
             maxMove = chosenMove;
+            nbTurnForMax = turn;
             maxRateOfPawns = getRateOfPawns();
         }
+    }
+
+    private boolean nbTurnIsMax(int turn) {
+        return (getRateOfPawns() == maxRateOfPawns) && (turn < nbTurnForMax);
     }
 
     private int getRateOfPawns() {

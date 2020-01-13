@@ -35,6 +35,22 @@ class GameTest {
         ByteArrayInputStream inputStream = new ByteArrayInputStream(input.getBytes());
         Game.initInput(inputStream);
     }
+    
+    @Test
+    public void test_no_pawns_in_board() {
+        Pawn[][] field = { // field :
+                { null, null, null }, // row 0
+                { null, null, null }, // row 1
+                { null, null, null } // row 2
+        };
+
+        Game game = new Game(new Board(field), null, null, null, null);
+
+        AssertionError e = assertThrows(AssertionError.class, () -> {
+            game.isFinished();
+        });
+        assertEquals("board should be have pawns", e.getMessage());
+    }
 
     @Test
     public void test_getPlayers() {

@@ -134,7 +134,7 @@ public class Game {
      * - La partie est finie quand l'un des deux joueurs n'a plus de pions.
      */
     public boolean isFinished() {
-        return noFreeSquare() || noPawns();
+        return noFreeSquare() || noPawnsPlayer();
     }
 
     /**
@@ -185,7 +185,8 @@ public class Game {
     }
 
     // #region méthode privées isFinished()
-    private boolean noPawns() {
+    private boolean noPawnsPlayer() {
+        assert (nbPawnsPlayer0() != 0 || nbPawnsPlayer1() != 0) : "board should be have pawns";
         return nbPawnsPlayer0() == 0 || nbPawnsPlayer1() == 0;
     }
 

@@ -479,6 +479,30 @@ public class MinMaxTest {
         assertEquals(board.toString(), 1, board.getNbPawns(player2));
     } 
 
+    @Test
+    public void getmove_is_optimum_move_with_Ten_Pawns_and_fiveteen_pawns_other_player_with_IAlevel4_should_pawns_equals_23() {
+        MinMax myRobot = new MinMax(4);
+        Player player1 = new Player(myRobot, null, null, 1);
+        Player player2 = new Player(null, null, null, 2);
+        Pawn pawn = new Pawn(player1);
+        Pawn pawn2 = new Pawn(player2);
+
+        Pawn[][] field = { // field :
+                { pawn2, pawn2, pawn, pawn, pawn, pawn, pawn }, // row 0
+                { pawn2, pawn2, pawn, pawn, pawn, pawn, pawn }, // row 1
+                { pawn2, pawn2, pawn, pawn, pawn, pawn, pawn }, // row 2
+                { pawn2, pawn2, pawn, pawn, pawn, pawn, pawn }, // row 3
+                { pawn2, pawn2, pawn, pawn, pawn, pawn, pawn }, // row 4
+                { pawn2, pawn2, pawn, pawn, pawn, pawn, pawn }, // row 4
+                { pawn2, pawn2, pawn, pawn, pawn, null, pawn }, // row 4
+        };
+        Board board = new Board(field);
+        Move move = myRobot.getMove(board, player1);
+        assertTrue("move non valide :", board.isValid(move, player1));
+        board.movePawn(move);
+        assertEquals(board.toString(), 34, board.getNbPawns(player1));
+        assertEquals(board.toString(), 14, board.getNbPawns(player2));
+    } 
 
     @Test
     public void getmove_is_optimum_move_with_Ten_Pawns_and_fiveteen_pawns_other_player_with_IAlevel4_should_pawns_equals_14() {
@@ -491,7 +515,7 @@ public class MinMaxTest {
         Pawn[][] field = { // field :
                 { pawn2, pawn2, pawn, pawn, pawn }, // row 0
                 { pawn2, pawn2, pawn, pawn, pawn }, // row 1
-                { pawn2, pawn2, pawn, pawn, null }, // row 2
+                { pawn2, pawn2, pawn, null, pawn }, // row 2
                 { pawn2, pawn2, pawn, pawn, pawn }, // row 3
                 { pawn2, pawn2, pawn, pawn, pawn }, // row 4
         };
@@ -500,7 +524,7 @@ public class MinMaxTest {
         assertTrue("move non valide :", board.isValid(move, player1));
         board.movePawn(move);
         assertEquals(board.toString(), 14, board.getNbPawns(player1));
-        assertEquals(board.toString(), 10, board.getNbPawns(player2));
+        assertEquals(board.toString(), 1, board.getNbPawns(player2));
     } 
 
     @Test

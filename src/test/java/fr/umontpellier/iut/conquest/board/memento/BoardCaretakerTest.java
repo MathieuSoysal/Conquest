@@ -7,10 +7,10 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import fr.umontpellier.iut.conquest.Board;
+import fr.umontpellier.iut.conquest.Move;
 import fr.umontpellier.iut.conquest.Pawn;
 import fr.umontpellier.iut.conquest.Player;
-import fr.umontpellier.iut.conquest.board.Board;
-import fr.umontpellier.iut.conquest.board.Move;
 
 public class BoardCaretakerTest {
     private BoardCaretaker caretaker = new BoardCaretaker();

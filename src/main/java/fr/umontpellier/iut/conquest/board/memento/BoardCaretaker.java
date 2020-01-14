@@ -7,8 +7,7 @@ public class BoardCaretaker {
     final Deque<BoardMemento> mementos = new ArrayDeque<>();
 
     public BoardMemento getMemento() {
-        BoardMemento memento = mementos.pop();
-        return memento;
+        return mementos.pop();
     }
 
     public void addMemento(BoardMemento memento) {

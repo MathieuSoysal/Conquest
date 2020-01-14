@@ -11,9 +11,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import fr.umontpellier.iut.conquest.Board;
+import fr.umontpellier.iut.conquest.Move;
 import fr.umontpellier.iut.conquest.Player;
-import fr.umontpellier.iut.conquest.board.Board;
-import fr.umontpellier.iut.conquest.board.Move;
 
 public class HumanTest {
 

@@ -1,4 +1,4 @@
-package fr.umontpellier.iut.conquest.board;
+package fr.umontpellier.iut.conquest;
 
 import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;

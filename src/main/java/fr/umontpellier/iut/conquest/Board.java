@@ -1,10 +1,9 @@
-package fr.umontpellier.iut.conquest.board;
+package fr.umontpellier.iut.conquest;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.umontpellier.iut.conquest.Pawn;
-import fr.umontpellier.iut.conquest.Player;
+import fr.umontpellier.iut.conquest.board.Square;
 import fr.umontpellier.iut.conquest.board.memento.BoardMemento;
 
 /**
@@ -107,11 +106,14 @@ public class Board {
      * - La distance entre la case d'arrivée est au plus 2.
      */
     public boolean isValid(Move move, Player player) {
-        Square startingSquare = new Square(move.getRow1(), move.getColumn1());
-        Square arrivalSquare = new Square(move.getRow2(), move.getColumn2());
+        if (move != null) {
+            Square startingSquare = new Square(move.getRow1(), move.getColumn1());
+            Square arrivalSquare = new Square(move.getRow2(), move.getColumn2());
 
-        return coordinatesIsIntoField(move) && isValidPlayer(startingSquare, player)
-                && isValidArrivalSquare(arrivalSquare) && isValidDistance(move);
+            return coordinatesIsIntoField(move) && isValidPlayer(startingSquare, player)
+                    && isValidArrivalSquare(arrivalSquare) && isValidDistance(move);
+        }
+        return false;
     }
 
     /**
@@ -167,20 +169,16 @@ public class Board {
     public int getNbPawns(Player player) {
         int sumPawnsPlayer = 0;
 
-        for (int row = 0; row < field.length; row++) {
-            for (int column = 0; column < field.length; column++) {
-
-                if (isValidPlayer(field[row][column], player))
+        for (Pawn[] pawnsInRow : field)
+            for (Pawn pawn : pawnsInRow)
+                if (isValidPlayer(pawn, player))
                     sumPawnsPlayer++;
 
-            }
-        }
         return sumPawnsPlayer;
     }
 
     public BoardMemento saveToMemento() {
-        BoardMemento boardMemento = new BoardMemento(this.field);
-        return boardMemento;
+        return new BoardMemento(this.field);
     }
     
     public void undoFromMemento(BoardMemento memento) {

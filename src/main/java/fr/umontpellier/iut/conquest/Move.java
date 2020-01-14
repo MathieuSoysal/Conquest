@@ -1,4 +1,4 @@
-package fr.umontpellier.iut.conquest.board;
+package fr.umontpellier.iut.conquest;
 
 import java.util.Objects;
 

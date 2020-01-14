@@ -1,7 +1,6 @@
 package fr.umontpellier.iut.conquest.board;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import fr.umontpellier.iut.conquest.Board;

@@ -7,7 +7,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import fr.umontpellier.iut.conquest.Board;

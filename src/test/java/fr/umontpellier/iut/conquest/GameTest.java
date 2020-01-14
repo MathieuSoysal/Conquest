@@ -3,9 +3,7 @@ package fr.umontpellier.iut.conquest;
 import fr.umontpellier.iut.conquest.strategies.Human;
 import fr.umontpellier.iut.conquest.strategies.MinMax;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;

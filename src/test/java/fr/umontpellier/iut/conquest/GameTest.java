@@ -1,6 +1,5 @@
 package fr.umontpellier.iut.conquest;
 
-import fr.umontpellier.iut.conquest.board.Board;
 import fr.umontpellier.iut.conquest.strategies.Human;
 import fr.umontpellier.iut.conquest.strategies.MinMax;
 

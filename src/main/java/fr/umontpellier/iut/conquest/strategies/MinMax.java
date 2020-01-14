@@ -3,9 +3,9 @@ package fr.umontpellier.iut.conquest.strategies;
 //TODO Oublie pas de néttoyer la class
 import java.util.List;
 
+import fr.umontpellier.iut.conquest.Board;
+import fr.umontpellier.iut.conquest.Move;
 import fr.umontpellier.iut.conquest.Player;
-import fr.umontpellier.iut.conquest.board.Board;
-import fr.umontpellier.iut.conquest.board.Move;
 import fr.umontpellier.iut.conquest.board.memento.BoardMemento;
 
 public class MinMax implements Strategy {

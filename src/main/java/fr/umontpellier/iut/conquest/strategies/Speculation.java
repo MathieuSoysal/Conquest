@@ -1,9 +1,9 @@
 package fr.umontpellier.iut.conquest.strategies;
 
+import fr.umontpellier.iut.conquest.Board;
+import fr.umontpellier.iut.conquest.Move;
 import fr.umontpellier.iut.conquest.Pawn;
 import fr.umontpellier.iut.conquest.Player;
-import fr.umontpellier.iut.conquest.board.Board;
-import fr.umontpellier.iut.conquest.board.Move;
 import fr.umontpellier.iut.conquest.board.memento.BoardMemento;
 
 class Speculation implements Strategy {

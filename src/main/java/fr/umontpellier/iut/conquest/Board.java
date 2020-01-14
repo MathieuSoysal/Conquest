@@ -1,10 +1,9 @@
-package fr.umontpellier.iut.conquest.board;
+package fr.umontpellier.iut.conquest;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.umontpellier.iut.conquest.Pawn;
-import fr.umontpellier.iut.conquest.Player;
+import fr.umontpellier.iut.conquest.board.Square;
 import fr.umontpellier.iut.conquest.board.memento.BoardMemento;
 
 /**

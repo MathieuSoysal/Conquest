@@ -515,7 +515,7 @@ public class MinMaxTest {
         Pawn[][] field = { // field :
                 { pawn2, pawn2, pawn, pawn, pawn }, // row 0
                 { pawn2, pawn2, pawn, pawn, pawn }, // row 1
-                { pawn2, pawn2, pawn, null, pawn }, // row 2
+                { pawn2, pawn2, pawn, pawn, null }, // row 2
                 { pawn2, pawn2, pawn, pawn, pawn }, // row 3
                 { pawn2, pawn2, pawn, pawn, pawn }, // row 4
         };
@@ -524,7 +524,7 @@ public class MinMaxTest {
         assertTrue("move non valide :", board.isValid(move, player1));
         board.movePawn(move);
         assertEquals(board.toString(), 14, board.getNbPawns(player1));
-        assertEquals(board.toString(), 1, board.getNbPawns(player2));
+        assertEquals(board.toString(), 10, board.getNbPawns(player2));
     } 
 
     @Test

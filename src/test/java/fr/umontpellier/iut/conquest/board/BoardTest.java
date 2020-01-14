@@ -4,10 +4,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import fr.umontpellier.iut.conquest.Board;
+import fr.umontpellier.iut.conquest.Move;
 import fr.umontpellier.iut.conquest.Pawn;
 import fr.umontpellier.iut.conquest.Player;
-import fr.umontpellier.iut.conquest.board.Board;
-import fr.umontpellier.iut.conquest.board.Move;
 
 import java.io.OutputStream;
 import java.io.PrintStream;

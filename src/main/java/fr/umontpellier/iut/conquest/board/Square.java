@@ -2,7 +2,7 @@ package fr.umontpellier.iut.conquest.board;
 
 import java.util.Objects;
 
-class Square {
+public class Square {
     private final int row;
     private final int column;
 

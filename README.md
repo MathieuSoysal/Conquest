@@ -1,3 +1,5 @@
+<a href="https://mathieusoysal.github.io/Conquest-Coverage/"> <img src="https://img.shields.io/badge/JaCoCo%20Coverage-85%25-63c128.svg?style=flat-square" alt="Coverage">
+
 # ![](ressources/logo.jpeg) Projet de programmation en Semestre 3
 
 ### IUT Montpellier-Sète – Département Informatique
